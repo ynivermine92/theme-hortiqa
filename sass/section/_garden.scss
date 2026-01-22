@@ -1,0 +1,110 @@
+@use "../base/vars" as *;
+
+.garden {
+
+
+    &__title {
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    &__items {
+        display: flex;
+        justify-content: center;
+        gap: 20px 0;
+        padding: clamp(60px, 2vw, 88px) 0;
+    }
+
+    &__item {
+        max-width: 480px;
+        cursor: pointer;
+
+        &:hover {
+            .garden__text {
+                color: var(--gren);
+                transition: all 0.5s;
+            }
+
+            .icon-arrow {
+                stroke: var(--gren);
+                transition: all 0.5s;
+            }
+        }
+    }
+
+    &__link {
+        display: block;
+        border-radius: 24px 24px;
+        border: 2px solid rgba(244, 244, 244, 1);
+        border-top: none;
+        @extend %animation;
+    }
+
+    &__image {
+        max-width: 100%;
+        border-radius: 24px 24px 0px 0px;
+    }
+
+    &__text {
+        font-size: clamp(2rem, 2vw, 2.4rem);
+        text-align: center;
+        display: block;
+        padding: 24px 0;
+        transition: all 0.5s;
+        @extend %g-700;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .icon-arrow {
+        stroke: black;
+        width: 15px;
+        height: 15px;
+        transform: rotate(270deg);
+        transition: all 0.5s;
+    }
+
+    &__icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    &__sub-title {
+        color: var(--body);
+    }
+}
+
+
+
+.support {
+
+    &__sub-title {
+        font-size: 2rem;
+        color: var(--black);
+    }
+
+    &__items {
+        gap: clamp(8px, 2vw, 16px) 0;
+    }
+
+    &__item {
+        padding: 24px 20px;
+        border: 2px solid rgba(244, 244, 244, 1);
+        border-radius: 14px;
+    }
+
+    &__box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__text {
+        padding-top: 22px;
+    }
+}

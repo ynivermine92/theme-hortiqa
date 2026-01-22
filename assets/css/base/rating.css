@@ -1,0 +1,1 @@
+.rating{display:flex;flex-direction:row-reverse;justify-content:flex-end}.rating__star{width:18px;height:19px;fill:#cfcfcf;cursor:pointer;transition:fill .3s}.rating__star:not(:last-child){margin-right:3px}.rating__star.active,.rating__star.active~*,.rating__star:hover,.rating__star:hover~*{fill:#f2c94c}/*# sourceMappingURL=rating.css.map */

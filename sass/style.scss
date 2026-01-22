@@ -1,0 +1,37 @@
+// cols
+@use "./libs/cols";
+
+
+
+// Libs
+/* @import './libs/fancybox'; */
+@use './libs/swiper';
+
+
+// base
+@use "./base/reset";
+@use "./base/global";
+@use "./base/root";
+@use "./base/fonts";
+@use "./base/button";
+@use "./base/rating";
+//components
+
+// section
+@use "./section/header";
+@use "./section/hero";
+@use "./section/partners";
+@use "./section/garden";
+@use "./section/collection";
+@use "./section/services";
+@use "./section/education";
+@use "./section/testimonials";
+@use "./section/advertising";
+
+
+
+
+@use "./section/footer";
+
+
+

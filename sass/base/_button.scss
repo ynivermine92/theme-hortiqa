@@ -1,0 +1,80 @@
+.btn {
+    border-radius: 38px;
+    background: var(--lightgreen);
+    display: flex;
+    padding: 16px 22px;
+    cursor: pointer;
+    color: var(--body);
+    align-items: center;
+    transition: all 0.5s;
+    font-size: 16px;
+
+    &:hover {
+        background: var(--gren);
+        color: var(--white);
+        transition: all 0.5s;
+    }
+
+}
+
+
+
+.btn-green {
+    font-size: 16px;
+    border-radius: 38px;
+    background: var(--gren);
+    color: var(--white);
+    display: flex;
+    padding: 16px 22px;
+    cursor: pointer;
+
+    align-items: center;
+    transition: all 0.5s;
+
+    &:hover {
+        background: var(--lightgreen);
+        color: var(--body);
+        transition: all 0.5s;
+    }
+}
+
+.btn-orange {
+    background: var(--orange);
+    color: var(--white);
+    opacity: 1;
+
+    &:hover {
+        background: var(--gren);
+        opacity: 0.7;
+    }
+}
+
+
+.arrow-btn {
+    background: var(--gren);
+    transition: all 0.5s;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(270deg);
+    width: 44px;
+    height: 44px;
+    .icon-arrow {
+        stroke: var(--white);
+        width: 20px;
+        height: 20px;
+        transition: all 0.5s;
+    }
+
+    &:hover {
+        background: var(--lightgreen);
+        transition: all 0.5s;
+
+        .icon-arrow {
+        stroke: var(--body);
+        transition: all 0.5s;
+    }
+    }
+
+}

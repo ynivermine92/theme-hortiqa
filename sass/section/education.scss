@@ -1,0 +1,107 @@
+@use "../base/vars" as *;
+
+.education {
+    &__link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 1;
+        transition: all 0.5s;
+
+        &:hover {
+            opacity: 0.4;
+            transition: all 0.5s;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        padding: 40px 0;
+        transition: all 0.5s;
+    }
+
+    .education__inner:has(.education__content-btn:hover) {
+        @extend %animation;
+    }
+
+
+    .icon-arrow {
+        width: 12px;
+        height: 12px;
+
+    }
+
+    &__box {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0 5px;
+    }
+
+    &__data {
+        font-size: 13px;
+        @extend %g-300;
+        line-height: 1.4em;
+        color: var(--body);
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 0;
+    }
+
+    &__label {
+        font-size: 13px;
+        color: var(--black);
+        padding: 4px 10px;
+        border-radius: 100px;
+        background: var(--lightgreen);
+    }
+
+    &__sub-title {
+        font-size: clamp(1.8rem, 2vw, 2rem);
+        line-height: 1.2em;
+        text-align: start !important;
+    }
+
+    &__text {
+        padding: 16px 0;
+    }
+
+    .icon-arrow {
+        stroke: var(--gren);
+    }
+
+    &__content-btn {
+        width: 114px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: transparent;
+        transition: all 0.5s;
+        &:hover{
+            span{
+
+                color: var(--gren);
+            }
+        }
+
+
+    }
+
+    @media(max-width:575.99px) {
+        &__wrapper {
+            flex-direction: column;
+            gap: 40px 0;
+        }
+
+        .title {
+            text-align: center;
+        }
+    }
+
+}

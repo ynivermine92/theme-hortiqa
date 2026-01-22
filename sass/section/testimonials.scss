@@ -1,0 +1,138 @@
+@use "../base/vars" as *;
+
+.testimonials {
+
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__content {
+        display: flex;
+        margin-top: 28px;
+        gap: 10px;
+
+    }
+
+
+
+    .swiper {
+        padding-bottom: 50px;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+        width: auto;
+        position: unset;
+    }
+
+    .swiper-button-next {
+        .arrow-btn {
+            transform: rotate(0deg);
+
+        }
+    }
+
+    .swiper-button-prev {
+        .arrow-btn {
+            transform: rotate(180deg);
+
+        }
+    }
+
+    .swiper-button-next:after,
+    .swiper-button-prev:after {
+        display: none;
+    }
+
+    .swiper-wraper__content {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+
+    }
+
+    .swiper-content {
+        padding: 24px;
+        box-sizing: border-box;
+        border: 2px solid rgba(244, 244, 244, 1);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 1);
+
+    }
+
+    .swiper-slide {
+        padding-top: 44px;
+
+    }
+
+    .swiper-inner {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .swiper-image {
+        width: 102px;
+    }
+
+    .swiper-sub__title {
+        font-size: clamp(1.5rem, 2vw, 2rem);
+        line-height: 1.2em;
+        color: var(--black);
+        max-width: 252px;
+        padding-top: 24px;
+    }
+
+    .swiper-text {
+        padding-top: 24px;
+    }
+
+
+
+    .swiper-data {
+        opacity: 0.4;
+        font-size: 1.4rem;
+    }
+
+
+    .swiper-pagination {
+        position: absolute;
+        text-align: center;
+        bottom: 10px;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: var(--black);
+    }
+
+    .swiper-inner {
+        gap: 20px;
+    }
+
+    .swiper-sub__title {
+        max-width: 100%;
+    }
+
+    @media(max-width:668px) {
+        .testimonials__content {
+            display: none;
+        }
+
+        .swiper-content {
+            padding: 16px;
+        }
+
+        .swiper-sub__title {
+            padding-top: 10px;
+        }
+
+    }
+
+
+}

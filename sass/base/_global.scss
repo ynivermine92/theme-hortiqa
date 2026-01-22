@@ -1,0 +1,160 @@
+// Container
+@use "./vars" as *;
+
+.wrapper {
+  max-width: ($containerWidth + $containerPadding) + px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 $containerSidePadding + px;
+
+  @media (max-width: $breakpoint1450) {
+    max-width: 1200px;
+  }
+
+  @media (max-width: $breakpoint992) {
+    max-width: 970px;
+  }
+
+  @media (max-width: $breakpoint768) {
+    max-width: 740px;
+    padding: 0 15px;
+  }
+
+  @media (max-width: $breakpoint480) {
+    max-width: none;
+  }
+}
+
+
+
+html {
+  font-size: 62.5%;
+  /* 1rem = 10px */
+}
+
+body {
+
+  @extend %g-500;
+  color: var(--body);
+
+  &.locked {
+    overflow: hidden;
+  }
+
+  // Dark mode styles
+  &.dark {
+    background: #242424;
+  }
+}
+
+// Animations
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+h1 {
+  font-size: 5.6rem;
+  font-size: clamp(4rem, 3vw, 5.6rem);
+  @extend %g-700;
+  line-height: 1.05em;
+}
+
+.title {
+  font-size: clamp(3.2rem, 3vw, 4rem);
+  @extend %g-700;
+  line-height: 1.05em;
+}
+
+a {
+  color: var(--body);
+}
+
+p,
+span {
+  color: var(--body);
+  font-size: 1.4rem;
+  line-height: 1.4em;
+}
+
+
+
+.text {
+  color: var(--body);
+  font-size: 1.6rem;
+  line-height: 1.4em;
+}
+
+.sub-title {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+  line-height: 1.2em;
+  color: var(-black);
+}
+
+.ml-0 {
+  margin-left: 0 !important;
+}
+
+.mr-0 {
+  margin-right: 0 !important;
+}
+
+input:focus {
+  outline: none;
+}
+
+section {
+  padding-top: clamp(60px, 2vw, 88px);
+}
+
+img {
+  max-width: 100%;
+}
+
+.icon-arrow {
+  stroke: black;
+  width: 15px;
+  height: 15px;
+  transform: rotate(270deg);
+  transition: all 0.5s;
+}
+
+
+/* ____________________________________ end */
+/* position senter */
+/*   position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+
+/* cart */
+/* &__item {
+    flex: 0 0 calc(25% - 16px);
+    max-width: 100%;
+} */
+
+/* input {
+  text-decoration: none;
+  border: none;        
+  outline: none;
+} */
+
+/*   p {
+    font-size: clamp(14px, 2vw, 16px);
+    line-height: clamp(1.6rem, 2vw, 2.2rem);
+  } */
+
+/*   отспуты бустрап 
+*/
+/*   --bs-gutter-x: 50px; 
+    --bs-gutter-y: 50px; */
+
+
+/* .education__inner:has(.education__content-btn:hover) {
+  @extend %animation;
+} */
