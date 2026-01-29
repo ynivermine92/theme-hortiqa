@@ -1,21 +1,24 @@
 <?php
-$garden = get_fields($post_id);
-$garden_data = $garden['shop'];
-?>
+
+
+$garden_data = get_field('shop'); ?>
+
+
+
 
 
 <section class="garden">
     <div class="wrapper">
         <div class="row">
             <div class="col-12">
-                <h2 class="garden__title title"><?= esc_html($garden_data['hero_title']); ?></h2>
+                <h2 class="garden__title title"><?= esc_html($garden_data['shop_title']); ?></h2>
             </div>
             <div class="row  garden__items">
 
 
                 <?php if (!empty($garden_data['shop_items'])) {
-                    foreach ($garden_data['shop_items'] as $item) {?>
-                        <div class="col-md-6 col-12 garden__item">
+                    foreach ($garden_data['shop_items'] as $item) { ?>
+                        <div class="col-md-5 col-12">
                             <a class="garden__link" href="<?= esc_url($item['shop_link']['url']); ?>">
                                 <?php if (!empty($item['shop_image'])) { ?>
                                     <img

@@ -1,17 +1,8 @@
 <?php
-$partners = get_fields($post_id);
-$partners_data = $partners['partners'];
-
-
-/* echo ' <pre>';
-print_r($partners_data);
-echo '</pre>'; */
+$partners_data = get_field('partners', 'option'); ?>
 
 
 
-
-
-?>
 
 
 
@@ -42,18 +33,19 @@ echo '</pre>'; */
         <!-- Slider main container -->
         <div class="partners__swiper swiper">
             <div class="swiper-wrapper">
-                <?php if (!empty($partners_data['partners_sliders'])) {
-                    foreach ($partners_data['partners_sliders'] as $item) {    ?>
-
-
+                <?php if (!empty($partners_data['partners_items'])) : ?>
+                    <?php foreach ($partners_data['partners_items'] as $item) :
+                        $image = $item['partners_image'];
+                        if (!$image) continue; // на всякий случай
+                    ?>
                         <div class="swiper-slide">
                             <img class="partners__image-slide"
-
-                                src="<?= esc_url(wp_get_attachment_image_url($item['partners_slider']['ID'], 'promo')); ?>"
-                                alt="<?= esc_attr($item['partners_slider']['alt']) ?>">
+                                src="<?= esc_url($image['sizes']['promo']); ?>"
+                                alt="<?= esc_attr($image['alt']); ?>">
                         </div>
-                    <?php } ?>
-                <?php } ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
 
             </div>
 

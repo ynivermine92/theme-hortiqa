@@ -7,6 +7,8 @@ require get_template_directory() . '/inc/template-functions.php';
 require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/image.php';
 require get_template_directory() . '/inc/underscores.php';
+require get_template_directory() . '/inc/global-acf.php';
+
 
 require get_template_directory() . '/inc/header.php';
 require get_template_directory() . '/inc/footer.php';
@@ -30,7 +32,7 @@ function project_scripts()
 
 	wp_enqueue_script(
 		'swiper',
-		get_template_directory_uri() . '/assets/js//libs/swiper.js',
+		get_template_directory_uri() . '/assets/js/libs/swiper.js',
 		array('jquery'),
 		'1.0',
 		true

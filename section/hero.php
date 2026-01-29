@@ -2,11 +2,11 @@
 
 
 
-$hero_data = get_fields(); 
+$hero_data = get_field('hero'); 
 
-echo '<pre>';
+/* echo '<pre>';
 print_r($hero_data);
-echo '</pre>';
+echo '</pre>'; */
 
 
 
