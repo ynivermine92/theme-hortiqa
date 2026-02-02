@@ -2,16 +2,17 @@
 
 
 
-$hero_data = get_field('hero'); 
+$hero_data = get_field('hero'); ?>
 
-/* echo '<pre>';
+
+<!-- /* echo '<pre>';
 print_r($hero_data);
-echo '</pre>'; */
+echo '</pre>'; */ -->
 
 
 
 
-?>
+
 
 <section class="hero">
     <div class="wrapper">

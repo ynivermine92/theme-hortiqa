@@ -1,5 +1,5 @@
 .hero {
-
+   padding: 40px 0 clamp(40px, 2vw, 60px) 0;
   &__inner {
     display: flex;
     justify-content: space-between;

@@ -271,16 +271,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const advertisingSwiper = new Swiper('.advertising__slider', {
     loop: true,
-    slidesPerView: 4.5,
+    slidesPerView: 5.5,
     spaceBetween: 24,
     allowTouchMove: true,
 
-    speed: 6000, 
-    autoplay: {
-      delay: 0, 
-      disableOnInteraction: false,
-      pauseOnMouseEnter: false,
-    },
+    speed: 6000,
+    /*     autoplay: {
+          delay: 0, 
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false,
+        }, */
 
     breakpoints: {
       0: {
@@ -288,19 +288,36 @@ document.addEventListener("DOMContentLoaded", () => {
         spaceBetween: 10,
       },
       375: {
-        slidesPerView: 1.2,
-        spaceBetween: 10,
-      },
-      675: {
         slidesPerView: 1.5,
         spaceBetween: 10,
       },
-      930: {
+      675: {
         slidesPerView: 2,
+        spaceBetween: 10,
+      },
+      800: {
+        slidesPerView: 2.5,
+        spaceBetween: 10,
+      },
+      1000: {
+        slidesPerView: 3,
+        spaceBetween: 10,
+      },
+      1200: {
+        slidesPerView: 3.5,
         spaceBetween: 10,
       },
       1450: {
         slidesPerView: 4.5,
+        spaceBetween: 24,
+      },
+      1700: {
+        slidesPerView: 5.5,
+        spaceBetween: 24,
+      },
+
+      2000: {
+        slidesPerView: 6.5,
         spaceBetween: 24,
       }
     },
