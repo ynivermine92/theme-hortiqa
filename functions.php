@@ -38,7 +38,16 @@ function project_scripts()
 		true
 	);
 
+		wp_enqueue_script(
+		'mask',
+		get_template_directory_uri() . '/assets/js/libs/mask.js',
+		array('jquery'),
+		'1.0',
+		true
+	);
 
+
+	
 
 	wp_enqueue_script(
 		'script',
@@ -73,3 +82,18 @@ add_filter('wp_check_filetype_and_ext', 'fix_svg', 10, 3);
 
 
 
+
+
+
+
+function svg_arrown()
+{
+
+	$arrow = get_template_directory() . '/assets/img/svg/arrow.svg';
+
+	$svg = file_get_contents($arrow);
+
+	$svg = str_replace('<svg', '<svg class="icon-arrow"', $svg);
+
+	echo $svg;
+}

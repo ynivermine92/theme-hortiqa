@@ -33,7 +33,7 @@ html {
 }
 
 body {
-
+  overflow-x: hidden;
   @extend %g-500;
   color: var(--body);
 
@@ -104,7 +104,8 @@ span {
   margin-right: 0 !important;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
   outline: none;
 }
 

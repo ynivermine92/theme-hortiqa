@@ -9,11 +9,6 @@ $hero_data = get_field('hero'); ?>
 print_r($hero_data);
 echo '</pre>'; */ -->
 
-
-
-
-
-
 <section class="hero">
     <div class="wrapper">
         <div class="hero__inner row">

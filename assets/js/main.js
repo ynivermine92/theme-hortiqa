@@ -349,6 +349,102 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  new Swiper('.swiper-portfolio', {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: false,
+
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 1,
+      },
+      500: {
+        slidesPerView: 2,
+      },
+      770: {
+        slidesPerView: 2.8,
+        spaceBetween: 20,
+      },
+      992: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+
+      1200: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      }
+
+    },
+
+  });
+
+
+
+
+
+  const catalogsSwiper = new Swiper('.catalogs__slider', {
+    loop: true,
+    slidesPerView: '7',
+    spaceBetween: 15,
+
+
+    pagination: {
+      el: '.catalogs__slider .swiper-pagination',
+      type: 'bullets',
+      clickable: true,
+    },
+
+    // Navigation arrows
+    navigation: {
+      nextEl: '.catalogs__slider .swiper-button-next',
+      prevEl: '.catalogs__slider .swiper-button-prev',
+    },
+
+
+
+
+    breakpoints: {
+      0: {
+        slidesPerView: 2,
+        spaceBetween: 10,
+      },
+
+      375: {
+        slidesPerView: 3,
+        spaceBetween: 10,
+      },
+      675: {
+        slidesPerView: 4,
+        spaceBetween: 10,
+      },
+      930: {
+        slidesPerView: 5,
+        spaceBetween: 10,
+      },
+
+      1450: {
+        slidesPerView: 7,
+        spaceBetween: 15,
+      }
+    },
+
+  });
+
+
+
+
+
+
+
 
 
 
@@ -368,6 +464,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  const accordion = () => {
+    const accordinBox = document.querySelectorAll('.acardion__item-box');
+
+    accordinBox.forEach((item, index) => {
+      const mobileContent = item.querySelector('.acardion__mobile');
+      const desktopContentList = document.querySelectorAll('.acardion__item-content');
+
+      // Изначально скрываем мобильный контент, кроме активного
+      if (!item.classList.contains('active')) {
+        if (mobileContent) mobileContent.style.maxHeight = '0px';
+      } else {
+        if (mobileContent) mobileContent.style.maxHeight = mobileContent.scrollHeight + 'px';
+      }
+
+      item.addEventListener('click', () => {
+        // Закрываем все мобильные блоки
+        accordinBox.forEach((box, i) => {
+          box.classList.remove('active');
+          const mobile = box.querySelector('.acardion__mobile');
+          if (mobile) mobile.style.maxHeight = '0px';
+
+          // Закрываем все десктопные блоки
+          if (desktopContentList[i]) desktopContentList[i].classList.remove('active');
+        });
+
+        // Открываем выбранный
+        item.classList.add('active');
+        if (mobileContent) mobileContent.style.maxHeight = mobileContent.scrollHeight + 'px';
+
+        // Десктоп: добавляем active к соответствующему элементу
+        if (desktopContentList[index]) desktopContentList[index].classList.add('active');
+      });
+    });
+  };
+
+  accordion();
+
+
+
+
+
+
+  // Init phone mask
+  const maskElement = document.querySelector('.phone__input')
+  const maskOptions = {
+    mask: '+{38}(000)000-00-00',
+  }
+  const mask = IMask(maskElement, maskOptions)
 
 
 });
