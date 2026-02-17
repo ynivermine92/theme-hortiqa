@@ -9,7 +9,7 @@ print_r($acardion_data);
 echo '</pre>';
 ?>
 
-<div id='accordion1' class="acardion">
+<section id='accordion1' class="acardion">
     <div class="wrapper">
         <!-- Accordion -->
 
@@ -116,4 +116,4 @@ echo '</pre>';
 
 
     </div>
-</div>
+</section>

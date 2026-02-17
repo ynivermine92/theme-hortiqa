@@ -5,9 +5,7 @@
 $hero_data = get_field('hero'); ?>
 
 
-<!-- /* echo '<pre>';
-print_r($hero_data);
-echo '</pre>'; */ -->
+
 
 <section class="hero">
     <div class="wrapper">

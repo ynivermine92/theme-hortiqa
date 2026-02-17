@@ -273,14 +273,16 @@ document.addEventListener("DOMContentLoaded", () => {
     loop: true,
     slidesPerView: 5.5,
     spaceBetween: 24,
-    allowTouchMove: true,
+
+    allowTouchMove: false,   
+    simulateTouch: false,
 
     speed: 6000,
-    /*     autoplay: {
-          delay: 0, 
-          disableOnInteraction: false,
-          pauseOnMouseEnter: false,
-        }, */
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+    },
 
     breakpoints: {
       0: {

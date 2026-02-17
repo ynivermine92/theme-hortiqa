@@ -8,18 +8,26 @@ require get_template_directory() . '/inc/customizer.php';
 require get_template_directory() . '/inc/image.php';
 require get_template_directory() . '/inc/underscores.php';
 require get_template_directory() . '/inc/global-acf.php';
+require get_template_directory() . '/inc/arrow.php';
+
+
+
 
 
 require get_template_directory() . '/inc/header.php';
 require get_template_directory() . '/inc/footer.php';
 require get_template_directory() . '/inc/woo.php';
-
+require get_template_directory() . '/inc/breadcrumbs.php';
 
 
 
 
 function project_scripts()
 {
+
+
+
+
 
 	wp_enqueue_style(
 		'style',
@@ -28,6 +36,7 @@ function project_scripts()
 		'1.0',
 		'all'
 	);
+
 
 
 	wp_enqueue_script(
@@ -62,23 +71,6 @@ add_action('wp_enqueue_scripts', 'project_scripts');
 
 
 
-function allow_svg_upload($mimes)
-{
-	$mimes['svg'] = 'image/svg+xml';
-	return $mimes;
-}
-add_filter('upload_mimes', 'allow_svg_upload');
-
-
-function fix_svg($file, $filename, $mimes)
-{
-	$ext = pathinfo($filename, PATHINFO_EXTENSION);
-	if ($ext === 'svg') {
-		$file['type'] = 'image/svg+xml';
-	}
-	return $file;
-}
-add_filter('wp_check_filetype_and_ext', 'fix_svg', 10, 3);
 
 
 
@@ -86,14 +78,5 @@ add_filter('wp_check_filetype_and_ext', 'fix_svg', 10, 3);
 
 
 
-function svg_arrown()
-{
 
-	$arrow = get_template_directory() . '/assets/img/svg/arrow.svg';
 
-	$svg = file_get_contents($arrow);
-
-	$svg = str_replace('<svg', '<svg class="icon-arrow"', $svg);
-
-	echo $svg;
-}

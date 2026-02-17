@@ -3,7 +3,12 @@ get_header();
 ?>
 
 <main>
+
     <?php
+    if (!is_front_page() && function_exists('breadcrumbs')) { ?>
+        <?= breadcrumbs(); ?>
+    <? }
+
     get_template_part('section/hero');
     get_template_part('section/partners');
     get_template_part('section/dream');
