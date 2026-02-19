@@ -18,7 +18,7 @@ $services_data = get_field('services');?>
                 <div class="col-12">
                    
                         <div class="row services__wrapper">
-                            <div class="col-xl-6 col-12">
+                            <div class="col-lg-6 col-12">
                                 <div class="services__content">
                                     <div class="services__sub-title"><?= esc_html($item['services_sub-title']); ?></div>
                                     <p class="services__text text"><?= esc_html($item['services_text']); ?></p>
@@ -28,7 +28,7 @@ $services_data = get_field('services');?>
 
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-12">
+                            <div class="col-lg-6 col-12">
                                 <div class="services__box">
                                     <?php if (!empty($item['services_image'])) { ?>
                                         <img

@@ -1,7 +1,6 @@
 @use "../base/vars" as *;
 
-.education,
-.blogs {
+.education {
     &__link {
         display: flex;
         align-items: center;
@@ -108,37 +107,3 @@
 
 }
 
-.blogs {
-    .text {
-        transition: all 0.5s;
-    }
-
-    &__image {
-        img {
-            border-radius: 20px;
-            max-width: 100%;
-            width: 100%;
-        }
-
-    }
-
-    &__sub-text {
-        padding: 15px 0;
-        font-size: 1.4rem;
-    }
-
-    &__inner:hover {
-        background: transparent;
-        @extend %animation;
-        box-shadow:none;
-        .icon-arrow {
-            stroke: var(--gren);;
-        }
-
-        .text {
-            color: var(--gren);;
-            transition: all 0.5s;
-        }
-   
-    }
-}    
