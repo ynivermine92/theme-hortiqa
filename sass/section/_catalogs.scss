@@ -1,0 +1,27 @@
+.catalogs {
+
+
+
+    .swiper-inner {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .swiper-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .swiper-sub__title {
+        text-align: center;
+    }
+
+    .swiper-content {
+        padding: 0px;
+    }
+
+    .swiper-sub__title {
+        padding-top: 0;
+        padding: 10px;
+    }
+}

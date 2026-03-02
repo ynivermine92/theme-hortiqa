@@ -1,0 +1,47 @@
+@use "../base/vars" as *;
+
+.ours {
+
+    &__item {
+        display: flex;
+        align-items: center;
+        gap: 0px 8px;
+        margin-top: 10px;
+    }
+
+    &__image {
+        width: 100%;
+    }
+
+    &__box {
+        --bs-gutter-x: 70px
+    }
+
+    &__customers {
+        display: flex;
+        gap: 10px clamp(8px, 2vw, 16px);
+    }
+
+    &__customer {
+        padding: clamp(16px, 3vw, 32px);
+        background: var(--lightgreen);
+        border-radius: 16px;
+        margin-top: clamp(24px, 2vw, 40px);
+        max-width: 260px;
+        width: 100%;
+    }
+    &
+    &__customer-title {
+        font-size: 24px;
+        @extend %g-700;
+        line-height: 1.2em;
+    }
+    &__customer-text{
+        margin-top: 8px;
+        font-size: clamp(14px, 2vw, 16px);
+    }
+    &__image{
+        min-height: 343px;
+        object-fit: cover;
+    }
+}

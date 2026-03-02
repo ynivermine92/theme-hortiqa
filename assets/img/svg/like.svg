@@ -1,0 +1,19 @@
+<svg viewBox="0 0 19.4958 19.4956" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19.495850" height="19.495605" fill="none">
+	<defs>
+		<clipPath id="clipPath_0">
+			<rect width="19.495850" height="19.495850" x="0.000000" y="0.000000" fill="rgb(255,255,255)" />
+		</clipPath>
+		<clipPath id="clipPath_1">
+			<rect width="19.495850" height="19.495850" x="-0.000244" y="-0.000488" fill="rgb(255,255,255)" />
+		</clipPath>
+	</defs>
+	<rect id="like-insta" width="19.495850" height="19.495850" x="0.000000" y="0.000000" />
+	<g id="64917591fbb3a410da359c78_Icon-instagram-heart.svg fill" clip-path="url(#clipPath_0)" customFrame="url(#clipPath_0)">
+		<rect id="64917591fbb3a410da359c78_Icon-instagram-heart.svg fill" width="19.495850" height="19.495850" x="0.000000" y="0.000000" />
+		<g id="64917591fbb3a410da359c78_Icon-instagram-heart.svg" clip-path="url(#clipPath_1)" customFrame="url(#clipPath_1)">
+			<rect id="64917591fbb3a410da359c78_Icon-instagram-heart.svg" width="19.495850" height="19.495850" x="-0.000244" y="-0.000488" />
+		
+			<path id="Vector" class='vector' d="M16.3264 2.88699L10.0016 5.02245L9.47372 4.51032C9.36439 4.4043 9.25927 4.30272 9.15708 4.20404C8.97853 4.03155 8.80916 3.86791 8.64296 3.70492C7.31011 2.39889 5.47558 2.02911 4.00578 2.66373C2.53241 3.29955 1.50709 4.91895 1.5429 6.73192C1.56996 8.10626 2.14578 9.32494 2.98497 10.5306C4.81663 13.1652 7.30169 15.1445 9.95227 17.0827C11.8836 15.6765 13.7228 14.2255 15.3112 12.5072C16.6589 11.0493 17.7679 9.57457 18.2211 7.74843C18.6988 5.82596 17.8818 3.82292 16.3264 2.88699C14.8465 1.99707 12.8861 2.21944 11.3727 3.59547C11.1789 3.77154 11.015 3.94927 10.8284 4.15169C10.731 4.25718 10.6276 4.36936 10.5105 4.4915L10.0016 5.02245M15.3112 12.5072L15.848 13.0036M10.5105 4.4915L11.3727 3.59547M16.3264 2.88699L11.3727 3.59547" fill-rule="nonzero"  stroke-width="1.462189" />
+		</g>
+	</g>
+</svg>

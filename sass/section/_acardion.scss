@@ -1,0 +1,167 @@
+.acardion {
+
+    &__inner {
+        display: flex;
+        padding-top: 40px;
+    }
+
+    &__item-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 20px;
+    }
+
+    &__content-box {
+        max-width: 304px;
+        width: 100%;
+
+    }
+
+    &__item-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--grey);
+        padding-bottom: 16px;
+        line-height: 1.4em;
+
+    }
+
+
+
+    &__item-box+&__item-box {
+        padding-top: 16px;
+    }
+
+    &__content-box {
+        cursor: pointer;
+    }
+
+    .acardion__desktop .acardion__item-content {
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    &__mobile {
+        display: none;
+    }
+
+    &__item {
+        margin-top: 10px;
+        font-size: 20px;
+    }
+
+    &__content {
+        position: relative;
+        padding-left: 40px;
+        margin-left: 40px;
+        max-width: 800px;
+        width: 100%;
+
+    }
+
+    &__item-content {
+        position: absolute;
+        opacity: 0;
+        max-width: 800px;
+    }
+
+    &__item-content.active {
+        opacity: 1;
+    }
+
+    &__item-box.active .icon-arrow {
+        stroke: var(--gren);
+    }
+
+
+    &__desktop &__text {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(4px);
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s ease,
+            filter 0.4s ease;
+    }
+
+    &__desktop &__item-content.active &__text {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+
+    .icon-arrow {
+        width: 12px;
+        height: 12px;
+    }
+
+
+    @media (max-width:767.99px) {
+
+        &__item-box {
+            transform: rotate(0deg);
+            transition: all 0.5s;
+        }
+
+        &__item-box.active .icon-arrow {
+            transform: rotate(180deg);
+            transition: all 0.5s;
+        }
+
+        &__desktop {
+            display: none;
+
+
+        }
+
+        &__mobile {
+            display: block;
+
+            overflow: hidden;
+            transition: height 0.4s ease, opacity 0.4s ease;
+            height: auto;
+            /* будет заменяться JS */
+            opacity: 1;
+            /* если блок активный */
+        }
+
+
+
+        &__items {
+            position: unset;
+            max-width: 100%;
+        }
+
+        &__content {
+            margin-left: 0;
+            padding-left: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+
+        }
+
+
+        &__item-box {
+            flex-direction: column;
+        }
+
+
+        &__item-content {
+            position: unset;
+            padding-left: 0;
+            margin-left: 0;
+        }
+
+
+        &__item-box .acardion__mobile {
+            display: none;
+        }
+
+        &__item-box.active .acardion__mobile {
+            display: block;
+        }
+    }
+}
