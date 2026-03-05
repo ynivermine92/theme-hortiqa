@@ -35,11 +35,26 @@
     justify-content: center;
   }
 
+
   &__item.disabled {
-    opacity: 0.4; 
+    opacity: 0.4;
     pointer-events: none;
-    cursor: default; 
+    cursor: default;
   }
 
+
+  @media(max-width:575px) {
+
+    &__link,
+    span {
+
+      height: 36px;
+      width: 36px;
+
+    }
+    .pagination__item{
+      margin: 0px 3px;
+    }
+  }
 
 }
