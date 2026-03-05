@@ -12,9 +12,6 @@ require get_template_directory() . '/inc/arrow.php';
 require get_template_directory() . '/inc/blog_filter.php';
 
 
-
-
-
 require get_template_directory() . '/inc/header.php';
 require get_template_directory() . '/inc/footer.php';
 require get_template_directory() . '/inc/woo.php';
@@ -25,10 +22,6 @@ require get_template_directory() . '/inc/breadcrumbs.php';
 
 function project_scripts()
 {
-
-
-
-
 
 	wp_enqueue_style(
 		'style',
@@ -48,7 +41,7 @@ function project_scripts()
 		true
 	);
 
-		wp_enqueue_script(
+	wp_enqueue_script(
 		'mask',
 		get_template_directory_uri() . '/assets/js/libs/mask.js',
 		array('jquery'),
@@ -57,7 +50,7 @@ function project_scripts()
 	);
 
 
-	
+
 
 	wp_enqueue_script(
 		'script',
@@ -77,7 +70,8 @@ add_action('wp_enqueue_scripts', 'project_scripts');
 
 
 
-
-
-
-
+/* if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Дебаг(аякс) categoryId
+    var_dump($_POST['categoryId']); 
+    exit; // останавливаем, чтобы сразу увидеть
+} */

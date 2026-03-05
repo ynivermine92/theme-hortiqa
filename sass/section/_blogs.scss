@@ -65,7 +65,16 @@
         color: var(--body);
         display: flex;
         justify-content: space-between;
+
         padding: 16px 0;
+        gap: 10px;
+    }
+
+    &__wrapper-contnet {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 5px;
+        max-width: 300px;
     }
 
     &__label {
@@ -74,7 +83,15 @@
         padding: 4px 10px;
         border-radius: 100px;
         background: var(--lightgreen);
+        text-transform: capitalize;
     }
+
+    &__month {
+        display: block;
+
+        padding-top: 4px;
+    }
+
 
     &__sub-title {
         font-size: clamp(1.8rem, 2vw, 2rem);

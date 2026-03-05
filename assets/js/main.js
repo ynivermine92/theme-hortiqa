@@ -521,18 +521,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const blogsFilterAjax = () => {
+    const blogsWrapper = document.querySelector('.blogs__category');
+    const wrapperPagination = document.querySelector('.pagination');
+    let currentCategory = ''; // сохраняем выбранную категорию
 
-    let blogsWrapper = document.querySelector('.blogs__category');
-    let wrapperPagination = document.querySelector('.pagination');
 
-    async function BlogsAjax(categoryId) {
+
+    // AJAX запрос
+    async function BlogsAjax(categoryId, pageId = '') {
       try {
-
-        /* blogsWrapper.textContent = 'loading...'; */
-
         const formData = new FormData();
         formData.append('action', 'filter_blogs');
-        formData.append('category_id', categoryId);
+        formData.append('categoryId', categoryId);
+        formData.append('pageId', pageId);
 
         const response = await fetch('/wp-admin/admin-ajax.php', {
           method: 'POST',
@@ -540,62 +541,59 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const result = await response.json();
-        console.log(result)
+        
         if (result.success) {
-          blogsWrapper.innerHTML = result.data.posts;
-          wrapperPagination.innerHTML = result.data.pagination;
+          blogsWrapper.innerHTML = result.data.posts;  /* отресовыем посты из буфера */
+          wrapperPagination.innerHTML = result.data.pagination; /* отресовыем пагинацию */
+          paginationBlogs(); // навешиваем обработчики на новую пагинацию
         } else {
           console.error('Ошибка сервера:', result);
         }
-
       } catch (err) {
         console.error('Ошибка fetch:', err);
       }
     }
 
-    const blogsBtns = () => {
+    // Категории
+    const CategorysBlogs = () => {
       const buttons = document.querySelectorAll('.blogs__btn');
-
-
-
       buttons.forEach(button => {
         button.addEventListener('click', () => {
-          buttons.forEach((item) => {
-            item.classList.remove('active');
-          })
-
-          button.classList.add('active')
-
-
-          const categoryId = button.dataset.categoryId;
-          BlogsAjax(categoryId);
+          buttons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          currentCategory = button.dataset.categoryId;
+     
+          BlogsAjax(currentCategory, 1); // при смене категории всегда первая страница
         });
       });
-    }
 
-    blogsBtns();
+      // Устанавливаем начальную категорию
+      const activeBtn = document.querySelector('.blogs__btn.active');
+      if (activeBtn) currentCategory = activeBtn.dataset.categoryId;
+    };
+    // навешиваем категории
+    CategorysBlogs();
 
 
-    const blogPagination = () => {
-      const paginationBtn = document.querySelectorAll('.pagination__item');
 
-      paginationBtn.forEach((item) => {
-        item.addEventListener('click', (e) => {
-          e.preventDefault(); // отменяем переход по ссылке
-          debugger;
-          const paged = item.dataset.paginationId;
-          BlogsAjax(paged);
+    // Пагинация
+    const paginationBlogs = () => {
+      const paginationBtns = document.querySelectorAll('.pagination__item:not(.disabled)');
+      paginationBtns.forEach(item => {
+        item.addEventListener('click', e => {
+          e.preventDefault();
+          const pageId = item.dataset.paginationId;
+          if (currentCategory) {
+            BlogsAjax(currentCategory, pageId);
+          }
         });
       });
     };
 
-    blogPagination();
-
-  }
+    paginationBlogs()
+  };
 
   blogsFilterAjax();
-
-
 
 
 

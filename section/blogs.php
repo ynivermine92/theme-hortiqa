@@ -5,54 +5,64 @@ get_header();
 
 <section class="blogs">
 
-    <!-- Главный блог -->
-    <?php
-    $args_main = [
-        'post_type'      => 'post',
-        'posts_per_page' => 1,
-    ];
-    $main_query = new WP_Query($args_main);
 
-    if ($main_query->have_posts()) :
-        $main_post_id = $main_query->posts[0]->ID; // получаем ID главного поста
-    ?>
-        <div class="blogstop">
-            <div class="wrapper">
-                <div class="row">
-                    <div class="col-12">
-                        <h1 class="title">Inspiration & Education</h1>
-                    </div>
+    <div class="blogstop">
+        <div class="wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="title">Inspiration & Education</h1>
                 </div>
+            </div>
 
-                <!-- Категории -->
-                <div class="row">
-                    <div class="col-12">
-                        <ul class="blogs__items">
-                            <?php
-                            $categories = array_filter(get_categories(), fn($cat) => $cat->name !== 'Главная');
-                            $has_all = false;
-                            foreach ($categories as $category) {
-                                if ($category->name === 'Все') {
-                                    $has_all = true;
-                                    break;
-                                }
-                            }
-                            foreach ($categories as $category) {
-                                $active_class = ($has_all && $category->name === 'Все') ? 'active' : '';
-                            ?>
-                                <li class="blogs__item">
-                                    <button class="blogs__btn <?php echo $active_class; ?> btn-green" data-category-id="<?php echo esc_attr($category->term_id); ?>">
-                                        <?php echo esc_html($category->name); ?>
-                                    </button>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
+            <!-- Категории кпопки -->
+            <div class="row">
+                <div class="col-12">
+                    <ul class="blogs__items">
+                        <!-- Создаю кнопку  "Все и присваюеваю  data-category-id=0" -->
+                        <li class="blogs__item">
+                            <button class="blogs__btn active btn-green" id="btn-all" data-category-id="0">
+                                Все
+                            </button>
+                        </li>
+
+                        <?php
+                        /* функция возвращает массив всех категорий блога,фильтр фильтрует 0 false '' []   array_filter(get_categories()) */
+                        $categories = array_filter(get_categories());
+                        foreach ($categories as $category) {
+                            if ($category->name === 'Главная') continue; //убираем кнопку главная 
+                        ?>
+                            <li class="blogs__item"> <!-- выводим кнопки -->
+                                <button class="blogs__btn btn-green" data-category-id="<?php echo esc_attr($category->term_id); ?>">
+                                    <?php echo esc_html($category->name); ?>
+                                </button>
+                            </li>
+                        <?php } ?>
+                    </ul>
                 </div>
+            </div>
 
-                <!-- Главный пост -->
+
+
+            <!-- Главный пост -->
+            <?php
+            $args_main = [
+                'post_type'      => 'post',
+                'posts_per_page' => 1,                     /* Выводим 1 блог */
+                'category_name'  => 'Главная',           /* по рубрике (главный) */
+            ];
+            $main_query = new WP_Query($args_main);     /* 1 Передаем  масив параметров запроса args_main   2 WP_Query создает запрос и получает результат  3 $main_query сохраняю результат */
+
+
+            if ($main_query->have_posts()) {                  /* если есть пост */
+                $main_post_id = $main_query->posts[0]->ID; ?> <!-- получаем ID главного поста (самого нового) -->
+
+
                 <div class="row blogstop__inner">
-                    <?php while ($main_query->have_posts()) : $main_query->the_post(); ?>
+                    <!-- перебераем посты -->
+                    <?php while ($main_query->have_posts()) {
+
+                        $main_query->the_post(); ?> <!-- делает глобальные параметры для поста    the_title() the_content() the_permalink()  -->
+
                         <div class="col-12">
                             <div class="row blogstop-wrapper">
                                 <div class="col-lg-6 col-12">
@@ -73,40 +83,51 @@ get_header();
                                 </div>
                             </div>
                         </div>
-                    <?php endwhile; ?>
+                    <? } ?>
                 </div>
-            </div>
+            <? } ?>
         </div>
-    <?php endif;
-    wp_reset_postdata(); ?>
+    </div>
+
+    <?php wp_reset_postdata(); ?> <!-- сбрасывает main_query  к дефолтному post-->
+
+
+
 
     <!-- Все остальные блоги -->
     <?php
-    $paged = max(1, get_query_var('paged'));
-    $args_other = [
-        'post_type'           => 'post',
-        'posts_per_page'      => 2,
-        'paged'               => $paged,
-        'post__not_in'        => [$main_post_id], // исключаем главный пост
-        'ignore_sticky_posts' => 1,
-    ];
-    $other_query = new WP_Query($args_other);
 
-    if ($other_query->have_posts()) : ?>
-        <div class="wrapper">
+
+    $paged = max(1, get_query_var('paged'));   /* получаем номер текуйщей текущей страницы  */
+
+    $args_other = [
+        'post_type'      => 'post',
+        'posts_per_page' => 3,
+        'post__not_in'   => [$main_post_id],  /* игнорируем блог (главный) */
+        'paged'          => $paged,           /* передаем номер текущей страницы */
+    ];
+
+
+    $other_query = new WP_Query($args_other); ?>
+
+    <div class="wrapper">
+        <?php if ($other_query->have_posts()) { ?>
             <div class="row blogs__category">
-                <?php while ($other_query->have_posts()) : $other_query->the_post();
+                <?php while ($other_query->have_posts()) {
+
+                    /* делает глобальные параметры для поста каждого    the_title() the_content() the_permalink()  */
+                    $other_query->the_post();
+
+                    /* функция возвращает массив всех категорий блога,фильтра*/
                     $categories = get_the_category();
+
                     $cats_names = [];
                     if (!empty($categories)) {
                         foreach ($categories as $cat) {
-                            if (!in_array($cat->name, ['Главная', 'Все'])) {
-                                $cats_names[] = $cat->name;
-                            }
+                            $cats_names[] = $cat->name;    /* $cat->name  получаем каждого поста рубрику */
                         }
-                    }
-                    $cats_output = !empty($cats_names) ? implode(', ', $cats_names) : 'Без категории';
-                ?>
+                    }   ?>
+
                     <div class="col-md-4 col-sm-6 col-12">
                         <a class="blogs__inner" href="<?php the_permalink(); ?>">
                             <div class="blogs__image">
@@ -120,11 +141,20 @@ get_header();
                             </div>
                             <div class="blogs__box">
                                 <div class="blogs__data">
-                                    <div class="blogs__label"><?php echo esc_html($cats_output); ?></div>
+                                    <div class="blogs__wrapper-contnet">
+
+
+                                        <!-- перебераем обьект cats_names с блогам рубрики и выводим -->
+                                        <?php foreach ($cats_names as $name) { ?>
+                                            <div class="blogs__label"><?php echo esc_html($name); ?></div>
+                                        <?php } ?>
+                                    </div>
+                                    <!-- вывод месяц день год -->
                                     <span class="blogs__month month"><?php echo get_the_date('M d, Y'); ?></span>
                                 </div>
                                 <div class="blogs__sub-title title"><?php the_title(); ?></div>
                                 <p class="blogs__text text"><?php echo get_the_excerpt(); ?></p>
+
                                 <button class="blogs__content-btn">
                                     <span class="btn-text text">Learn more</span>
                                     <?php
@@ -138,59 +168,94 @@ get_header();
                             </div>
                         </a>
                     </div>
-                <?php endwhile; ?>
-            </div>
 
-            <!-- Пагинация -->
+
+                <? } ?>
+            </div>
+        <? } ?>
+    </div>
+
+
+
+    <!-- Пагинация -->
+    <div class="wrapper">
+        <?php
+
+        /* записсываем сколько страниц выводить */
+        $total_pages = $other_query->max_num_pages;
+
+        if ($total_pages > 1) { ?>
             <div class="pagination">
                 <ul class="pagination__items">
                     <?php
-                    $total_pages = $other_query->max_num_pages;
-
                     // Prev
                     $prev_disabled = ($paged <= 1) ? ' disabled' : '';
-                    echo '<li class="pagination__item pagination__item-prev' . $prev_disabled . '" data-pagination-id="' . max(1, $paged - 1) . '">
-                <a class="pagination__link pagination__link-prev" href="#">
-                    <span class="pagination__arrow">&lt;</span>
-                </a>
-              </li>';
+                    
+                    $prev_page = max(1, $paged - 1);
+                    ?>
+                    <li class="pagination__item pagination__item-prev<?php echo $prev_disabled; ?>" data-pagination-id="<?php echo $prev_page; ?>">
+                        <a class="pagination__link pagination__link-prev" href="#">
+                            <span class="pagination__arrow">&lt;</span>
+                        </a>
+                    </li>
 
-                    // Страницы
+                    <?php
+                    // параметры для пагинации 
                     $pagination_links = paginate_links([
-                        'total'     => $total_pages,
-                        'current'   => $paged,
-                        'type'      => 'array',
-                        'prev_text' => '',
-                        'next_text' => '',
+                        'total'      => $total_pages, /* Общее количество страниц  передаем*/
+                        'current'    => $paged,       /* тикущая страница */
+                        'type'       => 'array',    /* Вернуть масив ссылклок */
+                        'prev_next'  => false,     /* право лево убираем стандартные вопрес стрелки */
+                        'end_size'   => 1, // сколько ссылок в начале/конце
+                        'mid_size'   => 1, // сколько ссылок вокруг текущей
+                        'dots'       => '…',
                     ]);
 
-                    if ($pagination_links) {
-                        $pagination_links = array_filter($pagination_links, fn($item) => strpos($item, 'prev') === false && strpos($item, 'next') === false);
+                    if (!empty($pagination_links)) {
                         foreach ($pagination_links as $item) {
-                            $class = (strpos($item, 'current') !== false) ? 'pagination__item active' : 'pagination__item';
+                            $class = 'pagination__item';
 
-                            // получаем номер страницы из ссылки
-                            preg_match('/page\/(\d+)/', $item, $matches);
-                            $page_num = isset($matches[1]) ? $matches[1] : 1;
+                            // активная страница
+                            if (strpos($item, 'current') !== false) $class .= ' active';
 
+                            // определяем номер страницы
+                            if (preg_match('/(?:page\/|paged=)(\d+)/', $item, $matches)) {
+                                $page_number = $matches[1];
+                            } else {
+                                $page_number = 1;
+                            }
+
+                            // заменяем стандартный класс
                             $item = str_replace('page-numbers', 'pagination__link', $item);
-                            echo '<li class="' . $class . '" data-pagination-id="' . $page_num . '">' . $item . '</li>';
+
+                            // если это dots — выводим span
+                            if (strpos($item, '…') !== false) {
+                                echo '<li class="' . $class . '" data-pagination-id="' . $page_number . '"><span class="pagination__link dots">…</span></li>';
+                            } else {
+                                echo '<li class="' . $class . '" data-pagination-id="' . $page_number . '">' . $item . '</li>';
+                            }
                         }
                     }
+                    ?>
 
+                    <?php
                     // Next
                     $next_disabled = ($paged >= $total_pages) ? ' disabled' : '';
-                    echo '<li class="pagination__item pagination__item-next' . $next_disabled . '" data-pagination-id="' . min($total_pages, $paged + 1) . '">
-                <a class="pagination__link pagination__link-next" href="#">
-                    <span class="pagination__arrow">&gt;</span>
-                </a>
-              </li>';
+                    $next_page = min($total_pages, $paged + 1);
                     ?>
+                    <li class="pagination__item pagination__item-next<?php echo $next_disabled; ?>" data-pagination-id="<?php echo $next_page; ?>">
+                        <a class="pagination__link pagination__link-next" href="#">
+                            <span class="pagination__arrow">&gt;</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
-        </div>
-    <?php endif;
-    wp_reset_postdata(); ?>
+        <? } ?>
+    </div>
+
+
+
+    <?php wp_reset_postdata(); ?>
 </section>
 
 <?php get_footer(); ?>
