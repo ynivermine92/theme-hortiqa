@@ -69,6 +69,30 @@ add_action('wp_enqueue_scripts', 'project_scripts');
 
 
 
+add_action('acf/init', 'register_acf_blocks');
+function register_acf_blocks()
+{
+
+	if (function_exists('acf_register_block_type')) {
+
+		acf_register_block_type([
+			'name'              => 'Flexible Block',
+			'title'             => __('Flexible Block poduct'),
+			'description'       => __('Блок с Flexible Content внутри'),
+			'render_template' => get_template_directory() . '/inc/template/flexible-blog-product.php',
+			'category'          => 'formatting',
+			'icon'              => 'admin-comments',
+			'mode'              => 'edit',
+		]);
+	}
+}
+
+
+
+
+
+
+
 
 /* if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Дебаг(аякс) categoryId

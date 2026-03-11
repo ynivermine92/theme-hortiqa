@@ -1,10 +1,28 @@
-<section class="education">
+<? 
+$section_class = '';
+$education_title = 'Inspiration & Education';
+if (!is_front_page()) {
+    $section_class = 'block-gren'; 
+    $education_title = 'Related articles '; 
+} ?>
+
+
+
+
+
+<section class="education  <?= esc_attr($section_class); ?>">
+
+
     <div class="wrapper">
         <div class="row ">
             <div class="col-12">
                 <div class="education__wrapper">
+            
+                        <h2 class="title"><?= esc_attr($education_title); ?></h2>
+                   
+                    
+                
 
-                    <h2 class="title">Inspiration & Education</h2>
                     <a class="education__link" href="#"><span class="text">All articles</span>
                         <?php
                         $arrow = get_template_directory() . '/assets/img/svg/arrow.svg';

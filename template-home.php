@@ -4,8 +4,11 @@ get_header();
 
 <main>
     <?php
+ 
+
+
     get_template_part('section/hero');
-    
+
     get_template_part('section/partners');
     get_template_part('section/garden');
     get_template_part('section/services');

@@ -220,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const testimonialsSwiper = new Swiper('.testimonials__slider', {
-    loop: true,
+    loop: false,
     slidesPerView: '3',
     spaceBetween: 15,
 
@@ -394,7 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   const catalogsSwiper = new Swiper('.catalogs__slider', {
-    loop: true,
+    loop: false,
     slidesPerView: '7',
     spaceBetween: 15,
 
@@ -598,6 +598,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+
+
+
+
+  
 });
 
 

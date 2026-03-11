@@ -32,14 +32,21 @@
         display: none !important;
     }
 
-    .swiper-button-next .icon-arrow {
-        transform: rotate(0deg) !important;
+    .swiper-button-next {
+        .arrow-btn {
+            transform: rotate(0deg);
+
+        }
     }
 
-    .swiper-button-prev .icon-arrow {
-        transform: rotate(180deg) !important;
+    .swiper-button-prev {
+        .arrow-btn {
+            transform: rotate(180deg);
+
+        }
     }
-    &__slider-link{
+
+    &__slider-link {
         display: flex;
         gap: 8px;
     }
@@ -128,7 +135,7 @@
     .swiper-button-prev {
         left: unset !important;
         top: 2.2rem;
-        right: 6rem;
+        right: 5.3rem;
         top: 0;
         z-index: 1;
 
