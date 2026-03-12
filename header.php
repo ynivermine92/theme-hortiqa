@@ -23,7 +23,7 @@
 		<!-- Navbar -->
 		<div class="header__desktop">
 			<div class="wrapper">
-				
+
 				<div class="header__wrapper">
 					<div class="navbar">
 						<div class="navbar__wrapper">
@@ -96,139 +96,191 @@
 							</div>
 						</div>
 					</div>
-				</div>
-
-				<!-- catalog -->
-
-				<nav class="catalog">
-					<h3 class="catalog__title">Каталог товарів</h3>
-					<div class="catalog_wrapper">
 
 
-						<ul class="menu catalog__category catalog__category-one">
+					<!-- catalog -->
+
+					<nav class="catalog">
+
+
+
+						<div class="catalog__wrapper">
+							<div class="catalog__content">
+								<h3 class="catalog__title">Каталог товарів</h3>
+								<ul class="menu catalog__category catalog__category-one">
+
+									<?php
+									$categories = get_terms([
+										'taxonomy'   => 'product_cat',
+										'hide_empty' => false,
+										'parent'     => 0,
+									]);
+
+									foreach ($categories as $category):
+
+										$thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
+										$image = wp_get_attachment_url($thumbnail_id);
+
+										$products = wc_get_products([
+											'category' => [$category->slug],
+											'limit'    => -1,
+											'status'   => 'publish',
+										]);
+
+										if (empty($products)) {
+											continue;
+										}
+									?>
+
+										<li class="menu__item">
+
+											<!-- 1 lvl: category -->
+											<a class="menu__item-link menu__link-lvl-1">
+												<?php if ($image): ?>
+													<img class="menu__item-catalog-image"
+														src="<?php echo esc_url($image); ?>"
+														alt="<?php echo esc_attr($category->name); ?>">
+												<?php endif; ?>
+												<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
+												<span class="menu__arrow"></span>
+											</a>
+
+											<!-- 2 lvl: products -->
+											<ul class="catalog__category catalog__category-two">
+
+												<?php foreach ($products as $product): ?>
+
+													<?php
+													$all_terms = [];
+													$attributes = $product->get_attributes();
+
+													foreach ($attributes as $attribute) {
+
+														if (!$attribute->is_taxonomy()) {
+															continue;
+														}
+
+														$taxonomy = $attribute->get_name();
+
+														$terms = wp_get_post_terms(
+															$product->get_id(),
+															$taxonomy,
+															[
+																'orderby' => 'term_order',
+																'order'   => 'ASC',
+															]
+														);
+
+														if (!empty($terms)) {
+															$all_terms[$taxonomy] = $terms;
+														}
+													}
+													?>
+
+													<li class="menu__item">
+
+														<a class="menu__item-link" href="<?php echo esc_url(get_permalink($product->get_id())); ?>">
+															<div class="menu__item-name"><?php echo esc_html($product->get_name()); ?></div>
+															<?php if (!empty($all_terms)): ?>
+																<span class="menu__arrow"></span>
+															<?php endif; ?>
+														</a>
+
+														<!-- 3 lvl: attributes -->
+														<?php if (!empty($all_terms)): ?>
+															<ul class="catalog__category catalog__category-three">
+
+																<?php foreach ($all_terms as $taxonomy => $terms): ?>
+																	<?php foreach ($terms as $term): ?>
+
+																		<li class="menu__item">
+																			<a class="menu__item-link"
+																				href="<?php echo esc_url(
+																							add_query_arg(
+																								'filter_' . wc_attribute_taxonomy_slug($taxonomy),
+																								$term->slug,
+																								get_term_link($category)
+																							)
+																						); ?>">
+																				<div class="menu__item-name">
+																					<?php echo esc_html($term->name); ?>
+																				</div>
+																			</a>
+																		</li>
+
+																	<?php endforeach; ?>
+																<?php endforeach; ?>
+
+															</ul>
+														<?php endif; ?>
+
+													</li>
+
+												<?php endforeach; ?>
+
+											</ul>
+
+										</li>
+
+									<?php endforeach; ?>
+
+								</ul>
+							</div>
 
 							<?php
-							$categories = get_terms([
-								'taxonomy'   => 'product_cat',
-								'hide_empty' => false,
-								'parent'     => 0,
-							]);
+							$args_main = [
+								'post_type'      => 'post',
+								'posts_per_page' => 1,
+								'category_name'  => 'main',
+							];
+							$main_query = new WP_Query($args_main);
 
-							foreach ($categories as $category):
 
-								$thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
-								$image = wp_get_attachment_url($thumbnail_id);
+							if ($main_query->have_posts()) {
+								$main_post_id = $main_query->posts[0]->ID; ?>
 
-								$products = wc_get_products([
-									'category' => [$category->slug],
-									'limit'    => -1,
-									'status'   => 'publish',
-								]);
 
-								if (empty($products)) {
-									continue;
-								}
-							?>
+								<?php while ($main_query->have_posts()) {
 
-								<li class="menu__item">
+									$main_query->the_post(); ?>
 
-									<!-- 1 lvl: category -->
-									<a class="menu__item-link" href="<?php echo esc_url(get_term_link($category)); ?>">
-										<?php if ($image): ?>
-											<img class="menu__item-catalog-image"
-												src="<?php echo esc_url($image); ?>"
-												alt="<?php echo esc_attr($category->name); ?>">
-										<?php endif; ?>
-										<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
-										<span class="menu__arrow"></span>
+
+
+
+									<div class="catalog__blog">
+										<h4 class="ctalog__title">
+											Featured from Blog
+										</h4>
+										<div class="catalog__box">
+											<?php if (has_post_thumbnail()) :
+												the_post_thumbnail('', ['class' => 'catalog__image']);
+											else :
+												echo 'Миниатюра не установлена';
+											endif; ?>
+
+											<div class="catalog__box-content">
+												<h5 class="ctalog__sub-title"><?php the_title(); ?>quality</5>
+													<p class="catalog__text"><?php echo get_the_excerpt(); ?></p>
+													<a class="catalog__blog-link" href="<?php the_permalink(); ?>">Read more</a>
+											</div>
+
+										</div>
+
+									<? } ?>
+									<a class="catalog__link" href="/inspiration">All articles
+										<span>></span>
 									</a>
+									</div>
+									<?php wp_reset_postdata(); ?>
+								<? } ?>
 
-									<!-- 2 lvl: products -->
-									<ul class="catalog__category catalog__category-two">
 
-										<?php foreach ($products as $product): ?>
-
-											<?php
-											$all_terms = [];
-											$attributes = $product->get_attributes();
-
-											foreach ($attributes as $attribute) {
-
-												if (!$attribute->is_taxonomy()) {
-													continue;
-												}
-
-												$taxonomy = $attribute->get_name();
-
-												$terms = wp_get_post_terms(
-													$product->get_id(),
-													$taxonomy,
-													[
-														'orderby' => 'term_order',
-														'order'   => 'ASC',
-													]
-												);
-
-												if (!empty($terms)) {
-													$all_terms[$taxonomy] = $terms;
-												}
-											}
-											?>
-
-											<li class="menu__item">
-
-												<a class="menu__item-link" href="<?php echo esc_url(get_permalink($product->get_id())); ?>">
-													<div class="menu__item-name"><?php echo esc_html($product->get_name()); ?></div>
-													<?php if (!empty($all_terms)): ?>
-														<span class="menu__arrow"></span>
-													<?php endif; ?>
-												</a>
-
-												<!-- 3 lvl: attributes -->
-												<?php if (!empty($all_terms)): ?>
-													<ul class="catalog__category catalog__category-three">
-
-														<?php foreach ($all_terms as $taxonomy => $terms): ?>
-															<?php foreach ($terms as $term): ?>
-
-																<li class="menu__item">
-																	<a class="menu__item-link"
-																		href="<?php echo esc_url(
-																					add_query_arg(
-																						'filter_' . wc_attribute_taxonomy_slug($taxonomy),
-																						$term->slug,
-																						get_term_link($category)
-																					)
-																				); ?>">
-																		<div class="menu__item-name">
-																			<?php echo esc_html($term->name); ?>
-																		</div>
-																	</a>
-																</li>
-
-															<?php endforeach; ?>
-														<?php endforeach; ?>
-
-													</ul>
-												<?php endif; ?>
-
-											</li>
-
-										<?php endforeach; ?>
-
-									</ul>
-
-								</li>
-
-							<?php endforeach; ?>
-
-						</ul>
+						</div>
 
 
 
-					</div>
-				</nav>
-
+					</nav>
+				</div>
 
 
 

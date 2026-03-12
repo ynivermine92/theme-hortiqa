@@ -6,22 +6,38 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    column-gap: 5px;
-    list-style: none;
+    gap: 5px;
+
   }
 
   &__link {
-    color: black;
     font-family: 'Roboto', Arial, sans-serif;
     text-decoration: none;
-    transition: all linear 0.3s;
+    transition: all 0.5s;
+
 
     span {
       margin: 0 2px;
     }
 
+    .icon-arrow {
+      width: 10px;
+      transition: all 0.5s;
+      height: 10px;
+    }
+
     &:hover {
-      color: red;
+      color: var(--gren);
+
+      .icon-arrow {
+        stroke: var(--gren);
+        transition: all 0.5s;
+
+
+      }
+
     }
   }
+
+
 }

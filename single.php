@@ -12,7 +12,10 @@ get_header();
 ?>
 
 <main id="primary" class="post">
-
+	<?
+	if (!is_front_page() && function_exists('breadcrumbs')) { ?>
+		<?= breadcrumbs(); ?>
+	<? } ?>
 
 
 
@@ -89,7 +92,7 @@ get_header();
 			?>
 
 		</div>
-		
+
 	</section>
 	<div class="wrapper">
 		<?php get_template_part('section/education'); ?>

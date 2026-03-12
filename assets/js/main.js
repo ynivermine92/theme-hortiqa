@@ -143,14 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
-
-
-
-
-
-
   /* swiper */
 
   const heroSwiper = new Swiper('.hero__swiper', {
@@ -168,8 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
   });
-
-
 
   const partnersSwiper = new Swiper('.partners__swiper', {
     loop: true,
@@ -216,8 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
   });
-
-
 
   const testimonialsSwiper = new Swiper('.testimonials__slider', {
     loop: false,
@@ -266,8 +254,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
   });
-
-
 
   const advertisingSwiper = new Swiper('.advertising__slider', {
     loop: true,
@@ -541,7 +527,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         const result = await response.json();
-        
+
         if (result.success) {
           blogsWrapper.innerHTML = result.data.posts;  /* отресовыем посты из буфера */
           wrapperPagination.innerHTML = result.data.pagination; /* отресовыем пагинацию */
@@ -562,7 +548,7 @@ document.addEventListener("DOMContentLoaded", () => {
           buttons.forEach(btn => btn.classList.remove('active'));
           button.classList.add('active');
           currentCategory = button.dataset.categoryId;
-     
+
           BlogsAjax(currentCategory, 1); // при смене категории всегда первая страница
         });
       });
@@ -603,7 +589,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  
+
 });
 
 

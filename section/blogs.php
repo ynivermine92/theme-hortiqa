@@ -1,5 +1,4 @@
 <?php
-/* Template Name: Blog */
 get_header();
 ?>
 
@@ -61,8 +60,7 @@ get_header();
                     <!-- перебераем посты -->
                     <?php while ($main_query->have_posts()) {
 
-                        $main_query->the_post(); ?> <!-- делает глобальные параметры для поста    the_title() the_content() the_permalink()  -->
-
+                        $main_query->the_post(); ?> 
 
                         <div class="row">
                             <div class="col-lg-6 col-12">
