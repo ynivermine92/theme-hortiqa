@@ -16,7 +16,6 @@ $hero_data = get_field('hero'); ?>
                     <?= esc_html($hero_data['hero_title']); ?>
 
                 </h1>
-                <?= do_shortcode('[woo_ajax_filter]'); ?> 
 
                 <p class="hero__text text"> <?= esc_html($hero_data['hero__text']); ?></p>
                 <ul class="hero__items">

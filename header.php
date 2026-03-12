@@ -135,7 +135,7 @@
 										<li class="menu__item">
 
 											<!-- 1 lvl: category -->
-											<a class="menu__item-link menu__link-lvl-1">
+											<div class="menu__item-link menu__link-lvl-1">
 												<?php if ($image): ?>
 													<img class="menu__item-catalog-image"
 														src="<?php echo esc_url($image); ?>"
@@ -143,81 +143,47 @@
 												<?php endif; ?>
 												<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
 												<span class="menu__arrow"></span>
-											</a>
+											</div>
 
-											<!-- 2 lvl: products -->
+											<!-- 2 lvl: метки -->
 											<ul class="catalog__category catalog__category-two">
 
-												<?php foreach ($products as $product): ?>
+												<?php
+												// Сначала группируем товары по меткам
+												$products_by_tag = [];
 
-													<?php
-													$all_terms = [];
-													$attributes = $product->get_attributes();
+												foreach ($products as $product) {
+													$tags = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' => 'names']); // используем метки
 
-													foreach ($attributes as $attribute) {
-
-														if (!$attribute->is_taxonomy()) {
-															continue;
+													if (!empty($tags)) {
+														foreach ($tags as $tag_name) {
+															$products_by_tag[$tag_name][] = $product;
 														}
-
-														$taxonomy = $attribute->get_name();
-
-														$terms = wp_get_post_terms(
-															$product->get_id(),
-															$taxonomy,
-															[
-																'orderby' => 'term_order',
-																'order'   => 'ASC',
-															]
-														);
-
-														if (!empty($terms)) {
-															$all_terms[$taxonomy] = $terms;
-														}
+													} else {
+														$products_by_tag['Без метки'][] = $product; // на случай если метка не задана
 													}
-													?>
+												}
 
+												// Выводим второй уровень: метки
+												foreach ($products_by_tag as $tag_name => $tag_products): ?>
 													<li class="menu__item">
+														<div class="menu__item-link menu__link-lvl-2">
+															<div class="menu__item-name"><?php echo esc_html($tag_name); ?></div>
+															<span class="menu__arrow"></span>
+														</div>
 
-														<a class="menu__item-link" href="<?php echo esc_url(get_permalink($product->get_id())); ?>">
-															<div class="menu__item-name"><?php echo esc_html($product->get_name()); ?></div>
-															<?php if (!empty($all_terms)): ?>
-																<span class="menu__arrow"></span>
-															<?php endif; ?>
-														</a>
-
-														<!-- 3 lvl: attributes -->
-														<?php if (!empty($all_terms)): ?>
-															<ul class="catalog__category catalog__category-three">
-
-																<?php foreach ($all_terms as $taxonomy => $terms): ?>
-																	<?php foreach ($terms as $term): ?>
-
-																		<li class="menu__item">
-																			<a class="menu__item-link"
-																				href="<?php echo esc_url(
-																							add_query_arg(
-																								'filter_' . wc_attribute_taxonomy_slug($taxonomy),
-																								$term->slug,
-																								get_term_link($category)
-																							)
-																						); ?>">
-																				<div class="menu__item-name">
-																					<?php echo esc_html($term->name); ?>
-																				</div>
-																			</a>
-																		</li>
-
-																	<?php endforeach; ?>
-																<?php endforeach; ?>
-
-															</ul>
-														<?php endif; ?>
-
+														<!-- 3 lvl: товары под меткой -->
+														<ul class="catalog__category catalog__category-three">
+															<?php foreach ($tag_products as $product): ?>
+																<li class="menu__item">
+																	<a class="menu__item-link" href="<?php echo esc_url(get_permalink($product->get_id())); ?>">
+																		<div class="menu__item-name"><?php echo esc_html($product->get_name()); ?></div>
+																	</a>
+																</li>
+															<?php endforeach; ?>
+														</ul>
 													</li>
-
 												<?php endforeach; ?>
-
 											</ul>
 
 										</li>
@@ -259,9 +225,9 @@
 											endif; ?>
 
 											<div class="catalog__box-content">
-												<h5 class="ctalog__sub-title"><?php the_title(); ?>quality</5>
-													<p class="catalog__text"><?php echo get_the_excerpt(); ?></p>
-													<a class="catalog__blog-link" href="<?php the_permalink(); ?>">Read more</a>
+												<h5 class="ctalog__sub-title"><?php the_title(); ?>quality</h5>
+												<p class="catalog__text"><?php echo get_the_excerpt(); ?></p>
+												<a class="catalog__blog-link" href="<?php the_permalink(); ?>">Read more</a>
 											</div>
 
 										</div>
