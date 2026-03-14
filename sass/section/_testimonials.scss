@@ -1,6 +1,7 @@
 @use "../base/vars" as *;
 
-.testimonials {
+.testimonials,
+.sub-product {
 
 
     &__wrapper {
@@ -137,4 +138,14 @@
     }
 
 
+}
+
+.sub-product {
+    .title {
+        font-size: 2.4rem
+    }
+
+    .swiper-slide {
+        padding-top: 20px;
+    }
 }

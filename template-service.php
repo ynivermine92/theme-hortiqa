@@ -6,7 +6,9 @@ get_header();
 
     <?php
     if (!is_front_page() && function_exists('breadcrumbs')) { ?>
-        <?= breadcrumbs(); ?>
+        <div class="wrapper">
+            <?= breadcrumbs(); ?>
+        </div>
     <? }
 
     get_template_part('section/hero');

@@ -5,4 +5,7 @@
         dynamic_sidebar('main-sidebar'); // Вывод виджетов
     }
     ?>
-</aside>
+
+
+wrqrwwwwwwwwwwwwwwwwwwwwww
+</aside> 

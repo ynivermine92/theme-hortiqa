@@ -1,10 +1,11 @@
 <?php
 function breadcrumbs()
 {
+ 
 ?>
 
   <div class="breadcrumbs">
-    <div class="wrapper">
+    
 
       <ul class="breadcrumbs__list">
 
@@ -105,7 +106,7 @@ function breadcrumbs()
       </ul>
 
     </div>
-  </div>
+  
 
 <?php
 }

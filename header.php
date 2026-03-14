@@ -72,12 +72,14 @@
 									</svg>
 								</div>
 
-								<div class="header__wishlist wishlist header__box">
+								<a href="/wishlist" class="header__wishlist wishlist header__box">
+
 									<svg class="wishlist__svg">
 										<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/wishlist.svg#wishlist"></use>
 									</svg>
-									<span class="wishlist__number">0</span>
-								</div>
+									<span class="wishlist__number user-nav__like">0</span>
+
+								</a>
 
 								<div class="header__cart cart header__box">
 									<svg class="cart__svg">
@@ -135,7 +137,7 @@
 										<li class="menu__item">
 
 											<!-- 1 lvl: category -->
-											<div class="menu__item-link menu__link-lvl-1">
+											<a class="menu__item-link menu__link-lvl-1" href="<?php echo esc_url(get_term_link($category)); ?>">
 												<?php if ($image): ?>
 													<img class="menu__item-catalog-image"
 														src="<?php echo esc_url($image); ?>"
@@ -143,7 +145,7 @@
 												<?php endif; ?>
 												<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
 												<span class="menu__arrow"></span>
-											</div>
+											</a>
 
 											<!-- 2 lvl: метки -->
 											<ul class="catalog__category catalog__category-two">
@@ -166,11 +168,16 @@
 
 												// Выводим второй уровень: метки
 												foreach ($products_by_tag as $tag_name => $tag_products): ?>
+													<?php
+													// Получаем объект терма по имени тега
+													$tag = get_term_by('name', $tag_name, 'product_tag');
+													$tag_link = $tag ? get_term_link($tag) : '#';
+													?>
 													<li class="menu__item">
-														<div class="menu__item-link menu__link-lvl-2">
+														<a class="menu__item-link menu__link-lvl-2" href="<?php echo esc_url($tag_link); ?>">
 															<div class="menu__item-name"><?php echo esc_html($tag_name); ?></div>
 															<span class="menu__arrow"></span>
-														</div>
+														</a>
 
 														<!-- 3 lvl: товары под меткой -->
 														<ul class="catalog__category catalog__category-three">
@@ -290,10 +297,12 @@
 
 
 							<div class="header__wishlist wishlist header__box">
-								<svg class="wishlist__svg">
-									<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/wishlist.svg#wishlist"></use>
-								</svg>
-								<span class="wishlist__number">0</span>
+								<a href="/wishlist">
+									<svg class="wishlist__svg">
+										<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/wishlist.svg#wishlist"></use>
+									</svg>
+									<span class="wishlist__number">0</span>
+								</a>
 							</div>
 
 							<div class="header__cart cart header__box">

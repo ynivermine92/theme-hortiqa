@@ -94,14 +94,9 @@ get_header();
 		</div>
 
 	</section>
-	
-
-	<?php if (get_post_type() === 'post') { ?>
-		<div class="wrapper">
-			<?php get_template_part('section/education'); ?>
-		</div>
-	<?php } ?>
-
+	<div class="wrapper">
+		<?php get_template_part('section/education'); ?>
+	</div>
 </main>
 
 <?php

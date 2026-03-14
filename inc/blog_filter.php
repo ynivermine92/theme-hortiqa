@@ -2,7 +2,6 @@
 
 
 add_action('wp_ajax_filter_blogs', 'filter_blogs_callback');
-
 add_action('wp_ajax_nopriv_filter_blogs', 'filter_blogs_callback');
 
 

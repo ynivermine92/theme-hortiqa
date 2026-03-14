@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The Template for displaying product archives, including the main shop page which is a post type archive
  *
@@ -15,10 +16,10 @@
  * @version 8.6.0
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-get_header( 'shop' );
-echo('hoooowwwwwwwwwwwwwwww');
+get_header('shop');
+
 /**
  * Hook: woocommerce_before_main_content.
  *
@@ -26,72 +27,132 @@ echo('hoooowwwwwwwwwwwwwwww');
  * @hooked woocommerce_breadcrumb - 20
  * @hooked WC_Structured_Data::generate_website_data() - 30
  */
-do_action( 'woocommerce_before_main_content' );
+remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+do_action('woocommerce_before_main_content'); ?>
 
-/**
- * Hook: woocommerce_shop_loop_header.
- *
- * @since 8.6.0
- *
- * @hooked woocommerce_product_taxonomy_archive_header - 10
- */
-do_action( 'woocommerce_shop_loop_header' );
+<div class="categories-top">
+	<div class="wrapper">
+		<?php breadcrumbs();
 
-if ( woocommerce_product_loop() ) {
+		$args_main = [
+			'post_type'      => 'post',
+			'posts_per_page' => 1,
+			'category_name'  => 'main',
+		];
+		$main_query = new WP_Query($args_main);
 
-	/**
-	 * Hook: woocommerce_before_shop_loop.
-	 *
-	 * @hooked woocommerce_output_all_notices - 10
-	 * @hooked woocommerce_result_count - 20
-	 * @hooked woocommerce_catalog_ordering - 30
-	 */
-	do_action( 'woocommerce_before_shop_loop' );
 
-	woocommerce_product_loop_start();
+		if ($main_query->have_posts()) {
+			$main_post_id = $main_query->posts[0]->ID; ?>
 
-	if ( wc_get_loop_prop( 'total' ) ) {
-		while ( have_posts() ) {
-			the_post();
+
+			<?php while ($main_query->have_posts()) {
+
+				$main_query->the_post();
+
+				if (is_product_category()) { ?>
+
+					<h1 class="title"><?php woocommerce_page_title(); ?></h1>
+				<?
+				} ?>
+				<p class="product-top-text">Discover plants, garden tools, and decor with fast delivery and expert guidance. Shop with confidence and bring your green space to life, wherever you are, discover plants, garden tools, and decor with fast delivery and expert guidance. Shop with confidenc...
+					<a class="product-top__link" href="<?php the_permalink(); ?>">Read More</a>
+				</p>
+
+		<? }
+		} ?>
+
+	</div>
+	<?php get_template_part('section/sub-product'); ?>
+</div>
+
+
+<section class="categories">
+	<div class="wrapper">
+		<div class="categories__inner">
+			<?
 
 			/**
-			 * Hook: woocommerce_shop_loop.
+			 * Hook: woocommerce_sidebar.
+			 *
+			 * @hooked woocommerce_get_sidebar - 10
 			 */
-			do_action( 'woocommerce_shop_loop' );
+			do_action('woocommerce_sidebar'); ?>
 
-			wc_get_template_part( 'content', 'product' );
-		}
-	}
 
-	woocommerce_product_loop_end();
+			<div class="categories__wrapper">
+				<?
+				/**
+				 * Hook: woocommerce_shop_loop_header.
+				 *
+				 * @since 8.6.0
+				 *
+				 * @hooked woocommerce_product_taxonomy_archive_header - 10
+				 */
+				remove_action('woocommerce_shop_loop_header', 'woocommerce_product_taxonomy_archive_header', 10);
+				do_action('woocommerce_shop_loop_header');
 
-	/**
-	 * Hook: woocommerce_after_shop_loop.
-	 *
-	 * @hooked woocommerce_pagination - 10
-	 */
-	do_action( 'woocommerce_after_shop_loop' );
-} else {
-	/**
-	 * Hook: woocommerce_no_products_found.
-	 *
-	 * @hooked wc_no_products_found - 10
-	 */
-	do_action( 'woocommerce_no_products_found' );
-}
+				if (woocommerce_product_loop()) {
+					/**
+					 * Hook: woocommerce_before_shop_loop.
+					 *
+					 * @hooked woocommerce_output_all_notices - 10
+					 * @hooked woocommerce_result_count - 20
+					 * @hooked woocommerce_catalog_ordering - 30
+					 */
+				?>
+					<div class="categories__box">
+						<?php do_action('woocommerce_before_shop_loop'); ?>
+					</div>
 
-/**
- * Hook: woocommerce_after_main_content.
- *
- * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
- */
-do_action( 'woocommerce_after_main_content' );
+				<?php woocommerce_product_loop_start();
 
-/**
- * Hook: woocommerce_sidebar.
- *
- * @hooked woocommerce_get_sidebar - 10
- */
-do_action( 'woocommerce_sidebar' );
+					if (wc_get_loop_prop('total')) {
+						while (have_posts()) {
+							the_post();
 
-get_footer( 'shop' );
+							/**
+							 * Hook: woocommerce_shop_loop.
+							 */
+							do_action('woocommerce_shop_loop');
+
+							wc_get_template_part('content', 'product');
+						}
+					}
+
+					woocommerce_product_loop_end();
+
+					/**
+					 * Hook: woocommerce_after_shop_loop.
+					 *
+					 * @hooked woocommerce_pagination - 10
+					 */
+					do_action('woocommerce_after_shop_loop');
+				} else {
+					/**
+					 * Hook: woocommerce_no_products_found.
+					 *
+					 * @hooked wc_no_products_found - 10
+					 */
+					do_action('woocommerce_no_products_found');
+				}
+
+
+
+				/**
+				 * Hook: woocommerce_after_main_content.
+				 *
+				 * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+				 */
+				do_action('woocommerce_after_main_content'); ?>
+
+			</div>
+
+		</div>
+	</div>
+</section>
+
+
+
+
+<?php get_footer('shop');

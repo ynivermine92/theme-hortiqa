@@ -10,12 +10,16 @@ require get_template_directory() . '/inc/underscores.php';
 require get_template_directory() . '/inc/global-acf.php';
 require get_template_directory() . '/inc/arrow.php';
 require get_template_directory() . '/inc/blog_filter.php';
+require get_template_directory() . '/inc/wishlist.php';
 
 
 require get_template_directory() . '/inc/header.php';
 require get_template_directory() . '/inc/footer.php';
-require get_template_directory() . '/inc/woo.php';
+require get_template_directory() . '/inc/woocommerce.php';
 require get_template_directory() . '/inc/breadcrumbs.php';
+
+
+
 
 
 
