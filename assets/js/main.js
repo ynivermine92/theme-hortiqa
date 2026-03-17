@@ -143,6 +143,67 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+ 
+
+    const level1 = document.querySelectorAll('.catalog__category-one .menu__item');
+    const level2 = document.querySelectorAll('.catalog__category-two .menu__item');
+    const level3 = document.querySelectorAll('.catalog__category-three .menu__item');
+
+    // 👉 сначала скрываем всё кроме 1 уровня
+    level2.forEach(el => el.style.display = 'none');
+    level3.forEach(el => el.style.display = 'none');
+
+    // ===== 1 УРОВЕНЬ =====
+    level1.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const catId = item.dataset.catId;
+
+        // показать нужные элементы 2 уровня
+        level2.forEach(el => {
+          if (el.dataset.catId === catId) {
+            el.style.display = 'block';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+
+        // скрыть 3 уровень
+        level3.forEach(el => el.style.display = 'none');
+      });
+    });
+
+    // ===== 2 УРОВЕНЬ =====
+    level2.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const catId = item.dataset.catId;
+        const tag = item.dataset.tag;
+
+        // показать товары
+        level3.forEach(el => {
+          if (
+            el.dataset.catId === catId &&
+            el.dataset.tag === tag
+          ) {
+            el.style.display = 'block';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      });
+    });
+
+  
+
+
+
+
+
+
+
+
+
+
   /* swiper */
 
   const heroSwiper = new Swiper('.hero__swiper', {
@@ -654,7 +715,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const heartButtons = document.querySelectorAll(".product-item__link-heart");
     heartButtons.forEach(function (btn) {
       btn.addEventListener("click", function (e) {
-        debugger;
+
         e.preventDefault();
         const productId = Number(btn.dataset.id);
         localHartd(productId);
@@ -695,46 +756,44 @@ document.addEventListener("DOMContentLoaded", () => {
     /* количество Ajax отрисовка*/
     const wishlisAjax = () => {
 
-
-
-
       const container = document.getElementById("wishlist-container");
-      let favorites = JSON.parse(localStorage.getItem("wishlist_ids")) || [];
+      if (container) {
+        let favorites = JSON.parse(localStorage.getItem("wishlist_ids")) || [];
 
-      if (favorites.length === 0) {
-        container.innerHTML = "<p>Вы ещё не добавили товары в избранное.</p>";
-      } else {
-        loadWishlist();
-      }
-
-      // Загрузка данных через REST API
-      async function loadWishlist() {
-
-        const wishlist = JSON.parse(localStorage.getItem("wishlist_ids")) || [];
-
-        try {
-          const response = await fetch('/wp-json/wishlist/v1/filter', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ wishlist: wishlist.join(',') })
-          });
-
-          const result = await response.json();
-
-          if (result.products && result.products.length > 0) {
-            debugger;
-            renderWishlist(result.products); // вызываем функцию отрисовки
-          } else {
-            container.innerHTML = "<p>Товары не найдены.</p>";
-          }
-
-        } catch (err) {
-          console.error(err);
-          container.innerHTML = "<p>Ошибка при загрузке списка избранного.</p>";
+        if (favorites.length === 0) {
+          container.innerHTML = "<p>Вы ещё не добавили товары в избранное.</p>";
+        } else {
+          loadWishlist();
         }
+
+        // Загрузка данных через REST API
+        async function loadWishlist() {
+
+          const wishlist = JSON.parse(localStorage.getItem("wishlist_ids")) || [];
+
+          try {
+            const response = await fetch('/wp-json/wishlist/v1/filter', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ wishlist: wishlist.join(',') })
+            });
+
+            const result = await response.json();
+
+            if (result.products && result.products.length > 0) {
+
+              renderWishlist(result.products); // вызываем функцию отрисовки
+            } else {
+              container.innerHTML = "<p>Товары не найдены.</p>";
+            }
+
+          } catch (err) {
+            console.error(err);
+            container.innerHTML = "<p>Ошибка при загрузке списка избранного.</p>";
+          }
+        }
+
       }
-
-
 
 
       // Функция отрисовки товаров
@@ -762,7 +821,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-        /* удаляение товра */
+      /* удаляение товра */
       const removeWishlisItem = () => {
         const wishlisRemove = document.querySelectorAll('.wishlist__item-remove');
 

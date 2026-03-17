@@ -103,155 +103,161 @@
 					<!-- catalog -->
 
 					<nav class="catalog">
-
-
-
 						<div class="catalog__wrapper">
 							<div class="catalog__content">
 								<h3 class="catalog__title">Каталог товарів</h3>
-								<ul class="menu catalog__category catalog__category-one">
 
-									<?php
-									$categories = get_terms([
-										'taxonomy'   => 'product_cat',
-										'hide_empty' => false,
-										'parent'     => 0,
-									]);
+								<div class="catalog__wrapper-conntent">
 
-									foreach ($categories as $category):
-
-										$thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
-										$image = wp_get_attachment_url($thumbnail_id);
-
-										$products = wc_get_products([
-											'category' => [$category->slug],
-											'limit'    => -1,
-											'status'   => 'publish',
+									<!-- 1 уровень: категории -->
+									<ul class="menu catalog__category catalog__category-one">
+										<?php
+										$categories = get_terms([
+											'taxonomy' => 'product_cat',
+											'hide_empty' => false,
+											'parent' => 0,
 										]);
 
-										if (empty($products)) {
-											continue;
-										}
-									?>
+										if (!empty($categories) && !is_wp_error($categories)):
+											foreach ($categories as $category):
+												$thumbnail_id = get_term_meta($category->term_id, 'thumbnail_id', true);
+												$image = $thumbnail_id ? wp_get_attachment_url($thumbnail_id) : '';
+										?>
+												<li class="menu__item" data-cat-id="<?php echo esc_attr($category->term_id); ?>">
+													<a class="menu__item-link menu__link-lvl-1" href="<?php echo esc_url(get_term_link($category)); ?>">
+														<?php if ($image): ?>
+															<img class="menu__item-catalog-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($category->name); ?>">
+														<?php endif; ?>
+														<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
+														<span class="menu__arrow"></span>
+													</a>
+												</li>
+										<?php
+											endforeach;
+										endif;
+										?>
+									</ul>
 
-										<li class="menu__item">
+									<!-- 2 уровень: метки -->
+									<ul class="catalog__category catalog__category-two">
+										<?php
+										if (!empty($categories)):
+											foreach ($categories as $category):
+												$products = wc_get_products([
+													'category' => [$category->slug],
+													'limit' => -1,
+													'status' => 'publish',
+												]);
 
-											<!-- 1 lvl: category -->
-											<a class="menu__item-link menu__link-lvl-1" href="<?php echo esc_url(get_term_link($category)); ?>">
-												<?php if ($image): ?>
-													<img class="menu__item-catalog-image"
-														src="<?php echo esc_url($image); ?>"
-														alt="<?php echo esc_attr($category->name); ?>">
-												<?php endif; ?>
-												<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
-												<span class="menu__arrow"></span>
-											</a>
-
-											<!-- 2 lvl: метки -->
-											<ul class="catalog__category catalog__category-two">
-
-												<?php
-												// Сначала группируем товары по меткам
 												$products_by_tag = [];
-
 												foreach ($products as $product) {
-													$tags = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' => 'names']); // используем метки
-
+													$tags = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' => 'names']);
 													if (!empty($tags)) {
 														foreach ($tags as $tag_name) {
 															$products_by_tag[$tag_name][] = $product;
 														}
 													} else {
-														$products_by_tag['Без метки'][] = $product; // на случай если метка не задана
+														$products_by_tag['Без метки'][] = $product;
 													}
 												}
 
-												// Выводим второй уровень: метки
-												foreach ($products_by_tag as $tag_name => $tag_products): ?>
-													<?php
-													// Получаем объект терма по имени тега
-													$tag = get_term_by('name', $tag_name, 'product_tag');
-													$tag_link = $tag ? get_term_link($tag) : '#';
-													?>
-													<li class="menu__item">
-														<a class="menu__item-link menu__link-lvl-2" href="<?php echo esc_url($tag_link); ?>">
+												foreach ($products_by_tag as $tag_name => $tag_products):
+										?>
+													<li class="menu__item" data-cat-id="<?php echo esc_attr($category->term_id); ?>" data-tag="<?php echo esc_attr($tag_name); ?>">
+														<a class="menu__item-link menu__link-lvl-2" href="#">
 															<div class="menu__item-name"><?php echo esc_html($tag_name); ?></div>
 															<span class="menu__arrow"></span>
 														</a>
-
-														<!-- 3 lvl: товары под меткой -->
-														<ul class="catalog__category catalog__category-three">
-															<?php foreach ($tag_products as $product): ?>
-																<li class="menu__item">
-																	<a class="menu__item-link" href="<?php echo esc_url(get_permalink($product->get_id())); ?>">
-																		<div class="menu__item-name"><?php echo esc_html($product->get_name()); ?></div>
-																	</a>
-																</li>
-															<?php endforeach; ?>
-														</ul>
 													</li>
-												<?php endforeach; ?>
-											</ul>
+										<?php
+												endforeach;
+											endforeach;
+										endif;
+										?>
+									</ul>
 
-										</li>
+									<!-- 3 уровень: товары -->
+									<ul class="catalog__category catalog__category-three">
+										<?php
+										if (!empty($categories)):
+											foreach ($categories as $category):
+												$products = wc_get_products([
+													'category' => [$category->slug],
+													'limit' => -1,
+													'status' => 'publish',
+												]);
 
-									<?php endforeach; ?>
+												$products_by_tag = [];
+												foreach ($products as $product) {
+													$tags = wp_get_post_terms($product->get_id(), 'product_tag', ['fields' => 'names']);
+													if (!empty($tags)) {
+														foreach ($tags as $tag_name) {
+															$products_by_tag[$tag_name][] = $product;
+														}
+													} else {
+														$products_by_tag['Без метки'][] = $product;
+													}
+												}
 
-								</ul>
+												foreach ($products_by_tag as $tag_name => $tag_products):
+													foreach ($tag_products as $product_item):
+										?>
+														<li class="menu__item" data-cat-id="<?php echo esc_attr($category->term_id); ?>" data-tag="<?php echo esc_attr($tag_name); ?>">
+															<a class="menu__item-link" href="<?php echo esc_url(get_permalink($product_item->get_id())); ?>">
+																<div class="menu__item-name"><?php echo esc_html($product_item->get_name()); ?></div>
+															</a>
+														</li>
+										<?php
+													endforeach;
+												endforeach;
+											endforeach;
+										endif;
+										?>
+									</ul>
+
+								</div>
+
 							</div>
 
-							<?php
-							$args_main = [
-								'post_type'      => 'post',
-								'posts_per_page' => 1,
-								'category_name'  => 'main',
-							];
-							$main_query = new WP_Query($args_main);
+							<!-- Блок Featured Blog -->
+							<div class="catalog__blog">
+								<h4 class="catalog__title">Featured from Blog</h4>
+								<?php
+								$args_main = [
+									'post_type' => 'post',
+									'posts_per_page' => 1,
+									'category_name' => 'main',
+								];
+								$main_query = new WP_Query($args_main);
 
-
-							if ($main_query->have_posts()) {
-								$main_post_id = $main_query->posts[0]->ID; ?>
-
-
-								<?php while ($main_query->have_posts()) {
-
-									$main_query->the_post(); ?>
-
-
-
-
-									<div class="catalog__blog">
-										<h4 class="ctalog__title">
-											Featured from Blog
-										</h4>
+								if ($main_query->have_posts()):
+									while ($main_query->have_posts()): $main_query->the_post();
+								?>
 										<div class="catalog__box">
-											<?php if (has_post_thumbnail()) :
+											<?php
+											if (has_post_thumbnail()) {
 												the_post_thumbnail('', ['class' => 'catalog__image']);
-											else :
+											} else {
 												echo 'Миниатюра не установлена';
-											endif; ?>
-
+											}
+											?>
 											<div class="catalog__box-content">
-												<h5 class="ctalog__sub-title"><?php the_title(); ?>quality</h5>
+												<h5 class="catalog__sub-title"><?php the_title(); ?> quality</h5>
 												<p class="catalog__text"><?php echo get_the_excerpt(); ?></p>
 												<a class="catalog__blog-link" href="<?php the_permalink(); ?>">Read more</a>
 											</div>
-
 										</div>
-
-									<? } ?>
-									<a class="catalog__link" href="/inspiration">All articles
-										<span>></span>
-									</a>
-									</div>
-									<?php wp_reset_postdata(); ?>
-								<? } ?>
-
+								<?php
+									endwhile;
+									wp_reset_postdata();
+								else:
+									echo '<p>Нет записей для отображения</p>';
+								endif;
+								?>
+								<a class="catalog__link" href="/inspiration">All articles <span>></span></a>
+							</div>
 
 						</div>
-
-
-
 					</nav>
 				</div>
 
