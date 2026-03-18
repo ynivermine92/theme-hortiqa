@@ -128,8 +128,11 @@
 														<?php if ($image): ?>
 															<img class="menu__item-catalog-image" src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($category->name); ?>">
 														<?php endif; ?>
-														<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
-														<span class="menu__arrow"></span>
+														<div class="menu__box-lvl-1">
+
+															<div class="menu__item-name"><?php echo esc_html($category->name); ?></div>
+															<span class="menu__arrow"></span>
+														</div>
 													</a>
 												</li>
 										<?php

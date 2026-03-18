@@ -144,56 +144,55 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
- 
 
-    const level1 = document.querySelectorAll('.catalog__category-one .menu__item');
-    const level2 = document.querySelectorAll('.catalog__category-two .menu__item');
-    const level3 = document.querySelectorAll('.catalog__category-three .menu__item');
+  const level1 = document.querySelectorAll('.catalog__category-one .menu__item');
+  const level2 = document.querySelectorAll('.catalog__category-two .menu__item');
+  const level3 = document.querySelectorAll('.catalog__category-three .menu__item');
 
-    // 👉 сначала скрываем всё кроме 1 уровня
-    level2.forEach(el => el.style.display = 'none');
-    level3.forEach(el => el.style.display = 'none');
-
-    // ===== 1 УРОВЕНЬ =====
-    level1.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        const catId = item.dataset.catId;
-
-        // показать нужные элементы 2 уровня
-        level2.forEach(el => {
-          if (el.dataset.catId === catId) {
-            el.style.display = 'block';
-          } else {
-            el.style.display = 'none';
-          }
-        });
-
-        // скрыть 3 уровень
-        level3.forEach(el => el.style.display = 'none');
-      });
+  // helper
+  const toggle = (elements, condition) => {
+    elements.forEach(el => {
+      el.classList.toggle('active', condition(el));
     });
+  };
 
-    // ===== 2 УРОВЕНЬ =====
-    level2.forEach(item => {
-      item.addEventListener('mouseenter', () => {
-        const catId = item.dataset.catId;
-        const tag = item.dataset.tag;
+  // ===== 1 УРОВЕНЬ =====
+  level1.forEach(item => {
+    item.addEventListener('mouseenter', (e) => {
+      const { catId } = item.dataset;
+      level1.forEach((item) => {
+        item.classList.remove('target')
+      })
 
-        // показать товары
-        level3.forEach(el => {
-          if (
-            el.dataset.catId === catId &&
-            el.dataset.tag === tag
-          ) {
-            el.style.display = 'block';
-          } else {
-            el.style.display = 'none';
-          }
-        });
-      });
+
+      if (item === e.target) {
+        item.classList.add('target')
+        toggle(level2, el => el.dataset.catId === catId);
+        // сброс 3 уровня
+        level3.forEach(el => el.classList.remove('active'));
+      }
     });
+  });
 
-  
+  // ===== 2 УРОВЕНЬ =====
+  level2.forEach(item => {
+    item.addEventListener('mouseenter', (e) => {
+      const { catId, tag } = item.dataset;
+      level2.forEach((item) => {
+        item.classList.remove('target')
+      })
+      if (item === e.target) {
+        item.classList.add('target')
+      }
+      toggle(level3, el =>
+        el.dataset.catId === catId &&
+        el.dataset.tag === tag
+      );
+    });
+  });
+
+
+
 
 
 
