@@ -23,31 +23,56 @@
         font-size: 1.4rem;
         color: var(--gren);
         text-decoration: underline;
-      
+
     }
 }
 
 
-.categories{
-    
-    &__inner{
+.categories {
+
+    &__inner {
         display: flex;
         gap: 0px 40px;
     }
-    &__wrapper{
+
+    &__wrapper {
         display: flex;
         flex-direction: column;
     }
-    &__item{
+
+    &__item {
         position: relative;
     }
-    &__wishlist{
+
+    &__wishlist {
         position: absolute;
-        width: 50px;
-        height: 50px;
-        background: red;
+        width: 40px;
+        height: 40px;
+        background: var(--white);
         z-index: 2;
         top: 50px;
         border-radius: 50px;
+    }
+
+
+
+    &__wishlist {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .wishlist__svg {
+        height: 24px;
+        width: 24px;
+        fill: transparent;
+        stroke: black;
+        transition: all 0.5s;
+
+        &:hover {
+            fill: red;
+            stroke: red;
+            transition: all 0.5s;
+        }
     }
 }

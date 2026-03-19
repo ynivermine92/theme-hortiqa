@@ -1,39 +1,71 @@
 <?php
-
-/* endpoint */
-
+/* REST API endpoint для wishlist  */
 add_action('rest_api_init', function () {
-    register_rest_route('wishlist/v1', '/filter', [
+    register_rest_route('wishlist/v1', '/wishlist', [
         'methods' => 'POST',
-        'callback' => 'get_wishlist_callback_rest', /* название вывода функции*/
-        'permission_callback' => '__return_true', // доступ для всех
+        'callback' => 'handle_user_wishlist',
+        'permission_callback' => function () {
+            return current_user_can('read'); // проверка через nonce
+        },
     ]);
 });
-
-
-
-
-
-function get_wishlist_callback_rest($request)
+/* request  получает парметры ндропоинта( а колбек ендропоинта хранит все что пришло из фроентенда*/
+function handle_user_wishlist($request)
 {
-    $wishlist = $request->get_param('wishlist');
 
 
 
-    if (empty($wishlist)) {
-        return new WP_Error('empty_wishlist', 'wishlist пуст', ['status' => 400]);
+    $user_id = get_current_user_id();
+
+
+
+
+
+    /*  берем из обьекта параметр  wishlist  (ID товаров которые лайкнул */
+    $wishlist_param = $request->get_param('wishlist');
+
+    $wishlist_param = array_map('intval', $wishlist_param);
+
+  
+
+
+/*     echo '<pre>';
+    print_r($wishlist_param);
+    echo '</pre>';
+    exit;
+ */
+
+    // если пришёл POST с wishlist и пользователь авторизован — сохраняем в user_meta
+
+    $ids_to_save = array_map('intval', (array)$wishlist_param);
+
+
+
+
+    if (!empty($ids_to_save)) {
+        update_user_meta($user_id, 'user_wishlist', $ids_to_save);
     }
 
-    $ids = array_map('intval', explode(',', sanitize_text_field($wishlist)));
 
 
-    // если пользователь авторизован — сохраняем wishlist в user meta
+
+
+    // Определяем, какие ID подтягивать
     if (is_user_logged_in()) {
-        $user_id = get_current_user_id();
+        $ids = get_user_meta($user_id, 'user_wishlist', true);
 
-        update_user_meta($user_id, 'user_wishlist', $ids);
+
+        $ids = (array)$ids;
+    } else {
+        // для гостей берем из переданного параметра
+        $ids = !empty($wishlist_param) ? array_map('intval', (array)$wishlist_param) : [];
     }
 
+    if (empty($ids)) {
+        return ['products' => []];
+    }
+
+    // Получаем данные товаров
     $args = [
         'post_type' => 'product',
         'post__in' => $ids,
@@ -42,14 +74,11 @@ function get_wishlist_callback_rest($request)
     ];
 
     $query = new WP_Query($args);
-
     $products = [];
-
     if ($query->have_posts()) {
         while ($query->have_posts()) {
             $query->the_post();
             global $product;
-
             $products[] = [
                 'id' => get_the_ID(),
                 'title' => get_the_title(),
@@ -61,5 +90,5 @@ function get_wishlist_callback_rest($request)
         wp_reset_postdata();
     }
 
-    return ['products' => $products];
+    return rest_ensure_response(['products' => $products]);
 }

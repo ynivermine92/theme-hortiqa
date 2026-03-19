@@ -55,14 +55,22 @@ function project_scripts()
 
 
 
-
 	wp_enqueue_script(
-		'script',
+		'script', 
 		get_template_directory_uri() . '/assets/js/main.js',
 		array('jquery'),
 		'1.0',
 		true
 	);
+	
+	wp_localize_script('script', 'wpApiSettings', [
+		'root' => esc_url(rest_url()),
+		 /*передаем авторизированного юзера в жс */
+		'nonce' => wp_create_nonce('wp_rest'),
+	]);
+
+
+
 }
 add_action('wp_enqueue_scripts', 'project_scripts');
 

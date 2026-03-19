@@ -106,14 +106,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     // ссылка на товар свой класс
     add_action('woocommerce_before_shop_loop_item', function () {
         echo '<a href="' . get_the_permalink() . '" class="categories__cart">';
-        echo '<div class="categories__wishlist product-item__link-heart" data-id="' . get_the_ID() . '"></div>';
+        echo '<div class="categories__wishlist product-item__link-heart" data-id="' . get_the_ID() . '">
+            <svg class="wishlist__svg">
+                <use xlink:href="' . get_template_directory_uri() . '/assets/img/svg/wishlist.svg#wishlist"></use>
+            </svg>
+          </div>';
     }, 10);
-    //закрывает ссылку
-    add_action('woocommerce_after_shop_loop_item', function () {
-
-        echo '</a>';
-    }, 5);
-
 
 
 
