@@ -9,39 +9,32 @@ add_action('rest_api_init', function () {
         },
     ]);
 });
+
+
+
 /* request  получает парметры ндропоинта( а колбек ендропоинта хранит все что пришло из фроентенда*/
 function handle_user_wishlist($request)
 {
-
-
-
+    /* получаемй айди пользователя */
     $user_id = get_current_user_id();
 
-
-
-
-
-    /*  берем из обьекта параметр  wishlist  (ID товаров которые лайкнул */
+    // получаем масив параметров товаров
     $wishlist_param = $request->get_param('wishlist');
 
-    $wishlist_param = array_map('intval', $wishlist_param);
-
-  
-
-
-/*     echo '<pre>';
+/*    echo '<pre>';
     print_r($wishlist_param);
-    echo '</pre>';
-    exit;
- */
-
-    // если пришёл POST с wishlist и пользователь авторизован — сохраняем в user_meta
-
-    $ids_to_save = array_map('intval', (array)$wishlist_param);
+    echo '</pre>'; */
 
 
+    /* если масиве товаров не прихоидит  defaultSlug  тогда сохраняем базу данных товар */
+    if (!in_array('defaultSlug', $wishlist_param, true)) {
+        $wishlist_param = array_map('intval', $wishlist_param);
+        $ids_to_save = array_map('intval', (array)$wishlist_param);
+        update_user_meta($user_id, 'user_wishlist', $ids_to_save);
+    }
+    
 
-
+   /*  если  масиве приходит defaultSlug тогда не сохраняем не чего базу данных */
     if (!empty($ids_to_save)) {
         update_user_meta($user_id, 'user_wishlist', $ids_to_save);
     }
@@ -73,6 +66,7 @@ function handle_user_wishlist($request)
         'orderby' => 'post__in'
     ];
 
+    
     $query = new WP_Query($args);
     $products = [];
     if ($query->have_posts()) {

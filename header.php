@@ -310,7 +310,7 @@
 									<svg class="wishlist__svg">
 										<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/wishlist.svg#wishlist"></use>
 									</svg>
-									<span class="wishlist__number">0</span>
+									<span class="wishlist__number user-nav__like">0</span>
 								</a>
 							</div>
 

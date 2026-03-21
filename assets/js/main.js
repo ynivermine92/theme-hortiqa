@@ -710,25 +710,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const wishlis = () => {
 
-
-    
     const container = document.getElementById("wishlist-container");
-
     const heartButtons = document.querySelectorAll(".product-item__link-heart");
-    let user = 0;
+
+
+    /*  Получаю айди кнопки , и парамет передаю 1 ( что нажал на лайк на карточке)*/
     heartButtons.forEach(btn => {
       btn.addEventListener("click", e => {
         e.preventDefault();
         const productId = Number(btn.dataset.id);
-        user = 1;
-        loadWishlist(productId, user);
-
+        loadWishlist(productId, user = 1);
       });
     });
 
 
-
-
+    /* получаю масив с карточками, и записываю длену масива count  лайков */
     function updateWishlistCounter(wishlist) {
       const countItems = document.querySelectorAll('.user-nav__like');
       const resultCount = wishlist.length;
@@ -739,19 +735,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    const ids = [];
+    let ids = [];
 
-    async function loadWishlist(productId, user = 0) {
 
-      if (productId) {
-        if (ids.indexOf(productId) === -1) {
-          ids.push(productId);
+    /* Аякс */
+    async function loadWishlist(productId = 0, user = 0) {
 
-        }
+
+      if (ids.includes('defaultSlug') && ids.length >= 1) {
+        ids.forEach((item, index) => {
+          if (item === 'defaultSlug') {
+            ids.splice(index, 1)
+          }
+        })
       }
 
 
 
+      if (productId > 0 && user === 1) {
+        if (!ids.includes(productId)) ids.push(productId);
+      }
+
+
+
+      if (productId !== 0 && user === 0) {
+        ids = ids.filter(id => id !== productId);
+      }
+
+
+
+      if (productId === 0 && user === 0) {
+        ids.push('defaultSlug');
+      }
 
 
 
@@ -760,24 +775,35 @@ document.addEventListener("DOMContentLoaded", () => {
           method: 'POST',
           credentials: 'include',
           headers: {
+
             'Content-Type': 'application/json',
             'X-WP-Nonce': wpApiSettings.nonce
+            /* передаю из  php  айди юзера автоиризированого  'nonce' => wp_create_nonce('wp_rest') */
           },
           body: JSON.stringify({ wishlist: ids }),
         });
 
+        /* если юзер не авториизрован нажимает налайк в карточке  */
         if (user === 1) {
-          if (user === 1) {
-            if (response.status === 401) {
-              alert('Пожалуйста, войдите в аккаунт.');
-              return;
-            }
+          if (response.status === 401) {
+            alert('Пожалуйста, войдите в аккаунт.');
+            return;
           }
         }
 
+
         const data = await response.json();
+
         const wishlist = data.products || [];
 
+
+
+        if (wishlist.length !== 0) {
+          wishlist.forEach((item) => {
+            ids.push(item.id);
+          })
+
+        }
 
 
         updateWishlistCounter(wishlist);
@@ -798,10 +824,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
+    /* отрисовка карточки */
 
     function renderWishlist(products) {
-
+      console.log(products);
       container.innerHTML = '';
       products.forEach(product => {
         const item = document.createElement('div');
@@ -818,27 +844,25 @@ document.addEventListener("DOMContentLoaded", () => {
         container.appendChild(item);
       });
 
-      /* removeWishlistItems(); */
+      removeWishlistItems();
     }
 
+    /* удаление карточки */
+    
     function removeWishlistItems() {
       const removeButtons = document.querySelectorAll('.wishlist__item-remove');
       removeButtons.forEach(btn => {
         btn.addEventListener("click", e => {
           e.preventDefault();
           const id = Number(btn.dataset.id);
-          if (!id) return;
 
-          let favorites = JSON.parse(localStorage.getItem("wishlist_ids")) || [];
-          favorites = favorites.filter(favId => favId !== id);
-          localStorage.setItem("wishlist_ids", JSON.stringify(favorites));
-          /* updateWishlistCounter(); */
-          loadWishlist();
+          loadWishlist(id, user = 0);
+
         });
       });
     }
 
-    /*     updateWishlistCounter(); */
+
     loadWishlist();
   }
 
@@ -846,7 +870,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 });
-
 
 
 
