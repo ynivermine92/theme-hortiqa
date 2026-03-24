@@ -5,7 +5,7 @@ add_action('rest_api_init', function () {
         'methods' => 'POST',
         'callback' => 'handle_user_wishlist',
         'permission_callback' => function () {
-            return current_user_can('read'); // проверка через nonce
+            return is_user_logged_in();
         },
     ]);
 });
@@ -15,74 +15,57 @@ add_action('rest_api_init', function () {
 /* request  получает парметры ндропоинта( а колбек ендропоинта хранит все что пришло из фроентенда*/
 function handle_user_wishlist($request)
 {
-    /* получаемй айди пользователя */
     $user_id = get_current_user_id();
+    $wishlist_param = $request->get_json_params()['wishlist'] ?? [];
 
-    // получаем масив параметров товаров
-    $wishlist_param = $request->get_param('wishlist');
+    // Приводим к числам
+    $ids_to_save = array_map('intval', (array)$wishlist_param);
 
-/*    echo '<pre>';
-    print_r($wishlist_param);
-    echo '</pre>'; */
+    // Получаем текущий wishlist из базы
+    $current_ids = (array) get_user_meta($user_id, 'user_wishlist', true);
 
-
-    /* если масиве товаров не прихоидит  defaultSlug  тогда сохраняем базу данных товар */
-    if (!in_array('defaultSlug', $wishlist_param, true)) {
-        $wishlist_param = array_map('intval', $wishlist_param);
-        $ids_to_save = array_map('intval', (array)$wishlist_param);
-        update_user_meta($user_id, 'user_wishlist', $ids_to_save);
-    }
-    
-
-   /*  если  масиве приходит defaultSlug тогда не сохраняем не чего базу данных */
+    // 1️⃣ Если пришёл непустой массив — обновляем user_wishlist
     if (!empty($ids_to_save)) {
         update_user_meta($user_id, 'user_wishlist', $ids_to_save);
-    }
 
-
-
-
-
-    // Определяем, какие ID подтягивать
-    if (is_user_logged_in()) {
-        $ids = get_user_meta($user_id, 'user_wishlist', true);
-
-
-        $ids = (array)$ids;
-    } else {
-        // для гостей берем из переданного параметра
-        $ids = !empty($wishlist_param) ? array_map('intval', (array)$wishlist_param) : [];
-    }
-
-    if (empty($ids)) {
-        return ['products' => []];
-    }
-
-    // Получаем данные товаров
-    $args = [
-        'post_type' => 'product',
-        'post__in' => $ids,
-        'posts_per_page' => -1,
-        'orderby' => 'post__in'
-    ];
-
-    
-    $query = new WP_Query($args);
-    $products = [];
-    if ($query->have_posts()) {
-        while ($query->have_posts()) {
-            $query->the_post();
-            global $product;
-            $products[] = [
-                'id' => get_the_ID(),
-                'title' => get_the_title(),
-                'link' => get_permalink(),
-                'image' => $product->get_image('woocommerce_thumbnail', ['class' => 'wishlist__item-img']),
-                'price' => $product->get_price_html()
-            ];
+        // Если остался 1 товар — записываем его как последний
+        if (count($ids_to_save) === 1) {
+            update_user_meta($user_id, 'user_wishlist_last', $ids_to_save);
         }
-        wp_reset_postdata();
+    } else {
+        // 2️⃣ Если пришёл пустой массив — проверяем последний товар
+        $last_ids = (array) get_user_meta($user_id, 'user_wishlist_last', true);
+
+        // Если user_wishlist и user_wishlist_last совпадают → удаляем последний
+        if (!empty($current_ids) && count($current_ids) === count($last_ids) && empty(array_diff($current_ids, $last_ids))) {
+            update_user_meta($user_id, 'user_wishlist_last', []);
+            update_user_meta($user_id, 'user_wishlist', []); // очищаем wishlist
+            $current_ids = [];
+        }
     }
 
-    return rest_ensure_response(['products' => $products]);
+    // Подготавливаем вывод для фронтенда
+    $ids_for_output = (array) get_user_meta($user_id, 'user_wishlist', true);
+
+    if (empty($ids_for_output)) {
+        return rest_ensure_response(['products' => []]);
+    }
+
+    $products = wc_get_products([
+        'include' => $ids_for_output,
+        'limit' => -1,
+    ]);
+
+    $data = [];
+    foreach ($products as $product) {
+        $data[] = [
+            'id'    => $product->get_id(),
+            'title' => $product->get_name(),
+            'link'  => $product->get_permalink(),
+            'image' => $product->get_image('woocommerce_thumbnail'),
+            'price' => $product->get_price_html(),
+        ];
+    }
+
+    return rest_ensure_response(['products' => $data]);
 }

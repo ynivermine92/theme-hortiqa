@@ -717,6 +717,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /*  Получаю айди кнопки , и парамет передаю 1 ( что нажал на лайк на карточке)*/
     heartButtons.forEach(btn => {
       btn.addEventListener("click", e => {
+
         e.preventDefault();
         const productId = Number(btn.dataset.id);
         loadWishlist(productId, user = 1);
@@ -740,15 +741,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* Аякс */
     async function loadWishlist(productId = 0, user = 0) {
-
-
-      if (ids.includes('defaultSlug') && ids.length >= 1) {
-        ids.forEach((item, index) => {
-          if (item === 'defaultSlug') {
-            ids.splice(index, 1)
-          }
-        })
-      }
+      /* debugger; */
+      /* 
+            if (ids.includes('defaultSlug') && ids.length >= 1) {
+              ids.forEach((item, index) => {
+                if (item === 'defaultSlug') {
+                  ids.splice(index, 1)
+                }
+              })
+            } */
 
 
 
@@ -764,10 +765,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-      if (productId === 0 && user === 0) {
+      /* if (productId === 0 && user === 0) {
         ids.push('defaultSlug');
       }
-
+ */
 
 
       try {
@@ -795,15 +796,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await response.json();
 
         const wishlist = data.products || [];
+        /*    debugger; */
 
-
-
-        if (wishlist.length !== 0) {
-          wishlist.forEach((item) => {
-            ids.push(item.id);
-          })
-
-        }
+        ids = wishlist.map(item => item.id);
 
 
         updateWishlistCounter(wishlist);
@@ -848,7 +843,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* удаление карточки */
-    
+
     function removeWishlistItems() {
       const removeButtons = document.querySelectorAll('.wishlist__item-remove');
       removeButtons.forEach(btn => {
