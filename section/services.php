@@ -32,7 +32,7 @@ $services_data = get_field('services');?>
                                 <div class="services__box">
                                     <?php if (!empty($item['services_image'])) { ?>
                                         <img
-                                            src="<?= esc_url(wp_get_attachment_image_url($item['services_image']['ID'], 'servis')); ?>"
+                                            src="<?= esc_url(wp_get_attachment_image_url($item['services_image']['ID'], 'product')); ?>"
                                             alt="<?= esc_attr($item['services_image']['alt']) ?>"
                                             class="services__image">
                                     <?php } ?>

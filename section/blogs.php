@@ -73,7 +73,7 @@ get_header();
                             <div class="col-lg-6 col-12">
                                 <div class="blogstop__box">
                                     <?php if (has_post_thumbnail()) :
-                                        the_post_thumbnail('servis', ['class' => 'blogstop__image']);
+                                        the_post_thumbnail('servis', ['class' => 'product']);
                                     else :
                                         echo 'Миниатюра не установлена';
                                     endif; ?>
@@ -129,7 +129,7 @@ get_header();
                             <div class="blogs__image">
                                 <?php
                                 if (has_post_thumbnail()) :
-                                    the_post_thumbnail('blog_item');
+                                    the_post_thumbnail('inspiration');
                                 else :
                                     echo 'Миниатюра не установлена';
                                 endif;

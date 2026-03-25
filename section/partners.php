@@ -40,7 +40,7 @@ $partners_data = get_field('partners', 'option'); ?>
                     ?>
                         <div class="swiper-slide">
                             <img class="partners__image-slide"
-                                src="<?= esc_url($image['sizes']['promo']); ?>"
+                                src="<?= esc_url($image['url']); ?>"
                                 alt="<?= esc_attr($image['alt']); ?>">
                         </div>
                     <?php endforeach; ?>

@@ -2,21 +2,22 @@
 /* plagin     Regenerate Thumbnails */
 /* https://www.youtube.com/watch?v=vabVTvH0Wx4 */
 
+/*   1 там где только динамически создавать кастомный размер 
+ ( там где нет динамики вручную  делать ) */
+/*  2 если у кастомных размеров (похожие шерена и высота (не на монго отличаются то создавать 
+ ту которая больше что бы не плодить кастомные размеры не нагружать базу данных)) */
 
-function image_sizes() {
+function image_sizes()
+{
+    add_image_size('social', 166, 102, true);
+    add_image_size('blog_cart-product', 145, 160, true);
+    add_image_size('inspiration', 312, 220, true);
+    add_image_size('inspiration_education', 319, 262, true);
+    add_image_size('best_sellers', 313, 313, true);
+    add_image_size('product', 618, 318, true);
+    add_image_size('blog_cart', 523, 348, true);
+    add_image_size('portfolio_slider', 230, 416, true);
     add_image_size('hero_slider-image', 642, 616, true);
-    add_image_size('promo', 135, 48, true);
-    add_image_size('shop_section', 480, 371, true);
-    add_image_size('baner', 1300, 400, true);
-    add_image_size('baner_item', 313, 313, true);
-    add_image_size('servis', 618, 312, true);
-    add_image_size('blog_item', 420, 220, true);
-    add_image_size('instagram', 309, 386, true);
-    add_image_size('slider_catalog', 166, 102, true);
-    add_image_size('top_shop', 145, 160, true);
-    add_image_size('categories_image', 301, 318, true);
-    add_image_size('text_image', 820, 450, true);
-    add_image_size('service_slider', 468, 416, true);
+    add_image_size('product_cart', 520, 707, true);
 }
-add_action('after_setup_theme', 'image_sizes'); 
-
+add_action('after_setup_theme', 'image_sizes');

@@ -798,6 +798,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const wishlist = data.products || [];
         /*    debugger; */
 
+        
         ids = wishlist.map(item => item.id);
 
 

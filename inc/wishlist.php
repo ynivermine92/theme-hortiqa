@@ -22,8 +22,9 @@ function handle_user_wishlist($request)
     $ids_to_save = array_map('intval', (array)$wishlist_param);
 
     // Получаем текущий wishlist из базы
-    $current_ids = (array) get_user_meta($user_id, 'user_wishlist', true);
+    $current_ids = (array) 
 
+    get_user_meta($user_id, 'user_wishlist', true);
     // 1️⃣ Если пришёл непустой массив — обновляем user_wishlist
     if (!empty($ids_to_save)) {
         update_user_meta($user_id, 'user_wishlist', $ids_to_save);

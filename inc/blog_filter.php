@@ -74,7 +74,7 @@ function filter_blogs_callback()
                     <div class="blogs__image">
                         <?php
                         if (has_post_thumbnail()) :
-                            the_post_thumbnail('blog_item');
+                            the_post_thumbnail('inspiration');
                         else :
                             echo 'Миниатюра не установлена';
                         endif;

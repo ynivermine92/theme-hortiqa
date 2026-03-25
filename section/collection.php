@@ -29,7 +29,7 @@
                     <a class="collection__link" href="<?= esc_url($item['collection_link']['url']); ?>">
                         <?php if (!empty($item['collection_image'])) { ?>
                             <img
-                                src="<?= esc_url(wp_get_attachment_image_url($item['collection_image']['ID'], 'baner_item')); ?>"
+                                src="<?= esc_url(wp_get_attachment_image_url($item['collection_image']['ID'], 'best_sellers')); ?>"
 
 
                                 alt="<?= esc_attr($item['collection_image']['alt']) ?>"
