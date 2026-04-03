@@ -146,6 +146,7 @@
 										<?php
 										if (!empty($categories)):
 											foreach ($categories as $category):
+												
 												$products = wc_get_products([
 													'category' => [$category->slug],
 													'limit' => -1,

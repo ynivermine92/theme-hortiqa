@@ -3,7 +3,7 @@
 
 
 
-if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+if (class_exists('WooCommerce')) {
 
     //woocommerce support
     function hortiqa_add_woocommerce_support()
@@ -14,20 +14,32 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
 
+    /********************************** selector filter **********************************/
+    // удаляем сортировку по названию
+    add_filter('woocommerce_catalog_orderby', function ($sortby) {
+        unset($sortby['title']);
+        return $sortby;
+    });
+
+    /* переоприделяем */
+
+    add_filter('woocommerce_catalog_orderby', function ($sortby) {
+
+        return [
+            'popularity'  => 'По популярности',
+            'rating'      => 'По рейтингу',
+            'date'        => 'По новизне',
+            'price'       => 'Сначала дешевые',
+            'price-desc'  => 'Сначала дорогие',
+        ];
+    });
 
 
 
-    /* Селект товаров (Фильтр)
-     Файл archive-product 
 
-    2 ставляем мой кастомный селект на тяжкой на вокомерс   */
+    /********************************** !!!сatalogs!!! **********************************/
 
-
-
-
-    /*  кастомизировать ul li не нужно если будет фильтр через аякс 
-    */
-
+    /********************************** wrapper продуктов **********************************/
     /* Для замены класса ul карточёк товара ( обертки  items) */
     add_filter('woocommerce_product_loop_start', 'my_custom_products_ul', 10);
     function my_custom_products_ul($html)
@@ -38,21 +50,22 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     }
 
 
-    /* Для замены класса li  ( item ) */
-    add_filter('post_class', 'productItem', 20, 3);
-    function productItem($classes, $class, $post_id)
+    /********************************** item продуктов **********************************/
+    add_filter('woocommerce_post_class', 'productItemWoo', 20, 2);
+    function productItemWoo($classes, $product)
     {
-        if ('product' === get_post_type($post_id) && !is_admin()) {
-            if (!is_singular('product')) {
-                $classes = array_diff($classes, ['columns-4']);
-                $classes[] = 'categories__item col-sm-4 col-6';
-            }
+        if (!is_product()) {
+            $classes[] = 'categories__item';
+            $classes[] = 'col-sm-4';
+            $classes[] = 'col-6';
         }
+
         return $classes;
     }
 
 
-    /* поменять размер мениатюр */
+
+    /********************************** image продуктов, кастомный размер image **********************************/
 
     add_filter('single_product_archive_thumbnail_size', function () {
         return 'best_sellers';
@@ -61,10 +74,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
 
+    /********************************** продукты, карточка товара  **********************************/
 
-
-    /* Кастомизация карточки 
-       content-product_____________________________________ */
 
     remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
     remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5);
@@ -88,9 +99,12 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
 
+
+
+
+    /********************************** продукты, Рейтинг **********************************/
+
     remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10);
-
-
 
     add_action('woocommerce_shop_loop_item_title', function () {
         global $product;
@@ -109,29 +123,28 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
 
-    //  title
+    /********************************** продукты, title **********************************/
     add_action('woocommerce_shop_loop_item_title', function () {
         echo '<h2 class=categories__name>' . get_the_title() . '</h2> ';
     }, 10);
 
 
-
-
-
-
-
+    /********************************** продукты, кнопка товара  **********************************/
     remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
-    /* кнопка на карточке товара  */
+
     add_action('woocommerce_after_shop_loop_item', function () {
-        echo '<a href="' . get_the_permalink() . '" class="categories__link">В КОШИК</a>';
+        global $product;
+
+        if ($product->is_type('variation')) {
+            echo '<a href="?add-to-cart=' . $product->get_id() . '" class="categories__link">В КОШИК</a>';
+        } else {
+            echo '<a href="' . get_permalink($product->get_id()) . '" class="categories__link">В КОШИК</a>';
+        }
     }, 10);
 
 
-
-    /* изменить текст и  стили   на карточке товара (акция )  */
+    /********************************** продукты, лейбел акция   **********************************/
     add_filter('woocommerce_sale_flash', function ($html, $post, $product) {
         return '<span class="onsale"> АКЦІЯ </span>';
     }, 10, 3);
-
-
 }
