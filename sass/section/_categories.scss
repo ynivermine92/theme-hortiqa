@@ -38,41 +38,95 @@
     &__wrapper {
         display: flex;
         flex-direction: column;
+        width: 100%;
+    }
+
+    &__items {
+        display: flex;
     }
 
     &__item {
         position: relative;
     }
 
-    &__wishlist {
+
+
+    /* categories wisthList*/
+
+    /* котнейнер */
+    .tinvwl-woocommerce_before_shop_loop_item {
         position: absolute;
-        width: 40px;
-        height: 40px;
         background: var(--white);
         z-index: 2;
         top: 50px;
         border-radius: 50px;
-    }
-
-
-
-    &__wishlist {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    .wishlist__svg {
-        height: 24px;
-        width: 24px;
-        fill: transparent;
-        stroke: black;
+    /* ссылка */
+    .tinvwl-position-shortcode {
+        width: 40px !important;
+        height: 40px !important;
+        position: unset !important;
+    }
+
+    /* Неактивное сердечко */
+    .tinvwl-icon-heart.no-txt:before {
+        background-image: url('../img/png/hard-cart.png');
+        content: '' !important;
+        top: 38%;
+        left: 23%;
+        width: 20px;
+        height: 30px;
+        background-repeat: no-repeat;
+        background-size: contain;
+        transition: all 0.5s;
+        position: relative;
+    }
+
+
+    /* При наведении на неактивное сердечко */
+    .tinvwl-icon-heart.no-txt:hover:before {
+        background-image: url('../img/png/heart-red.png');
+        width: 20px;
+        height: 30px;
+        transition: all 0.5s;
+    }
+
+    /* Активное сердечко (когда в списке wishlist) */
+    .tinvwl-icon-heart.no-txt.tinvwl-product-in-list:before {
+        content: '' !important;
+        background-image: url('../img/png/heart-red.png') !important;
+        width: 20px;
+        height: 30px;
+        transition: all 0.5s;
+    }
+
+
+
+
+    .categories__item .tinvwl-position-after {
+        color: black !important;
         transition: all 0.5s;
 
         &:hover {
-            fill: red;
-            stroke: red;
+            color: red !important;
             transition: all 0.5s;
         }
     }
+
+    .categories__cart img .categories__wishlist {
+        display: flex;
+    }
+
+    .categories__item .tinvwl-product-in-list {
+        color: red !important;
+        transition: all 0.5s;
+    }
+
+
+
+
 }

@@ -1,11 +1,10 @@
 <aside class="sidebar">
     <?php
-    // Проверяем, зарегистрирован ли сайдбар 'main-sidebar'
     if (is_active_sidebar('main-sidebar')) {
-        dynamic_sidebar('main-sidebar'); // Вывод виджетов
+        dynamic_sidebar('main-sidebar');
     }
+
+    echo do_shortcode('[br_filter_single filter_id=633]');
+
     ?>
-
-
-wrqrwwwwwwwwwwwwwwwwwwwwww
-</aside> 
+</aside>

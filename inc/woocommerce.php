@@ -17,46 +17,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
 
 
 
+    /* Селект товаров (Фильтр)
+     Файл archive-product 
 
+    2 ставляем мой кастомный селект на тяжкой на вокомерс   */
 
-    /* _________________ Все товары    файл archive-product_______________________________________________ */
-
-
-
-
-
-
-
-    /* 2 ставляем мой кастомный селект на тяжкой на вокомерс  */
-
-    function hortiqa_category_fitlert()
-    {
-?>
-        <div class="selector">
-            <form class="woocommerce-ordering" method="get">
-                <div class="categories__box">
-                    <div class="selector__box">
-                        <div class="selector__inner">
-                            <select name="orderby" class="selector__wrapper" onchange="this.form.submit()">
-                                <option value="menu_order" <?php selected(isset($_GET['orderby']) ? $_GET['orderby'] : '', 'menu_order'); ?>>За популярністю</option>
-                                <option value="popularity" <?php selected(isset($_GET['orderby']) ? $_GET['orderby'] : '', 'popularity'); ?>>По популярності</option>
-                                <option value="rating" <?php selected(isset($_GET['orderby']) ? $_GET['orderby'] : '', 'rating'); ?>>По рейтингу</option>
-                                <option value="date" <?php selected(isset($_GET['orderby']) ? $_GET['orderby'] : '', 'date'); ?>>Новинки</option>
-                                <option value="price" <?php selected(isset($_GET['orderby']) ? $_GET['orderby'] : '', 'price'); ?>>Вид дешевих до дешевих</option>
-                                <option value="price-desc" <?php selected(isset($_GET['orderby']) ? $_GET['orderby'] : '', 'price-desc'); ?>>Вид дорогих до дешевих</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <input type="hidden" name="paged" value="1">
-            </form>
-        </div>
-<?php
-    }
-
-    /* кастомный селект */
-    remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30); // убираем стандартный селект
-    add_action('woocommerce_before_shop_loop', 'hortiqa_category_fitlert', 30);
 
 
 
@@ -87,63 +52,86 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
     }
 
 
-    /* меняе размер мениатюр */
+    /* поменять размер мениатюр */
 
     add_filter('single_product_archive_thumbnail_size', function () {
-        return 'categories_image';
+        return 'best_sellers';
     });
 
 
 
 
-    /* _________________ Отдельный товар         файл content-product_____________________________________ */
 
 
+    /* Кастомизация карточки 
+       content-product_____________________________________ */
 
     remove_action('woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10);
     remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5);
 
-    // ссылка на товар свой класс
+    // 1. wishlist
+    add_action('woocommerce_before_shop_loop_item', function () {
+        echo '<div class="categories__wishlist product-item__link-heart">';
+        echo do_shortcode('[ti_wishlists_addtowishlist]');
+        echo '</div>';
+    }, 5);
+
+    // 2. ссылка на товар
     add_action('woocommerce_before_shop_loop_item', function () {
         echo '<a href="' . get_the_permalink() . '" class="categories__cart">';
-        echo '<div class="categories__wishlist product-item__link-heart" data-id="' . get_the_ID() . '">
-            <svg class="wishlist__svg">
-                <use xlink:href="' . get_template_directory_uri() . '/assets/img/svg/wishlist.svg#wishlist"></use>
-            </svg>
-          </div>';
     }, 10);
 
+    // 3. закрытие ссылки
+    add_action('woocommerce_after_shop_loop_item', function () {
+        echo '</a>';
+    }, 5);
 
 
 
     remove_action('woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10);
 
-    // названия товара свой класс
+
+
     add_action('woocommerce_shop_loop_item_title', function () {
-        echo 'h2 class=categories__name' . get_the_title() . 'h2';
+        global $product;
+
+        echo '<div class="categories__inner">';
+
+        echo get_template_part('section/rating');
+
+        echo '<div class="review-count">';
+        echo 'Отзывов: ' . $product->get_review_count();
+        echo '</div>';
+
+        echo '</div>';
+    }, 9);
+
+
+
+
+    //  title
+    add_action('woocommerce_shop_loop_item_title', function () {
+        echo '<h2 class=categories__name>' . get_the_title() . '</h2> ';
     }, 10);
+
+
+
+
+
+
+
+    remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+    /* кнопка на карточке товара  */
+    add_action('woocommerce_after_shop_loop_item', function () {
+        echo '<a href="' . get_the_permalink() . '" class="categories__link">В КОШИК</a>';
+    }, 10);
+
+
+
+    /* изменить текст и  стили   на карточке товара (акция )  */
+    add_filter('woocommerce_sale_flash', function ($html, $post, $product) {
+        return '<span class="onsale"> АКЦІЯ </span>';
+    }, 10, 3);
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
-/* кнопка на карточке товара  */
-add_action('woocommerce_after_shop_loop_item', function () {
-    echo '<a href="' . get_the_permalink() . '" class="categories__link">В КОШИК</a>';
-}, 10);
-
-
-
-/* изменить текст и  стили   на карточке товара (акция )  */
-add_filter('woocommerce_sale_flash', function ($html, $post, $product) {
-    return '<span class="onsale"> АКЦІЯ </span>';
-}, 10, 3);

@@ -8,11 +8,11 @@ get_header(); ?>
 </div>
 
 
-<section class="wishlist">
+<section class="wishlist favorites">
     <div class="wrapper">
-        <h2 class="wishlist__title">Понравившиеся товары</h2>
+        <?php breadcrumbs(); ?>
         <div class="wishlist__grid" id="wishlist-container">
-            <p>Загрузка избранного списка...</p>
+            <?php echo apply_filters('the_content', get_the_content()); ?>
         </div>
     </div>
 </section>
