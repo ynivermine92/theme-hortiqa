@@ -22,9 +22,9 @@
 	<header class="header">
 		<!-- Navbar -->
 		<div class="header__desktop">
-			<div class="wrapper">
 
-				<div class="header__wrapper">
+			<div class="header__wrapper">
+				<div class="wrapper">
 					<div class="navbar">
 						<div class="navbar__wrapper">
 							<div class="logo">
@@ -98,11 +98,12 @@
 							</div>
 						</div>
 					</div>
+				</div>
 
+				<!-- catalog -->
 
-					<!-- catalog -->
-
-					<nav class="catalog">
+				<nav class="catalog">
+					<div class="wrapper">
 						<div class="catalog__wrapper">
 							<div class="catalog__content">
 								<h3 class="catalog__title">Каталог товарів</h3>
@@ -185,15 +186,8 @@
 								</div>
 							</div>
 						</div>
-					</nav>
-
-
-
-
-
-
-
-				</div>
+					</div>
+				</nav>
 
 
 
@@ -202,6 +196,14 @@
 
 
 			</div>
+
+
+
+
+
+
+
+
 		</div>
 
 		<div class="header__mobile">

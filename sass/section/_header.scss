@@ -195,7 +195,7 @@
   transition: none;
   z-index: -1;
   border-top: 1px solid #f2f2f2;
-  border-bottom: 1px solid #f2f2f2;
+
   display: none;
   top: 0%;
   background: var(--white);
@@ -252,35 +252,13 @@
     }
   }
 
-
-
-
   /********* catalog Menu ***********/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
 /* megamenu */
 .megamenu {
-  height: 14vh;
+  height: 20vh;
 
 
   &__one {
@@ -325,6 +303,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100px;
+    gap: 5px;
   }
 
 
@@ -349,29 +328,19 @@
 
   }
 
-
-
-
-
-
-
-
   &__two,
   &__three {
     top: 0;
     left: 100%;
     position: absolute;
     border-left: 1px solid black;
-
-
-
-
   }
 
 
   &__two &__item,
   &__three &__item {
     display: none;
+
   }
 
   &__two &__item.active,
@@ -380,10 +349,21 @@
     padding: 0px 40px;
   }
 
+  &__item-link {
+    line-height: 1.2em;
+  }
+
+  .lvl-2,
+  .lvl-3 {
+    width: 110px;
+    justify-content: space-between;
+    gap: 5px;
+  }
 
 
 
- 
+
+
 
 
 
@@ -398,9 +378,7 @@
 
 
 }
-
-
-
+/*megamenu */
 
 
 .burger {
