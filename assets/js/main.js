@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const burgerMobMenu = () => {
 
-    const itemMenu = document.querySelectorAll(".menu__item-one");
+    const itemMenu = document.querySelectorAll(".megamenu__item-one");
 
     itemMenu.forEach((item) => {
       item.addEventListener("click", (e) => {
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
           if (otherItem !== item) {
             otherItem.classList.remove("open");
             otherItem.classList.remove("active");
-            const childLvl2 = otherItem.querySelector(".catalog__category-two");
+            const childLvl2 = otherItem.querySelector(".megamenu__category-two");
             if (childLvl2) childLvl2.classList.remove("open");
           }
         });
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         item.classList.toggle("open");
 
-        const childLvl2 = item.querySelector(".catalog__category-two");
+        const childLvl2 = item.querySelector(".megamenu__two");
         if (childLvl2) {
           childLvl2.classList.toggle("open");
         }
@@ -118,16 +118,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    const lvl2Items = document.querySelectorAll(".catalog__category-two");
+    const lvl2Items = document.querySelectorAll(".megamenu__two");
 
     lvl2Items.forEach((lvl2) => {
       lvl2.addEventListener("click", (e) => {
         lvl2.classList.toggle("active");
         e.stopPropagation();
 
-        if (!e.target.closest(".catalog__category-three a")) {
+        if (!e.target.closest(".catalog__three a")) {
           /* e.preventDefault(); */
-          const lvl3 = lvl2.querySelector(".catalog__category-three");
+          const lvl3 = lvl2.querySelector(".catalog__three");
           if (lvl3) {
             lvl3.classList.toggle("open");
           }
@@ -146,11 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  const level1 = document.querySelectorAll('.catalog__category-one .menu__item');
-  const level2 = document.querySelectorAll('.catalog__category-two .menu__item');
-  const level3 = document.querySelectorAll('.catalog__category-three .menu__item');
+  // Получаем элементы всех уровней
+  const level1 = document.querySelectorAll('.megamenu__one .megamenu__item');
+  const level2 = document.querySelectorAll('.megamenu__two .megamenu__item');
+  const level3 = document.querySelectorAll('.megamenu__three .megamenu__item');
 
-  // helper
+  // helper функция toggle
   const toggle = (elements, condition) => {
     elements.forEach(el => {
       el.classList.toggle('active', condition(el));
@@ -158,40 +159,57 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // ===== 1 УРОВЕНЬ =====
+  let timeoutLevel1;
   level1.forEach(item => {
-    item.addEventListener('mouseenter', (e) => {
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(timeoutLevel1);
       const { catId } = item.dataset;
-      level1.forEach((item) => {
-        item.classList.remove('target')
-      })
 
+      timeoutLevel1 = setTimeout(() => {
+        // Снимаем target со всех
+        level1.forEach(i => i.classList.remove('target'));
+        item.classList.add('target');
 
-      if (item === e.target) {
-        item.classList.add('target')
+        // Показываем второй уровень только для этой категории
         toggle(level2, el => el.dataset.catId === catId);
-        // сброс 3 уровня
+
+        // Сбрасываем третий уровень
         level3.forEach(el => el.classList.remove('active'));
-      }
+      }, 150);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      clearTimeout(timeoutLevel1);
     });
   });
 
   // ===== 2 УРОВЕНЬ =====
+  let timeoutLevel2;
   level2.forEach(item => {
-    item.addEventListener('mouseenter', (e) => {
-      const { catId, tag } = item.dataset;
-      level2.forEach((item) => {
-        item.classList.remove('target')
-      })
-      if (item === e.target) {
-        item.classList.add('target')
-      }
-      toggle(level3, el =>
-        el.dataset.catId === catId &&
-        el.dataset.tag === tag
-      );
+    item.addEventListener('mouseenter', () => {
+      clearTimeout(timeoutLevel2);
+      const { catId, subcatId } = item.dataset;
+
+      timeoutLevel2 = setTimeout(() => {
+        // Снимаем target со всех второго уровня
+        level2.forEach(i => i.classList.remove('target'));
+        item.classList.add('target');
+
+        // Показываем третий уровень для этой подкатегории
+        toggle(level3, el =>
+          el.dataset.catId === catId &&
+          el.dataset.subcatId === subcatId
+        );
+      }, 150);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      clearTimeout(timeoutLevel2);
     });
   });
 
+  // ===== 3 УРОВЕНЬ =====
+  // Можно добавить hover эффект, если нужно, но для открытия просто активируем через 2 уровень
 
 
 
@@ -716,7 +734,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  
+
 
 });
 
