@@ -267,13 +267,24 @@
     flex-direction: column;
     width: 200px;
 
-  }
 
-  &__one {
-    &__item {
 
-      margin-right: 30px;
+
+
+    .megamenu__item.active {
+      .megamenu__item-name {
+        color: var(--gren);
+        text-decoration: none;
+      }
+
+      .megamenu__arrow {
+        border-right: 2px solid var(--gren);
+        border-bottom: 2px solid var(--gren);
+        text-decoration: none;
+      }
+
     }
+
   }
 
   &__item+&__item {
@@ -326,7 +337,58 @@
     display: flex;
     flex-direction: column;
 
+    &.open {
+      .megamenu__item {
+        .megamenu__item-name {
+          color: black;
+          text-decoration: none;
+        }
+
+        .megamenu__arrow {
+          border-right: 2px solid black;
+          border-bottom: 2px solid black;
+          text-decoration: none;
+        }
+
+      }
+
+      .megamenu__item.active {
+        .megamenu__item-name {
+          color: var(--gren);
+          text-decoration: none;
+        }
+
+        .megamenu__arrow {
+          border-right: 2px solid var(--gren);
+          border-bottom: 2px solid var(--gren);
+          text-decoration: none;
+        }
+
+      }
+    }
   }
+
+  .megamenu__three.open {
+    .megamenu__item {
+      .megamenu__item-name {
+        color: black; // неактивные
+      }
+
+      &.active {
+        .megamenu__item-name {
+          color: var(--gren); // активные
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+
+
 
   &__two,
   &__three {
@@ -334,20 +396,21 @@
     left: 100%;
     position: absolute;
     border-left: 1px solid black;
+    display: none;
+
+    &.open {
+      display: block;
+    }
   }
 
 
   &__two &__item,
   &__three &__item {
-    display: none;
-
-  }
-
-  &__two &__item.active,
-  &__three &__item.active {
     display: block;
     padding: 0px 40px;
+
   }
+
 
   &__item-link {
     line-height: 1.2em;
@@ -364,21 +427,11 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 /*megamenu */
+
+
+
 
 
 .burger {

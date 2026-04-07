@@ -140,86 +140,100 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  /* megaMenu */
+  const megaMenu = () => {
+    const level1 = document.querySelectorAll('.megamenu__one > .megamenu__item');
+    const level2 = document.querySelectorAll('.megamenu__two > .megamenu__item');
+    const level3 = document.querySelectorAll('.megamenu__three > .megamenu__item');
 
+    // helper для открытия UL
+    const openWrapper = (selector, condition) => {
+      document.querySelectorAll(selector).forEach(ul => {
+        ul.classList.toggle('open', condition(ul));
+      });
+    };
 
+    // ===== Уровень 1 =====
+    let timeoutLevel1;
+    level1.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        clearTimeout(timeoutLevel1);
 
+        timeoutLevel1 = setTimeout(() => {
+          // Снимаем active со всех
+          level1.forEach(el => el.classList.remove('active'));
+          level2.forEach(el => el.classList.remove('active'));
+          level3.forEach(el => el.classList.remove('active'));
 
+          // Активируем текущий
+          item.classList.add('active');
 
+          // Открываем второй уровень только для этой категории
+          openWrapper('.megamenu__two', ul => ul.querySelector(`.megamenu__item[data-cat-id="${item.dataset.catId}"]`));
 
-  // Получаем элементы всех уровней
-  const level1 = document.querySelectorAll('.megamenu__one .megamenu__item');
-  const level2 = document.querySelectorAll('.megamenu__two .megamenu__item');
-  const level3 = document.querySelectorAll('.megamenu__three .megamenu__item');
+          // Закрываем третий уровень
+          openWrapper('.megamenu__three', () => false);
+        }, 250); // Задержка 250ms
+      });
 
-  // helper функция toggle
-  const toggle = (elements, condition) => {
-    elements.forEach(el => {
-      el.classList.toggle('active', condition(el));
-    });
-  };
-
-  // ===== 1 УРОВЕНЬ =====
-  let timeoutLevel1;
-  level1.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      clearTimeout(timeoutLevel1);
-      const { catId } = item.dataset;
-
-      timeoutLevel1 = setTimeout(() => {
-        // Снимаем target со всех
-        level1.forEach(i => i.classList.remove('target'));
-        item.classList.add('target');
-
-        // Показываем второй уровень только для этой категории
-        toggle(level2, el => el.dataset.catId === catId);
-
-        // Сбрасываем третий уровень
-        level3.forEach(el => el.classList.remove('active'));
-      }, 150);
-    });
-
-    item.addEventListener('mouseleave', () => {
-      clearTimeout(timeoutLevel1);
-    });
-  });
-
-  // ===== 2 УРОВЕНЬ =====
-  let timeoutLevel2;
-  level2.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      clearTimeout(timeoutLevel2);
-      const { catId, subcatId } = item.dataset;
-
-      timeoutLevel2 = setTimeout(() => {
-        // Снимаем target со всех второго уровня
-        level2.forEach(i => i.classList.remove('target'));
-        item.classList.add('target');
-
-        // Показываем третий уровень для этой подкатегории
-        toggle(level3, el =>
-          el.dataset.catId === catId &&
-          el.dataset.subcatId === subcatId
-        );
-      }, 150);
+      item.addEventListener('mouseleave', () => clearTimeout(timeoutLevel1));
     });
 
-    item.addEventListener('mouseleave', () => {
-      clearTimeout(timeoutLevel2);
+    // ===== Уровень 2 =====
+    let timeoutLevel2;
+    level2.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        clearTimeout(timeoutLevel2);
+
+        timeoutLevel2 = setTimeout(() => {
+          level2.forEach(el => el.classList.remove('active'));
+          level3.forEach(el => el.classList.remove('active'));
+
+          item.classList.add('active');
+
+          // Активируем родителя уровня 1
+          level1.forEach(el => {
+            if (el.dataset.catId === item.dataset.catId) el.classList.add('active');
+          });
+
+          // Открываем третий уровень только для этой подкатегории
+          openWrapper('.megamenu__three', ul => ul.querySelector(`.megamenu__item[data-subcat-id="${item.dataset.subcatId}"]`));
+        }, 250); // Задержка 250ms
+      });
+
+      item.addEventListener('mouseleave', () => clearTimeout(timeoutLevel2));
     });
-  });
 
-  // ===== 3 УРОВЕНЬ =====
-  // Можно добавить hover эффект, если нужно, но для открытия просто активируем через 2 уровень
+    // ===== Уровень 3 =====
+    let timeoutLevel3;
+    level3.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        clearTimeout(timeoutLevel3);
+
+        timeoutLevel3 = setTimeout(() => {
+          level3.forEach(el => el.classList.remove('active'));
+          item.classList.add('active');
+
+          // Активируем родителя уровня 2
+          level2.forEach(el => {
+            if (el.dataset.catId === item.dataset.catId && el.dataset.subcatId === item.dataset.subcatId) {
+              el.classList.add('active');
+            }
+          });
+
+          // Активируем родителя уровня 1
+          level1.forEach(el => {
+            if (el.dataset.catId === item.dataset.catId) el.classList.add('active');
+          });
+        }, 250); // Задержка 250ms
+      });
+
+      item.addEventListener('mouseleave', () => clearTimeout(timeoutLevel3));
+    });
 
 
-
-
-
-
-
-
-
-
+  }
+  megaMenu()
 
 
   /* swiper */
