@@ -67,9 +67,11 @@
 
 							<div class="header__content">
 								<div class="header__account account header__box">
-									<svg class="user__svg">
-										<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/login.svg#login"></use>
-									</svg>
+									<a href="acaunt/">
+										<svg class="user__svg">
+											<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/login.svg#login"></use>
+										</svg>
+									</a>
 								</div>
 
 								<a href="/wishlist" class="header__wishlist wishlist header__box">

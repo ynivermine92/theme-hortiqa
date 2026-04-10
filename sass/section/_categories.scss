@@ -49,6 +49,16 @@
         position: relative;
     }
 
+    &__box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+    }
+
+    .woocommerce-notices-wrapper {
+        position: absolute;
+    }
 
 
     /* categories wisthList*/
@@ -57,7 +67,7 @@
     .tinvwl-woocommerce_before_shop_loop_item {
         position: absolute;
         background: var(--white);
-        z-index: 2;
+        z-index: 1;
         top: 50px;
         border-radius: 50px;
         display: flex;
@@ -106,7 +116,6 @@
 
 
 
-
     .categories__item .tinvwl-position-after {
         color: black !important;
         transition: all 0.5s;
@@ -121,12 +130,10 @@
         display: flex;
     }
 
-    .categories__item .tinvwl-product-in-list {
-        color: red !important;
-        transition: all 0.5s;
+
+
+    .onsale {
+        z-index: 1 !important;
     }
-
-
-
 
 }

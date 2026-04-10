@@ -105,28 +105,12 @@ do_action('woocommerce_before_main_content'); ?>
 						<?php do_action('woocommerce_before_shop_loop'); ?>
 					</div>
 
-					
+
 				<?php woocommerce_product_loop_start();
+
 					while (have_posts()) {
 						the_post();
-
-						global $post;
-						$product = wc_get_product($post->ID);
-						if ($product->is_type('variable')) {
-							$variations = $product->get_children();
-
-							foreach ($variations as $variation_id) {
-								$variation_obj = wc_get_product($variation_id);
-								$post = get_post($variation_id);
-								setup_postdata($post);
-								$GLOBALS['product'] = $variation_obj;
-								wc_get_template_part('content', 'product');
-							}
-							wp_reset_postdata();
-							$GLOBALS['product'] = $product;
-						} else {
-							wc_get_template_part('content', 'product');
-						}
+						wc_get_template_part('content', 'product');
 					}
 					woocommerce_product_loop_end();
 

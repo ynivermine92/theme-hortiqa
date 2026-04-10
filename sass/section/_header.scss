@@ -2,6 +2,8 @@
 
 .header {
   background: #fff;
+  transition: all 0.5s;
+  position: relative;
 
   &.fixed {
     position: fixed;
@@ -9,7 +11,9 @@
     top: 0;
     width: 100%;
     z-index: 2;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
   }
+
 
   &__wrapper {
     display: flex;
@@ -207,7 +211,10 @@
     z-index: 2;
     width: 100%;
     animation: slideDown 0.5s ease forwards;
-    top: 150%;
+    top: 130%;
+    box-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.05),
+      0 10px 30px rgba(0, 0, 0, 0.08);
   }
 
   @keyframes slideDown {

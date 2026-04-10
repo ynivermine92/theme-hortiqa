@@ -1,0 +1,209 @@
+.fillter {
+
+
+    &__wrapper {
+        background: var(--grey);
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__title {
+        color: black;
+        font-size: 24px;
+    }
+
+    &__inner {
+        padding: 0px 10px;
+    }
+
+    .bapf_hascolarr,
+    .bapf_head {
+        font-size: 20px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .fillter__content {
+        ul li ul li:first-child {
+            padding-top: 10px !important;
+        }
+
+    }
+
+    .bapf_sfilter {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    &__box {
+        border-bottom: 1px solid var(--grey);
+    }
+
+
+
+
+    .bapf_body li {
+        padding-bottom: 10px !important;
+        font-size: 15px;
+    }
+
+    .bapf_body label {
+        color: black;
+        transition: all 0.5s;
+    }
+
+    .bapf_body .checked label {
+        color: var(--gren);
+    }
+
+
+
+    .bapf_body li label:hover {
+        color: var(--gren) !important;
+        transition: all 0.5s;
+    }
+
+
+
+    .fa-chevron-up:before {
+        color: var(--gren);
+        font-size: 12px;
+    }
+
+    .bapf_colaps_smb {
+        font-size: 12px;
+    }
+
+
+    /* чекбокс */
+
+    /*   обычное состояние кнопки */
+    .bapf_ckbox_sqchck input[type=checkbox] {
+        border-radius: 6px;
+        border: 1px solid black;
+    }
+
+    /* обычное состояние кнопки когда нажата */
+    .checked input:checked {
+        background: black;
+        border-radius: 6px;
+        border: 1px solid transparent;
+    }
+
+    /*  галочка кнопки когда нажата */
+    .bapf_ckbox_sqchck input[type=checkbox]:checked:after {
+        content: "";
+        width: 5px;
+        height: 11px;
+        border-bottom: 2px solid #fff;
+        border-right: 2px solid #fff;
+        display: block;
+        position: absolute;
+        top: 1px;
+        left: 7px;
+        transform: rotate(45deg);
+    }
+
+    .bapf_reset {
+        background-color: var(--gren) !important;
+        border-radius: 20px;
+        transition: all 0.5s;
+        font-size: 16px !important;
+
+        &:hover {
+            background: var(--lightgreen) !important;
+            color: var(--body);
+            transition: all 0.5s;
+        }
+    }
+
+
+    /*  price */
+
+    /* btn */
+    .ui-state-default {
+        border-radius: 0px !important;
+        background: var(--gren) !important;
+    }
+
+    /* defult range */
+    .ui-widget-content {
+        background: var(--lightgreen) !important;
+    }
+
+    /* defult active */
+    .ui-slider-range {
+        background: var(--gren) !important;
+    }
+
+
+}
+
+/* seletect  */
+.orderby {
+    cursor: pointer;
+    border: 1px solid var(--gren);
+    border-radius: 10px;
+    padding: 10px;
+
+}
+
+
+
+.orderby:focus {
+    outline: none;
+    box-shadow: none;
+    border: 1px solid var(--gren);
+
+}
+
+.orderby:focus-visible {
+    outline: none;
+}
+
+
+
+.woocommerce-ordering {
+    position: relative;
+
+    &.active {
+        &::after {
+            transform: rotate(223deg);
+            transition: all 0.5s;
+        }
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        right: 14px;
+        top: 43%;
+        width: 7px;
+        height: 7px;
+        border-right: 2px solid #666;
+        border-bottom: 2px solid #666;
+        transform: translateY(-50%) rotate(45deg);
+        pointer-events: none;
+        transition: 0.2s ease;
+        z-index: 2;
+        transition: all 0.5s;
+    }
+
+
+}
+
+.orderby {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding-right: 30px;
+    /* место под стрелку */
+    border: 1px solid var(--grey);
+    outline: none;
+    background: transparent;
+    position: relative !important;
+}

@@ -26,6 +26,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (burgerBtn.classList.contains("active")) {
       }
     });
+
+    const header = document.querySelector('.header');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('fixed');
+      } else {
+        header.classList.remove('fixed');
+      }
+    });
+
+
+
   };
 
   burger();
@@ -215,25 +228,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const parentLi = link.closest('.mobilemenu__item');
         const submenu = parentLi.querySelector('.mobilemenu__two');
 
-    
+
         if (parentLi.classList.contains('mobilemenu__item-one') && submenu) {
-          e.preventDefault(); 
+          e.preventDefault();
 
           if (link.classList.contains('active')) {
-        
+
             link.classList.remove('active');
             submenu.classList.remove('open');
           } else {
-         
+
             links.forEach((l) => l.classList.remove('active'));
             document.querySelectorAll('.mobilemenu__two').forEach((ul) => ul.classList.remove('open'));
 
-      
+
             link.classList.add('active');
             submenu.classList.add('open');
           }
         }
-      
+
       });
     });
   };
@@ -743,16 +756,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  /* acaunt */
+
+  const body = document.body;
+
+  // --- Страница аккаунта (но не страница восстановления пароля) ---
+  if (body.classList.contains('woocommerce-account') && !body.classList.contains('woocommerce-lost-password')) {
+
+    const registration = document.querySelector('.registration');
+    const linkRegistr = document.querySelector('.link');
+    const linkLogin = document.querySelector('.loglink');
+
+    const loginWrapper = document.querySelector('.authorization');
+    const recoveryWrapper = document.querySelector('.recovery');
+
+    // Переключение форм
+    if (linkRegistr && linkLogin && loginWrapper && recoveryWrapper) {
+
+      linkRegistr.addEventListener('click', function (e) {
+        e.preventDefault();
+        loginWrapper.classList.remove('active');
+        recoveryWrapper.classList.add('active');
+      });
+
+      linkLogin.addEventListener('click', function (e) {
+        e.preventDefault();
+        recoveryWrapper.classList.remove('active');
+        loginWrapper.classList.add('active');
+      });
+    }
+
+    // Проверка чекбокса при регистрации
+    const form = document.querySelector('.woocommerce-form-register');
+    if (form) {
+      const checkbox = form.querySelector('input[name="receive"]');
+      const errorMsg = form.querySelector('.error-message');
+
+      form.addEventListener('submit', function (e) {
+        if (checkbox && !checkbox.checked) {
+          e.preventDefault();
+          if (errorMsg) errorMsg.style.display = 'block';
+        } else {
+          if (errorMsg) errorMsg.style.display = 'none';
+        }
+      });
+    }
+  }
+
+  // --- Страница восстановления пароля ---
+  if (body.classList.contains('woocommerce-lost-password')) {
+    const recoveryWrapper = document.querySelector('.recovery');
+    if (recoveryWrapper) recoveryWrapper.classList.add('active');
+  }
 
 
 
 
-
-
-
-
-
-
+  let selectFilter = document.querySelector('.categories .woocommerce-ordering');
+  selectFilter.addEventListener('click', (e) => {
+    if (e.target) {
+      selectFilter.classList.toggle('active');
+    }
+  })
 
 });
 

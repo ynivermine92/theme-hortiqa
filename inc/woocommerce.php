@@ -34,6 +34,19 @@ if (class_exists('WooCommerce')) {
         ];
     });
 
+    // убираем стандартный вывод
+remove_action('woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30);
+
+// добавляем свой с обёрткой
+add_action('woocommerce_before_shop_loop', function () {
+
+    echo '<div class="orderby-wrapper">';
+
+    woocommerce_catalog_ordering();
+
+    echo '</div>';
+
+}, 30);
 
 
 
@@ -56,7 +69,7 @@ if (class_exists('WooCommerce')) {
     {
         if (!is_product()) {
             $classes[] = 'categories__item';
-            $classes[] = 'col-sm-4';
+            $classes[] = 'col-sm-3';
             $classes[] = 'col-6';
         }
 
@@ -147,4 +160,54 @@ if (class_exists('WooCommerce')) {
     add_filter('woocommerce_sale_flash', function ($html, $post, $product) {
         return '<span class="onsale"> АКЦІЯ </span>';
     }, 10, 3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* my-account */
+
+    /* delete title account */
+
+    add_filter('the_title', function ($title, $id) {
+        if (is_account_page() && in_the_loop()) {
+            return '';
+        }
+        return $title;
+    }, 10, 2);
+
+
+
+    add_filter('woocommerce_product_query', 'custom_filter_variations');
+
+    function custom_filter_variations($query)
+    {
+        $color = $_GET['filter_pa_color'] ?? '';
+        if (!empty($color)) {
+            $query->set('post_type', 'product_variation');
+
+            $query->set('meta_query', array(
+                array(
+                    'key'     => '_variation_attribute_pa_color',
+                    'value'   => $color,
+                    'compare' => '='
+                ),
+            ));
+        }
+
+        return $query;
+    }
 }
