@@ -16,7 +16,7 @@
         <div class="fillter__inner">
 
 
-            <div class="fillter__box  fillter__content">
+            <div class="fillter__box  fillter__content active">
                 <!-- категория -->
                 <?php ynivermine_all_categories_tree(); ?>
             </div>
