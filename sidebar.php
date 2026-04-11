@@ -14,10 +14,13 @@
 
         </div>
         <div class="fillter__inner">
+
+
             <div class="fillter__box  fillter__content">
                 <!-- категория -->
-                <?php echo do_shortcode('[br_filter_single filter_id=722]'); ?>
+                <?php ynivermine_all_categories_tree(); ?>
             </div>
+           
             <div class="fillter__box">
                 <!--   свет -->
                 <?php echo do_shortcode('[br_filter_single filter_id=730]'); ?>
@@ -36,5 +39,5 @@
         </div>
 
     </div>
-   
+
 </aside>

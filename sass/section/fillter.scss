@@ -19,6 +19,56 @@
         padding: 0px 10px;
     }
 
+    /* costom block  */
+
+    .filter__categories ul li ul li{
+        margin-left: 10px;
+        padding: 5px 0;
+    }
+    .filter__categories ul li .product-count{
+        padding-left: 5px;
+    }
+
+    .fillter__content.active {
+        .filter__catalog-arrow::after {
+            transform: rotate(225deg);
+            transition: all 0.5s;
+        }
+    }
+
+    .filter__catalog-arrow {
+        position: relative !important;
+        padding-right: 25px;
+
+        &::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 43%;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid #666;
+            border-bottom: 2px solid #666;
+            transform: translateY(-50%) rotate(45deg);
+            pointer-events: none;
+            transition: 0.2s ease;
+            z-index: 2;
+            transition: all 0.5s;
+            transform: rotate(45deg);
+        }
+    }
+
+    .cat-parent {
+        padding: 10px 0;
+    }
+
+
+
+
+
+
+
+
     .bapf_hascolarr,
     .bapf_head {
         font-size: 20px;
@@ -67,18 +117,54 @@
     }
 
 
+    /* select атрибуты */
 
-    .fa-chevron-up:before {
+    /* закрытй */
+    .fa-chevron-down:before {
+        content: "";
         color: var(--gren);
-        font-size: 12px;
+        position: absolute;
+        right: 0;
+        top: 43%;
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid #666;
+        border-bottom: 2px solid #666;
+        transform: translateY(-50%) rotate(45deg);
+        pointer-events: none;
+        transition: 0.2s ease;
+        z-index: 2;
+        transform: rotate(45deg);
+        transition: all 0.5s;
     }
 
-    .bapf_colaps_smb {
-        font-size: 12px;
+
+    /* Открытое  */
+    .fa-chevron-up:before {
+        content: "";
+        color: var(--gren);
+        position: absolute;
+        right: 0;
+        top: 43%;
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid #666;
+        border-bottom: 2px solid #666;
+        transform: translateY(-50%) rotate(45deg);
+        pointer-events: none;
+        transition: 0.2s ease;
+        z-index: 2;
+        transition: all 0.5s;
+        transform: rotate(225deg);
     }
 
 
-    /* чекбокс */
+
+
+
+
+
+    /* чекбокс  price*/
 
     /*   обычное состояние кнопки */
     .bapf_ckbox_sqchck input[type=checkbox] {
@@ -121,7 +207,7 @@
     }
 
 
-    /*  price */
+
 
     /* btn */
     .ui-state-default {

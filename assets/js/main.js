@@ -812,12 +812,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  let selectFilter = document.querySelector('.categories .woocommerce-ordering');
+
+
+
+  let selectcategory = document.querySelector('.categories .woocommerce-ordering');
+  selectcategory.addEventListener('click', (e) => {
+    if (e.target) {
+      selectcategory.classList.toggle('active');
+    }
+  })
+
+  let selectFilter = document.querySelector('.fillter__content');
   selectFilter.addEventListener('click', (e) => {
     if (e.target) {
       selectFilter.classList.toggle('active');
     }
   })
+
+
+
 
 });
 
