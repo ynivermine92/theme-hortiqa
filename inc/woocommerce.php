@@ -18,3 +18,4 @@ if (class_exists('WooCommerce')) {
     require get_template_directory() . '/inc/woocommers/catalog.php';
     require get_template_directory() . '/inc/woocommers/catalog-filter.php';
 }
+/* btn-orange */

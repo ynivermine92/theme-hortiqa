@@ -832,6 +832,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+    const openBtn = document.querySelector('.fillter-mob__btn');
+    const filter = document.querySelector('.filter-mobile');
+    const overlay = document.querySelector('.filter-overlay');
+    const closeBtn = document.querySelector('.filter-close');
+
+    // открыть фильтр
+    function openFilter() {
+        filter.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // блокируем скролл
+    }
+
+    // закрыть фильтр
+    function closeFilter() {
+        filter.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = ''; // возвращаем скролл
+    }
+
+    // события
+    openBtn?.addEventListener('click', openFilter);
+    closeBtn?.addEventListener('click', closeFilter);
+    overlay?.addEventListener('click', closeFilter);
+
+
+
 });
 
 

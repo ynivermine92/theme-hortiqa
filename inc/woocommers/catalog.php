@@ -93,44 +93,73 @@ add_action('woocommerce_shop_loop_item_title', function () {
     global $product;
 
     echo '<div class="categories__contnet">';
-
     echo get_template_part('section/rating');
-
     echo '<div class="review-count">';
     echo 'Отзывов: ' . $product->get_review_count();
     echo '</div>';
+    echo '</div>';
 
+
+    /********************************** продукты, title **********************************/
+    echo '<h2 class="categories__name">' . get_the_title() . '</h2>';
+
+
+    /********************************** продукты, Краткое описание **********************************/
+    echo '<div class="categories__desc">';
+    echo $product->get_short_description();
     echo '</div>';
 }, 9);
 
 
 
 
-/********************************** продукты, title **********************************/
-add_action('woocommerce_shop_loop_item_title', function () {
-    echo '<h2 class=categories__name>' . get_the_title() . '</h2> ';
-}, 10);
 
 
 
-/********************************** продукты, prace **********************************/
-add_filter('woocommerce_get_price_html', 'custom_price_html', 10, 2);
 
-function custom_price_html($price, $product)
+
+/********************************** продукты, prace  **********************************/
+add_filter('woocommerce_variable_price_html', 'custom_variable_min_price_only', 10, 2);
+
+
+function custom_variable_min_price_only($price, $product)
 {
+    $min_regular = $product->get_variation_regular_price('min', true);
+    $min_sale    = $product->get_variation_sale_price('min', true);
 
-    if ($product->is_on_sale()) {
-        $regular = wc_get_price_to_display($product, ['price' => $product->get_regular_price()]);
-        $sale = wc_get_price_to_display($product, ['price' => $product->get_sale_price()]);
-
-        return '<div class="my-price">
-    <span class="old-price">' . wc_price($regular) . '</span>
-    <span class="new-price">' . wc_price($sale) . '</span>
-</div>';
+    // если есть скидка
+    if ($min_sale && $min_sale < $min_regular) {
+        return wc_format_sale_price(
+            wc_price($min_regular),
+            wc_price($min_sale)
+        ) . $product->get_price_suffix();
     }
 
-    return '<div class="my-price">' . wc_price($product->get_price()) . '</div>';
+    // без скидки — просто минимальная цена
+    return wc_price($min_regular) . $product->get_price_suffix();
 }
+
+
+
+// меняем разделитель копеек (запятая -> точка)
+add_filter('wc_get_price_decimal_separator', function () {
+    return '.';
+});
+
+// пробел между тысячами
+add_filter('wc_get_price_thousand_separator', function () {
+    return '';
+});
+
+
+// убираем пробел между числом и валютой и меняем порядок валюты и числа %1$s, валюта %2$s
+add_filter('woocommerce_price_format', function () {
+    return '%2$s%1$s';
+});
+
+
+
+
 
 
 /********************************** продукты, кнопка товара **********************************/
@@ -140,8 +169,26 @@ add_action('woocommerce_after_shop_loop_item', function () {
     global $product;
 
     if ($product->is_type('variation')) {
-        echo '<a href="?add-to-cart=' . $product->get_id() . '" class="categories__link">В КОШИК</a>';
+        echo '<a href="?add-to-cart=' . $product->get_id() . '" class="categories__link btn-orange">
+        <span>В КОШИК</span>
+        </a>';
     } else {
-        echo '<a href="' . get_permalink($product->get_id()) . '" class="categories__link">В КОШИК</a>';
+        echo '<a href="' . get_permalink($product->get_id()) . '" class="categories__link btn-orange">   <span>В КОШИК</span></a>';
     }
 }, 10);
+
+
+
+
+/**************** общия обертка кнопки фильтра для адаптива, моб фильтр ****************/
+
+remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
+
+add_action('woocommerce_before_shop_loop', function () {
+    echo '<div class="categories__count-box">';
+    echo '<button class="fillter-mob__btn btn">Фильтр</button>';
+
+    /* количество товаров */
+    woocommerce_result_count();
+    echo '</div>';
+}, 20);

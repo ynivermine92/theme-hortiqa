@@ -33,6 +33,7 @@
     /* tabs */
     .fillter__content {
         margin-top: 24px;
+
         .filter__categories {
             max-height: 0;
             opacity: 0;
@@ -256,6 +257,76 @@
 
 }
 
+
+@media (max-width: 991px) {
+
+    /* OVERLAY */
+    .filter-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s ease;
+        z-index: 99;
+    }
+
+    .filter-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* FILTER PANEL */
+    .filter-mobile {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+
+        background: #fff;
+        z-index: 100;
+
+        transform: translateX(-100%);
+        transition: transform 0.35s ease-in-out;
+
+        padding: 20px;
+        overflow-y: auto;
+
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .filter-mobile.active {
+        transform: translateX(0);
+    }
+
+    /* CLOSE BUTTON */
+    .filter-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: #f3f3f3;
+        border-radius: 50%;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .filter-mobile__inner {
+        margin-top: 50px;
+    }
+}
+
+
+
+
+
+
+
+
+
 /* seletect  */
 .orderby {
     cursor: pointer;
@@ -321,8 +392,3 @@
     background: transparent;
     position: relative !important;
 }
-
-
-
-
-

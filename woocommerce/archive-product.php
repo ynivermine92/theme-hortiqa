@@ -69,7 +69,7 @@ do_action('woocommerce_before_main_content'); ?>
 
 <section class="categories">
 	<div class="wrapper">
-		<div class="categories__inner">
+		<div class="categories__inner row">
 			<?
 
 			/**
@@ -77,10 +77,12 @@ do_action('woocommerce_before_main_content'); ?>
 			 *
 			 * @hooked woocommerce_get_sidebar - 10
 			 */
-			do_action('woocommerce_sidebar'); ?>
+			?>
+			<div class="col-lg-3 col-md-9 filter-mobile">
+				<?php do_action('woocommerce_sidebar');	?>
+			</div>
 
-
-			<div class="categories__wrapper">
+			<div class="col-lg-9 col-md-12">
 				<?
 				/**
 				 * Hook: woocommerce_shop_loop_header.
@@ -101,6 +103,7 @@ do_action('woocommerce_before_main_content'); ?>
 					 * @hooked woocommerce_catalog_ordering - 30
 					 */
 				?>
+				
 					<div class="categories__box">
 						<?php do_action('woocommerce_before_shop_loop'); ?>
 					</div>
