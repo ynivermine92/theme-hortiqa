@@ -6,21 +6,25 @@
 
 
     <div class="fillter">
-        <div class="fillter__wrapper">
-            <div class="fillter__title">
-                Filter
+        <div class="fillter__content-wrapper">
+            <div class="fillter__wrapper">
+                <div class="fillter__title">
+                    Filter
+                </div>
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/img//png/filter.png" alt="filter">
             </div>
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/img//png/filter.png" alt="filter">
-
+            <div class="fillter__clouse">X</div>
         </div>
+
         <div class="fillter__inner">
 
 
             <div class="fillter__box  fillter__content active">
                 <!-- категория -->
-                <?php ynivermine_all_categories_tree(); ?>
+
+                <?php echo do_shortcode('[br_filter_single filter_id=742]'); ?>
             </div>
-           
+
             <div class="fillter__box">
                 <!--   свет -->
                 <?php echo do_shortcode('[br_filter_single filter_id=730]'); ?>
@@ -32,7 +36,11 @@
             <!--  цена -->
             <?php echo do_shortcode('[br_filter_single filter_id=633]'); ?>
             <!--  удалить -->
-            <?php echo do_shortcode('[br_filter_single filter_id=735]'); ?>
+
+            <div class="fillter__mob-content">
+                <button class="fillter__btn-clouse btn-orange">Показать</button>
+                <?php echo do_shortcode('[br_filter_single filter_id=735]'); ?>
+            </div>
 
 
 

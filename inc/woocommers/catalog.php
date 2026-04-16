@@ -20,7 +20,7 @@ function productItemWoo($classes, $product)
 {
     if (!is_product()) {
         $classes[] = 'categories__item';
-        $classes[] = 'col-sm-4';
+        $classes[] = 'col-md-4';
         $classes[] = 'col-6';
     }
 
@@ -94,9 +94,17 @@ add_action('woocommerce_shop_loop_item_title', function () {
 
     echo '<div class="categories__contnet">';
     echo get_template_part('section/rating');
-    echo '<div class="review-count">';
-    echo 'Отзывов: ' . $product->get_review_count();
+
+
+    echo '<div class="review-content">';
+    echo 'Отзывов :';
     echo '</div>';
+
+    echo '<div class="review-count">';
+    echo '' . $product->get_review_count();
+    echo '</div>';
+
+
     echo '</div>';
 
 
@@ -186,7 +194,10 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 
 add_action('woocommerce_before_shop_loop', function () {
     echo '<div class="categories__count-box">';
-    echo '<button class="fillter-mob__btn btn">Фильтр</button>';
+    echo '<button class="fillter-mob__btn btn">
+	<span>Фильтр</span>
+	<img src="' . get_template_directory_uri() . '/assets/img/png/filter.png" alt="filter">
+</button>';
 
     /* количество товаров */
     woocommerce_result_count();

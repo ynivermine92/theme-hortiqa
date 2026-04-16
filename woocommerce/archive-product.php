@@ -78,7 +78,7 @@ do_action('woocommerce_before_main_content'); ?>
 			 * @hooked woocommerce_get_sidebar - 10
 			 */
 			?>
-			<div class="col-lg-3 col-md-9 filter-mobile">
+			<div class="col-lg-3 col-md-12 filter-mobile">
 				<?php do_action('woocommerce_sidebar');	?>
 			</div>
 

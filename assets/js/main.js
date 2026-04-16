@@ -840,31 +840,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  const filterMobuleCatalog = () => {
+
+    const open = document.querySelector('.filter-mobile');
+    const btn = document.querySelector('.fillter-mob__btn');
+    const clouse = document.querySelector('.fillter__clouse');
+    const btnClouse = document.querySelector('.fillter__btn-clouse');
 
 
-    const openBtn = document.querySelector('.fillter-mob__btn');
-    const filter = document.querySelector('.filter-mobile');
-    const overlay = document.querySelector('.filter-overlay');
-    const closeBtn = document.querySelector('.filter-close');
+    btn.addEventListener('click', () => {
+      open.classList.add('active');
+      document.body.classList.add('locked');
+    })
 
-    // открыть фильтр
-    function openFilter() {
-        filter.classList.add('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden'; // блокируем скролл
-    }
+    clouse.addEventListener('click', () => {
+      open.classList.remove('active');
+      document.body.classList.remove('locked');
+    })
+    
+    btnClouse.addEventListener('click', () => {
+      open.classList.remove('active');
+      document.body.classList.remove('locked');
+    })
 
-    // закрыть фильтр
-    function closeFilter() {
-        filter.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = ''; // возвращаем скролл
-    }
 
-    // события
-    openBtn?.addEventListener('click', openFilter);
-    closeBtn?.addEventListener('click', closeFilter);
-    overlay?.addEventListener('click', closeFilter);
+
+
+
+  }
+
+  filterMobuleCatalog();
 
 
 
