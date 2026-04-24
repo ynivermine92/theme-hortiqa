@@ -12,10 +12,18 @@ if (class_exists('WooCommerce')) {
     }
     add_action('after_setup_theme', 'hortiqa_add_woocommerce_support');
 
-    
-    /* inc */
+
+
+    /* catalog */
     require get_template_directory() . '/inc/woocommers/account.php';
-    require get_template_directory() . '/inc/woocommers/catalog.php';
-    require get_template_directory() . '/inc/woocommers/catalog-filter.php';
+    require get_template_directory() . '/inc/woocommers/catalog/catalog.php';
+    require get_template_directory() . '/inc/woocommers/catalog/catalog-filter.php';
+
+    /* product */
+    require get_template_directory() . '/inc/woocommers/product/product.php';
+    require get_template_directory() . '/inc/woocommers/product/product-form.php';
+  
+
+    /* rating */
+    require get_template_directory() . '/inc/woocommers/rating.php';
 }
-/* btn-orange */

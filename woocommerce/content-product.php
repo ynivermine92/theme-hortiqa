@@ -25,7 +25,7 @@ if (! is_a($product, WC_Product::class) || ! $product->is_visible()) {
 	return;
 }
 ?>
-<li <?php wc_product_class('', $product); ?>>
+<li <?php wc_product_class('categories__item col-md-4 col-6', $product); ?>>
 	<?php
 	/**
 	 * Hook: woocommerce_before_shop_loop_item.

@@ -1,3 +1,16 @@
+:root {
+    --body: #16303d;
+    --white: rgba(255, 255, 255, 1);
+    --gren: #527a4f;
+    --lightgreen: rgba(235, 246, 234, 1);
+    --series: rgba(255, 255, 255, 0.4);
+    --orange: #F48E40;
+    --black: #000;
+    --grey: #EBF6EA;
+    --blue: #6ea9db;
+}
+
+
 .fillter {
 
     &__content-wrapper {
@@ -295,7 +308,7 @@
 }
 
 
-
+/* filter adaptiv */
 
 @media (max-width: 991px) {
 
@@ -316,14 +329,7 @@
 
 
 
-
-
-
-
-
-
-
-    /*  mobile filter */
+    /*  mobile filter adaptiv */
     .filter-mobile {
         z-index: 1;
     }
@@ -377,12 +383,6 @@
 
 
 }
-
-
-
-
-
-
 
 
 

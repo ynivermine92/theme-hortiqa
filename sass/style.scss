@@ -41,17 +41,99 @@
 @use "./section/blogs";
 @use "./section/single";
 @use "./section/flexible-blog-product";
-
+@use "./section/footer";
 
 
 //woo
+/* cataglpg */
 @use "./section/categories";
 @use "./section/wishlist";
-@use "./section/acaunt";
 @use "./section/fillter";
 
 
+/* product */
+@use "./section/product";
 
 
-@use "./section/footer";
 
+/* acaunt */
+@use "./section/acaunt";
+
+
+
+
+/* form */
+
+/* =========================
+   WRAPPER
+========================= */
+.product__attributes {
+    margin-bottom: 20px;
+}
+
+/* =========================
+   TITLE
+========================= */
+.product__attributes-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* =========================
+   TABS (pa_size)
+========================= */
+.product__tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.product__tabs-item {
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: #f7f7f7;
+    transition: 0.2s;
+}
+
+.product__tabs-item.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+/* =========================
+   RADIO (pa_care)
+========================= */
+.product__radio {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+/* =========================
+   SELECT (pa_light)
+========================= */
+.product__select select {
+    padding: 8px;
+    border: 1px solid #000000;
+    width: 200px;
+
+}
+
+
+
+
+.variations__select {
+    display: none !important;
+}
+
+
+
+/* form  end*/

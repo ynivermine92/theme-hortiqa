@@ -15,7 +15,9 @@ function my_custom_products_ul($html)
 
 
 /********************************** item продуктов **********************************/
-add_filter('woocommerce_post_class', 'productItemWoo', 20, 2);
+/* !!!!content-product туда ставлять стили !!!! */
+
+/* add_filter('woocommerce_post_class', 'productItemWoo', 20, 2);
 function productItemWoo($classes, $product)
 {
     if (!is_product()) {
@@ -25,7 +27,7 @@ function productItemWoo($classes, $product)
     }
 
     return $classes;
-}
+} */
 
 /********************************** обертка нутри item **********************************/
 add_action('woocommerce_before_shop_loop_item', 'open_product_wrapper', 5);
@@ -93,7 +95,6 @@ add_action('woocommerce_shop_loop_item_title', function () {
     global $product;
 
     echo '<div class="categories__contnet">';
-    echo get_template_part('section/rating');
 
 
     echo '<div class="review-content">';
@@ -112,9 +113,20 @@ add_action('woocommerce_shop_loop_item_title', function () {
     echo '<h2 class="categories__name">' . get_the_title() . '</h2>';
 
 
-    /********************************** продукты, Краткое описание **********************************/
+    /********************************** категория товара **********************************/
     echo '<div class="categories__desc">';
-    echo $product->get_short_description();
+
+    $terms = get_the_terms(get_the_ID(), 'product_cat');
+
+    if (!empty($terms) && !is_wp_error($terms)) {
+        foreach ($terms as $term) {
+            // пропускаем главные категории (оставляем только подкатегории)
+            if ($term->parent != 0) {
+                echo '<span class="category-item">' . esc_html($term->name) . '</span> ';
+            }
+        }
+    }
+
     echo '</div>';
 }, 9);
 
@@ -177,11 +189,11 @@ add_action('woocommerce_after_shop_loop_item', function () {
     global $product;
 
     if ($product->is_type('variation')) {
-        echo '<a href="?add-to-cart=' . $product->get_id() . '" class="categories__link btn-orange">
-        <span>В КОШИК</span>
+        echo '<a href="?add-to-cart=' . $product->get_id() . '" class="categories__link btn-green">
+        <span>Вибрати</span>
         </a>';
     } else {
-        echo '<a href="' . get_permalink($product->get_id()) . '" class="categories__link btn-orange">   <span>В КОШИК</span></a>';
+        echo '<a href="' . get_permalink($product->get_id()) . '" class="categories__link btn-green">   <span>Вибрати</span></a>';
     }
 }, 10);
 
@@ -194,7 +206,7 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 
 add_action('woocommerce_before_shop_loop', function () {
     echo '<div class="categories__count-box">';
-    echo '<button class="fillter-mob__btn btn">
+    echo '<button class="fillter-mob__btn btn-green">
 	<span>Фильтр</span>
 	<img src="' . get_template_directory_uri() . '/assets/img/png/filter.png" alt="filter">
 </button>';
@@ -203,3 +215,126 @@ add_action('woocommerce_before_shop_loop', function () {
     woocommerce_result_count();
     echo '</div>';
 }, 20);
+
+
+
+
+
+
+
+/* pagination  woocommers  catalog*/
+
+/* ввыводим сколько карточек показывать */
+
+add_filter('loop_shop_per_page', function () {
+    return 9;
+}, 20);
+
+
+/* pagination  кастомный ввывод*/
+remove_action('woocommerce_after_shop_loop', 'woocommerce_pagination', 10);
+add_action('woocommerce_after_shop_loop', 'custom_wc_pagination', 10);
+
+
+function custom_wc_pagination()
+{
+
+    global $wp_query;
+
+    $total   = $wp_query->max_num_pages;
+    $current = max(1, get_query_var('paged'));
+
+    if ($total <= 1) return;
+?>
+
+    <div class="wrapper">
+        <div class="pagination">
+            <ul class="pagination__items">
+
+                <!-- Prev -->
+                <?php
+                $prev_page = $current - 1;
+                $prev_class = 'pagination__item pagination__item-prev';
+
+                if ($current <= 1) {
+                    $prev_class .= ' disabled';
+                }
+                ?>
+
+                <li class="<?php echo $prev_class; ?>" data-pagination-id="<?php echo $prev_page; ?>">
+
+                    <?php if ($current > 1) : ?>
+                        <a class="pagination__link pagination__link-prev"
+                            href="<?php echo esc_url(get_pagenum_link($prev_page)); ?>">
+                            <span class="pagination__arrow">&lt;</span>
+                        </a>
+                    <?php else : ?>
+                        <span class="pagination__link pagination__link-prev">
+                            <span class="pagination__arrow">&lt;</span>
+                        </span>
+                    <?php endif; ?>
+
+                </li>
+
+                <!-- Pages -->
+                <?php
+                $links = paginate_links([
+                    'total'     => $total,
+                    'current'   => $current,
+                    'type'      => 'array',
+                    'prev_next' => false,
+                    'end_size'  => 1,
+                    'mid_size'  => 1,
+                ]);
+
+                if (!empty($links)) {
+                    foreach ($links as $link) {
+
+                        $class = 'pagination__item';
+
+                        if (strpos($link, 'current') !== false) {
+                            $class .= ' active';
+                        }
+
+                        if (strpos($link, 'dots') !== false) {
+                            $class .= ' pagination__item-dots';
+                        }
+
+                        $link = str_replace('page-numbers', 'pagination__link', $link);
+
+                        echo '<li class="' . $class . '">' . $link . '</li>';
+                    }
+                }
+                ?>
+
+                <!-- Next -->
+                <?php
+                $next_page = $current + 1;
+                $next_class = 'pagination__item pagination__item-next';
+
+                if ($current >= $total) {
+                    $next_class .= ' disabled';
+                }
+                ?>
+
+                <li class="<?php echo $next_class; ?>" data-pagination-id="<?php echo $next_page; ?>">
+
+                    <?php if ($current < $total) : ?>
+                        <a class="pagination__link pagination__link-next"
+                            href="<?php echo esc_url(get_pagenum_link($next_page)); ?>">
+                            <span class="pagination__arrow">&gt;</span>
+                        </a>
+                    <?php else : ?>
+                        <span class="pagination__link pagination__link-next">
+                            <span class="pagination__arrow">&gt;</span>
+                        </span>
+                    <?php endif; ?>
+
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+<?php
+}

@@ -365,7 +365,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   });
 
-
   const subProduct = new Swiper('.sub-product__slider', {
     loop: false,
     slidesPerView: '7',
@@ -413,19 +412,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const advertisingSwiper = new Swiper('.advertising__slider', {
     loop: true,
@@ -484,7 +470,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-
   const updateLastVisible = () => {
     const visibleSlides = document.querySelectorAll('.partners__swiper .swiper-slide-visible');
 
@@ -500,13 +485,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
   updateLastVisible();
 
-
   partnersSwiper.on('slideChange resize', updateLastVisible);
-
-
 
 
   new Swiper('.swiper-portfolio', {
@@ -546,8 +527,6 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
   });
-
-
 
 
 
@@ -602,25 +581,89 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
+  /*   slider product */
+  const sliderThumbs = new Swiper(".thumbs-container", {
+    direction: "vertical",
+    slidesPerView: 8,
+    spaceBetween: 10,
+    watchSlidesProgress: true,
+    navigation: {
+      nextEl: ".slider__next",
+      prevEl: ".slider__prev",
+    },
+    freeMode: true,
+    breakpoints: {
+      0: { direction: "horizontal", slidesPerView: 1.5 },
+      360: { direction: "horizontal", slidesPerView: 2 },
+      576: { direction: "horizontal", slidesPerView: 5 },
+      992: { direction: "vertical" },
+    },
+  });
+
+  const sliderImages = new Swiper(".images-container", {
+    direction: "vertical",
+    slidesPerView: 1,
+    spaceBetween: 0,
+    mousewheel: false,
+    navigation: {
+      nextEl: ".slider__next",
+      prevEl: ".slider__prev",
+    },
+    grabCursor: false,
+    simulateTouch: false,
+    allowTouchMove: false,
+    thumbs: {
+      swiper: sliderThumbs,
+    },
+    breakpoints: {
+      0: { direction: "vertical" },
+      1000: { direction: "vertical" },
+    },
+  });
 
 
 
 
 
 
-  const stars = document.querySelectorAll(".rating__star");
-  for (const star of stars) {
-    star.addEventListener("click", () => {
-      for (const star of stars) {
-        star.classList.remove("active");
-      }
-      star.classList.add("active");
 
-      const { rate } = star.dataset;
-      star.parentNode.dataset.rateTotal = star.dataset.rate;
+
+
+  /* swiper */
+
+
+
+
+
+
+
+
+
+
+  const reviewForm = document.querySelector('#review_form');
+
+  if (reviewForm) {
+    const stars = reviewForm.querySelectorAll(".rating__star");
+
+    stars.forEach(clickedStar => {
+      clickedStar.addEventListener("click", () => {
+        const rating = Number(clickedStar.dataset.rate);
+
+        stars.forEach(star => {
+          const starValue = Number(star.dataset.rate);
+
+          star.classList.toggle("active", starValue <= rating);
+        });
+
+        const hiddenInput = reviewForm.querySelector('input[name="rating"]');
+        if (hiddenInput) {
+          hiddenInput.value = rating;
+        }
+
+        clickedStar.parentNode.dataset.rateTotal = rating;
+      });
     });
   }
-
 
 
 
@@ -816,19 +859,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   let selectcategory = document.querySelector('.categories .woocommerce-ordering');
-  selectcategory.addEventListener('click', (e) => {
-    if (e.target) {
-      selectcategory.classList.toggle('active');
-    }
-  })
+  if (selectcategory) {
 
-  let selectFilter = document.querySelector('.fillter__content');
-  selectFilter.addEventListener('click', (e) => {
-    if (e.target) {
-      selectFilter.classList.toggle('active');
-    }
-  })
+    selectcategory.addEventListener('click', (e) => {
+      if (e.target) {
+        selectcategory.classList.toggle('active');
+      }
+    })
 
+    let selectFilter = document.querySelector('.fillter__content');
+    selectFilter.addEventListener('click', (e) => {
+      if (e.target) {
+        selectFilter.classList.toggle('active');
+      }
+    })
+
+  }
 
 
 
@@ -847,21 +893,23 @@ document.addEventListener("DOMContentLoaded", () => {
     const clouse = document.querySelector('.fillter__clouse');
     const btnClouse = document.querySelector('.fillter__btn-clouse');
 
+    if (open) {
 
-    btn.addEventListener('click', () => {
-      open.classList.add('active');
-      document.body.classList.add('locked');
-    })
+      btn.addEventListener('click', () => {
+        open.classList.add('active');
+        document.body.classList.add('locked');
+      })
 
-    clouse.addEventListener('click', () => {
-      open.classList.remove('active');
-      document.body.classList.remove('locked');
-    })
-    
-    btnClouse.addEventListener('click', () => {
-      open.classList.remove('active');
-      document.body.classList.remove('locked');
-    })
+      clouse.addEventListener('click', () => {
+        open.classList.remove('active');
+        document.body.classList.remove('locked');
+      })
+
+      btnClouse.addEventListener('click', () => {
+        open.classList.remove('active');
+        document.body.classList.remove('locked');
+      })
+    }
 
 
 
@@ -872,12 +920,140 @@ document.addEventListener("DOMContentLoaded", () => {
   filterMobuleCatalog();
 
 
+  /*   select выберо только 1 автоматически его выберает  */
+
+  function autoSelectSingleOption() {
+    const selects = document.querySelectorAll('select');
+
+    selects.forEach(select => {
+      // берем только реальные option (без пустого "Choose...")
+      const options = Array.from(select.options).filter(opt => opt.value !== '');
+
+      if (options.length === 1) {
+        select.value = options[0].value;
+
+        // триггерим change (важно для WooCommerce)
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  }
+
+  autoSelectSingleOption();
+
+  // WooCommerce часто обновляет вариации динамически
+  document.body.addEventListener('woocommerce_update_variation_values', function () {
+    autoSelectSingleOption();
+  });
+
+
+
+
+  const imageSlider = () => {
+    /* проверить атрубуты варийбел */
+
+    const form = document.querySelector('form.variations_form');
+
+    if (!form) return;
+
+    if (window.jQuery) {
+      jQuery(form).on('found_variation', function (event, variation) {
+        form.dispatchEvent(new CustomEvent('variation:found', {
+          detail: variation
+        }));
+      });
+    }
+
+    form.addEventListener('variation:found', function (event) {
+      const variation = event.detail;
+
+      if (!variation || !variation.image) return;
+
+      const newImage = variation.image.full_src;
+
+      const activeImg = document.querySelector('.images-container .swiper-slide-active img');
+
+      if (activeImg && newImage) {
+        activeImg.setAttribute('src', newImage);
+      }
+    });
+  }
+  imageSlider();
+
+
+
+
+
+
+
+
+  /* form */
+
+
+  /* tabs */
+
+  document.querySelectorAll('.product__tabs-item').forEach(item => {
+    item.addEventListener('click', function () {
+
+      const attr = this.dataset.attribute; // pa_size
+      const value = this.dataset.value;     // 130-sm
+
+      const select = document.querySelector(
+        'select[name="attribute_' + attr + '"]'
+      );
+
+      if (!select) return;
+
+      select.value = value;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  });
+
+
+  /* redio */
+
+  document.querySelectorAll('.product__radio input').forEach(radio => {
+    radio.addEventListener('change', function () {
+
+      const attr = this.dataset.attribute;
+      const value = this.dataset.value;
+
+      const select = document.querySelector(
+        'select[name="attribute_' + attr + '"]'
+      );
+
+      if (!select) return;
+
+      select.value = value;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  });
+
+
+  /* select */
+  document.querySelectorAll('.product__select-item').forEach(item => {
+    item.addEventListener('click', function () {
+
+      const attr = this.dataset.attribute;
+      const value = this.dataset.value;
+
+      const select = document.querySelector(
+        'select[name="attribute_' + attr + '"]'
+      );
+
+      if (!select) return;
+
+      select.value = value;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  });
+
+
 
 });
 
 
 
 
-
+/* end */
 
 
