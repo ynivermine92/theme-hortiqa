@@ -922,28 +922,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /*   select выберо только 1 автоматически его выберает  */
 
-  function autoSelectSingleOption() {
-    const selects = document.querySelectorAll('select');
 
-    selects.forEach(select => {
-      // берем только реальные option (без пустого "Choose...")
-      const options = Array.from(select.options).filter(opt => opt.value !== '');
-
-      if (options.length === 1) {
-        select.value = options[0].value;
-
-        // триггерим change (важно для WooCommerce)
-        select.dispatchEvent(new Event('change', { bubbles: true }));
-      }
-    });
-  }
-
-  autoSelectSingleOption();
-
-  // WooCommerce часто обновляет вариации динамически
-  document.body.addEventListener('woocommerce_update_variation_values', function () {
-    autoSelectSingleOption();
-  });
 
 
 
@@ -986,66 +965,117 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  /* form */
 
+  /* variation */
+  const variationForm = () => {
 
-  /* tabs */
+    /* если вариация одна она выберается */
+    function autoSelectSingleOption() {
+      const selects = document.querySelectorAll('select');
 
-  document.querySelectorAll('.product__tabs-item').forEach(item => {
-    item.addEventListener('click', function () {
+      selects.forEach(select => {
+        // берем только реальные option (без пустого "Choose...")
+        const options = Array.from(select.options).filter(opt => opt.value !== '');
 
-      const attr = this.dataset.attribute; // pa_size
-      const value = this.dataset.value;     // 130-sm
+        if (options.length === 1) {
+          select.value = options[0].value;
 
-      const select = document.querySelector(
-        'select[name="attribute_' + attr + '"]'
-      );
+          // триггерим change (важно для WooCommerce)
+          select.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
+    }
 
-      if (!select) return;
+    autoSelectSingleOption();
 
-      select.value = value;
-      select.dispatchEvent(new Event('change', { bubbles: true }));
+    document.body.addEventListener('woocommerce_update_variation_values', function () {
+      autoSelectSingleOption();
     });
-  });
 
 
-  /* redio */
 
-  document.querySelectorAll('.product__radio input').forEach(radio => {
-    radio.addEventListener('change', function () {
 
-      const attr = this.dataset.attribute;
-      const value = this.dataset.value;
 
-      const select = document.querySelector(
-        'select[name="attribute_' + attr + '"]'
-      );
 
-      if (!select) return;
 
-      select.value = value;
-      select.dispatchEvent(new Event('change', { bubbles: true }));
+    /* tabs*/
+    document.querySelectorAll('.product__tabs-item').forEach(item => {
+      item.addEventListener('click', function () {
+        const attr = this.dataset.attribute;
+        const value = this.dataset.value;
+        const select = document.querySelector(
+          'select[name="attribute_' + attr + '"]'
+        );
+        if (!select) return;
+        select.value = value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      });
     });
-  });
 
 
-  /* select */
-  document.querySelectorAll('.product__select-item').forEach(item => {
-    item.addEventListener('click', function () {
 
-      const attr = this.dataset.attribute;
-      const value = this.dataset.value;
+    /* tabs active */
+    const variationTabs = () => {
 
-      const select = document.querySelector(
-        'select[name="attribute_' + attr + '"]'
-      );
+      let productSize = document.querySelectorAll('.product__size-item');
+      let productCare = document.querySelectorAll('.product__care-item');
+      let productLight = document.querySelectorAll('.product__light-item');
 
-      if (!select) return;
 
-      select.value = value;
-      select.dispatchEvent(new Event('change', { bubbles: true }));
+      const parameterTabs = (items) => {
+
+        if (!items.length) return;
+
+        if (items.length === 1) {
+          items[0].classList.add('active');
+          return;
+        }
+
+        items.forEach((item) => {
+          item.addEventListener('click', () => {
+
+            items.forEach((remove) => {
+              remove.classList.remove('active');
+            });
+
+            item.classList.add('active');
+          });
+        });
+
+      };
+      parameterTabs(productSize);
+      parameterTabs(productCare);
+      parameterTabs(productLight);
+
+    }
+    variationTabs();
+
+
+
+
+
+
+    /* counter */
+    document.querySelectorAll('.counter').forEach(counter => {
+      const input = counter.querySelector('input');
+      const minus = counter.querySelector('.minus');
+      const plus = counter.querySelector('.plus');
+
+      minus.addEventListener('click', () => {
+        let val = parseInt(input.value);
+        if (val > 1) input.value = val - 1;
+      });
+
+      plus.addEventListener('click', () => {
+        input.value = parseInt(input.value) + 1;
+      });
     });
-  });
+
+
+
+  }
+  variationForm();
+
 
 
 
@@ -1054,6 +1084,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* end */
+
 
 

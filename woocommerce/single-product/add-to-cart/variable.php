@@ -33,97 +33,98 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 	<?php if (empty($available_variations) && false !== $available_variations) : ?>
 		<p class="stock out-of-stock"><?php echo esc_html(apply_filters('woocommerce_out_of_stock_message', __('This product is currently out of stock and unavailable.', 'woocommerce'))); ?></p>
 	<?php else : ?>
-		<table class="variations" cellspacing="0" role="presentation">
-			<tbody>
+		<div class="variations" cellspacing="0" role="presentation">
 
 
-				<?php foreach ($attributes as $attribute_name => $options) : ?>
-					<tr>
-						<th class="label">
-							<label>
-								<?php echo wc_attribute_label($attribute_name); ?>
-							</label>
-						</th>
 
-						<td class="value">
+			<?php foreach ($attributes as $attribute_name => $options) : ?>
+				<div class="variations__wrapper">
 
-							<?php
-							wc_dropdown_variation_attribute_options([
-								'options'   => $options,
-								'attribute' => $attribute_name,
-								'product'   => $product,
-							]);
-							?>
+					<label class="label">
+						<?php echo wc_attribute_label($attribute_name); ?> :
+					</label>
 
-							<!--RESET -->
-							<?php echo end($attribute_keys) === $attribute_name
-								? '<a class="reset_variations" href="#">Clear</a>'
-								: '';
-							?>
+
+
+
+					<?php
+					wc_dropdown_variation_attribute_options([
+						'options'   => $options,
+						'attribute' => $attribute_name,
+						'product'   => $product,
+					]);
+					?>
 
 
 
 
 
-							<!------------------------CUSTOM attribute ------------>
 
-							<!-- pa_size -->
-							<?php if ($attribute_name === 'pa_size') : ?>
-								<div class="product__tabs">
-									<?php foreach ($options as $option) : ?>
-										<span class="product__tabs-item"
-											data-attribute="<?php echo esc_attr($attribute_name); ?>"
-											data-value="<?php echo esc_attr($option); ?>">
-											<?php echo esc_html($option); ?>
-										</span>
-									<?php endforeach; ?>
-								</div>
-							<?php endif; ?>
+					<!------------------------CUSTOM attribute ------------>
 
-							<!-- pa_care -->
-							<?php if ($attribute_name === 'pa_care') : ?>
-								<div class="product__radio">
-									<?php foreach ($options as $option) : ?>
-										<label>
-											<input type="radio"
-												data-attribute="<?php echo esc_attr($attribute_name); ?>"
-												data-value="<?php echo esc_attr($option); ?>">
-											<span><?php echo esc_html($option); ?></span>
-										</label>
-									<?php endforeach; ?>
-								</div>
-							<?php endif; ?>
+					<!-- pa_size -->
+					<?php if ($attribute_name === 'pa_size') : ?>
+						<div class="product__tabs product__size">
+							<?php foreach ($options as $option) : ?>
+								<span class="product__tabs-item product__size-item"
+									data-attribute="<?php echo esc_attr($attribute_name); ?>"
+									data-value="<?php echo esc_attr($option); ?>">
+									<?php echo esc_html($option); ?>
+								</span>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
 
-							<!-- pa_light-requirements -->
-							<?php if ($attribute_name === 'pa_light-requirements') : ?>
-								<div class="product__select">
-									<?php foreach ($options as $option) : ?>
-										<span class="product__select-item"
-											data-attribute="<?php echo esc_attr($attribute_name); ?>"
-											data-value="<?php echo esc_attr($option); ?>">
-											<?php echo esc_html($option); ?>
-										</span>
-									<?php endforeach; ?>
-								</div>
-							<?php endif; ?>
+					<!-- pa_care -->
+					<?php if ($attribute_name === 'pa_care') : ?>
+						<div class="product__tabs product__care">
+							<?php foreach ($options as $option) : ?>
+								<span class="product__tabs-item product__care-item"
+									data-attribute="<?php echo esc_attr($attribute_name); ?>"
+									data-value="<?php echo esc_attr($option); ?>">
+									<?php echo esc_html($option); ?>
+								</span>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
 
-							<!------------------------CUSTOM end ------------>
+					<!-- pa_light-requirements -->
 
+					<?php if ($attribute_name === 'pa_light-requirements') : ?>
+						<div class="product__tabs product__light">
+							<?php foreach ($options as $option) : ?>
+								<span class="product__tabs-item product__light-item"
+									data-attribute="<?php echo esc_attr($attribute_name); ?>"
+									data-value="<?php echo esc_attr($option); ?>">
+									<?php echo esc_html($option); ?>
+								</span>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
 
-						</td>
-					</tr>
-				<?php endforeach; ?>
+					<!------------------------CUSTOM end ------------>
 
+				</div>
 
-
-			</tbody>
-		</table>
-		<div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
-		<?php do_action('woocommerce_after_variations_table'); ?>
+			<?php endforeach; ?>
 
 
 
+			<!--RESET -->
+			<?php echo end($attribute_keys) === $attribute_name
+				? '<a class="reset_variations" href="#">Clear</a>'
+				: '';
+			?>
 
+
+
+
+			<div class="reset_variations_alert screen-reader-text" role="alert" aria-live="polite" aria-relevant="all"></div>
+			<?php do_action('woocommerce_after_variations_table'); ?>
+
+
+
+		</div>
 
 		<div class="single_variation_wrap">
 			<?php

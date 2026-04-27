@@ -20,19 +20,52 @@ function custom_wc_product_grid_classes($classes, $product)
 
 
 
-/* product_meta  передвинул верх */
 
+/* передвинул выше single_meta */
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
-add_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 4);
 
-remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+/* product_meta  кастом (выводит подкатегорию , подкатегорию-подкатегории) */
+add_action('woocommerce_single_product_summary', 'custom_product_meta', 4);
+function custom_product_meta()
+{
+    global $product;
+
+    if (! $product) return;
+
+    echo '<div class="product_meta">';
+
+    // ===== SKU =====
+    $sku = $product->get_sku();
+
+    echo '<span class="sku_wrapper">Артикул: <span class="sku">' .
+        ($sku ? esc_html($sku) : 'Н/Д') .
+        '</span></span>';
+
+    // ===== КАТЕГОРИИ =====
+    $terms = get_the_terms($product->get_id(), 'product_cat');
+
+    if ($terms && !is_wp_error($terms)) {
+
+        echo '<span class="posted_in">Категории: ';
+
+        $links = [];
+
+        foreach ($terms as $term) {
+            $links[] = '<a href="' . esc_url(get_term_link($term)) . '" rel="tag">' . esc_html($term->name) . '</a>';
+        }
+
+        echo implode(', ', $links);
+
+        echo '</span>';
+    }
+
+    echo '</div>';
+}
 
 
 remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
 
-
-
-/* product__title, есть наличии  передвинул верх */
+/* product__title, кастом есть наличии*/
 
 add_action('woocommerce_single_product_summary', function () {
     global $product;
@@ -73,6 +106,3 @@ add_action('woocommerce_single_product_summary', function () {
 
 /* Лебел акция   */
 remove_action('woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10);
-
-
-

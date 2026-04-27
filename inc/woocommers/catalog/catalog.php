@@ -15,7 +15,7 @@ function my_custom_products_ul($html)
 
 
 /********************************** item продуктов **********************************/
-/* !!!!content-product туда ставлять стили !!!! */
+/* !!!!!!!!!!   content-product туда ставлять стили     !!!!!!!!!!! */
 
 /* add_filter('woocommerce_post_class', 'productItemWoo', 20, 2);
 function productItemWoo($classes, $product)
