@@ -969,31 +969,31 @@ document.addEventListener("DOMContentLoaded", () => {
   /* variation */
   const variationForm = () => {
 
-    /* если вариация одна она выберается */
+    /* Если вариации только один выбер он выберается  */
     function autoSelectSingleOption() {
       const selects = document.querySelectorAll('select');
 
       selects.forEach(select => {
-        // берем только реальные option (без пустого "Choose...")
         const options = Array.from(select.options).filter(opt => opt.value !== '');
 
         if (options.length === 1) {
           select.value = options[0].value;
-
-          // триггерим change (важно для WooCommerce)
           select.dispatchEvent(new Event('change', { bubbles: true }));
         }
       });
     }
 
+    // первый запуск
     autoSelectSingleOption();
 
-    document.body.addEventListener('woocommerce_update_variation_values', function () {
-      autoSelectSingleOption();
-    });
+    /* кнопка удалить (reset) */
+    const resetVariations = document.querySelector('.reset_variations');
 
-
-
+    if (resetVariations) {
+      resetVariations.addEventListener('click', () => {
+        setTimeout(autoSelectSingleOption, 20);
+      });
+    }
 
 
 
@@ -1077,10 +1077,7 @@ document.addEventListener("DOMContentLoaded", () => {
   variationForm();
 
 
-
-
 });
-
 
 
 

@@ -389,10 +389,13 @@
     .variations__wrapper {
         display: flex;
         align-items: center;
+        padding-bottom: 30px;
     }
 
+
     .variations__wrapper+.variations__wrapper {
-        margin-top: 10px;
+        margin: 0px 0px;
+        padding: 0px 0;
     }
 
     .label {
@@ -401,7 +404,7 @@
     }
 
     .single_variation_wrap {
-        margin-top: 50px;
+        margin-top: 10px;
     }
 
 
@@ -470,6 +473,7 @@
 
 
     .reset_variations {
+        font-size: 18px;
         border: 2px solid #604f7a;
         border-radius: 10px;
         padding: 10px;
@@ -565,6 +569,9 @@
         margin-bottom: 0px !important;
     }
 
+    .single_variation_wrap {
+        margin-top: 10px;
+    }
 
 
 }
