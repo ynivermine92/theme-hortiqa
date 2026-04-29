@@ -410,7 +410,6 @@
     }
 
     .single_variation_wrap {
-<<<<<<< HEAD
         margin-top: 10px;
     }
 
@@ -432,8 +431,6 @@
     }
 
     .variations__wrapper+.variations__wrapper {
-=======
->>>>>>> 3c8586f (sansi)
         margin-top: 10px;
     }
 
@@ -471,14 +468,8 @@
 
     /* clear btn */
     .reset_variations {
-<<<<<<< HEAD
         font-size: 18px;
         border: 2px solid #604f7a;
-=======
-        font-size: 18px !important;
-        color: var(--white);
-        background: #604f7a;
->>>>>>> 3c8586f (sansi)
         border-radius: 10px;
         padding: 10px;
         margin: 10px 0;
@@ -579,62 +570,6 @@
     .single_variation_wrap {
         margin-top: 10px;
     }
-<<<<<<< HEAD
-=======
-
-    /* prace */
-    .my-price {
-        display: flex;
-        align-items: center;
-    }
-
-    .old-price span {
-        font-size: 20px;
-        text-decoration: line-through;
-    }
-
-    .new-price {
-        margin-left: 30px;
-        position: relative;
-
-        &::before {
-            content: '-';
-            position: absolute;
-            height: 2px;
-            font-size: 30px;
-            top: 10px;
-            left: -20px;
-            color: black;
-        }
-
-    }
-
-    .price-content {
-        position: absolute;
-    }
-
-    .variations_form .new-price span,
-    .variations_form .price span {
-        font-size: 32px;
-    }
-
-    .cout__product-sum {
-        font-size: 20px;
-        @extend %g-700;
-    }
-
-    .cout__product-currency {
-        font-size: 20px;
-    }
-
-    .variations_form .woocommerce-Price-currencySymbol {
-        display: none;
-    }
-
-
-
-
->>>>>>> 3c8586f (sansi)
 
 
 }
