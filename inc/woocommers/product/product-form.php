@@ -14,19 +14,79 @@ add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($a
 });
 
 
+/* price variation */
+add_filter('woocommerce_available_variation', 'variation_price');
+
+function variation_price($variation)
+{
+
+    $price = $variation['display_price'];
+    $regular = $variation['display_regular_price'];
+
+    if ($regular > $price) {
+
+        $currency = get_woocommerce_currency_symbol();
+
+        $variation['price_html'] =
+            '<div class="my-price">
+            <span class="old-price">
+                ' . wc_price($regular) . '
+                <span class="price-currency">' . $currency . '</span>
+            </span>
+            <span class="new-price price">
+            ' . wc_price($price) . '
+            <span class="price-currency">' . $currency . '</span>
+            </span>
+           
+        </div>';
+    } else {
+
+        $currency = get_woocommerce_currency_symbol();
+
+        $variation['price_html'] =
+            '<div class="my-price">
+            <span class="price">
+                ' . wc_price($price) . '
+                <span class="price-currency">' . $currency . '</span>
+            </span>
+        </div>';
+    }
+
+    return $variation;
+}
+
+
 
 /* costom: count,  btn */
-remove_action('woocommerce_single_variation', 'woocommerce_single_variation_add_to_cart_button', 20);
-add_action('woocommerce_single_variation', 'couter_variation', 20);
+add_action('woocommerce_before_single_product', function() {
+    remove_action(
+        'woocommerce_single_variation',
+        'woocommerce_single_variation_add_to_cart_button',
+        20
+    );
+
+    add_action(
+        'woocommerce_single_variation',
+        'couter_variation',
+        20
+    );
+});
 
 function couter_variation()
 {
     global $product;
 
+
+
     if (!$product) return;
 ?>
 
-
+    <div class="cout__sum">
+        <span class="cout__product-sum">
+            
+        </span>
+        <span class="cout__product-currency"> <?php echo get_woocommerce_currency_symbol(); ?></span>
+    </div>
 
     <div class="woocommerce-variation-add-to-cart variations_button">
 
@@ -56,6 +116,8 @@ function couter_variation()
         <input type="hidden" name="variation_id" class="variation_id" value="0">
 
     </div>
+
+
 
 <?php
 }

@@ -119,9 +119,6 @@
         padding: 20px 0;
     }
 
-    .price {
-        padding: 20px 0px;
-    }
 
     .woocommerce-Price-amount {
         @extend %g-700;
@@ -350,8 +347,9 @@
 
 
 
-    /* select */
+    /* form */
 
+    /*  tabs */
     .tabs {
         width: 100%;
         margin-top: 150px;
@@ -386,6 +384,7 @@
         }
     }
 
+
     .variations__wrapper {
         display: flex;
         align-items: center;
@@ -404,6 +403,7 @@
     }
 
     .single_variation_wrap {
+<<<<<<< HEAD
         margin-top: 10px;
     }
 
@@ -425,16 +425,9 @@
     }
 
     .variations__wrapper+.variations__wrapper {
+=======
+>>>>>>> 3c8586f (sansi)
         margin-top: 10px;
-    }
-
-    .label {
-        font-size: 18px;
-        margin-right: 20px;
-    }
-
-    .single_variation_wrap {
-        margin-top: 50px;
     }
 
     .product__tabs {
@@ -462,30 +455,35 @@
 
 
 
-
+    /* woo defolt select */
     .variations__select {
         display: none !important;
     }
 
 
 
-    /* clear */
-
-
+    /* clear btn */
     .reset_variations {
+<<<<<<< HEAD
         font-size: 18px;
         border: 2px solid #604f7a;
+=======
+        font-size: 18px !important;
+        color: var(--white);
+        background: #604f7a;
+>>>>>>> 3c8586f (sansi)
         border-radius: 10px;
         padding: 10px;
         margin: 10px 0;
         display: inline-block;
         transition: all 0.5s;
+        opacity: 1;
     }
 
     .reset_variations:hover {
-        background: #604f7a;
         transition: all 0.5s;
-        color: var(--white);
+        opacity: 0.5;
+
     }
 
     /* cout */
@@ -559,6 +557,8 @@
         display: flex;
     }
 
+
+    /*   btn add  */
     .single_add_to_cart_button {
         background: var(--gren) !important;
         width: 200px;
@@ -572,6 +572,60 @@
     .single_variation_wrap {
         margin-top: 10px;
     }
+<<<<<<< HEAD
+=======
+
+    /* prace */
+    .my-price {
+        display: flex;
+        align-items: center;
+    }
+
+    .old-price span {
+        font-size: 20px;
+        text-decoration: line-through;
+    }
+
+    .new-price {
+        margin-left: 30px;
+        position: relative;
+
+        &::before {
+            content: '-';
+            position: absolute;
+            height: 2px;
+            font-size: 30px;
+            top: 10px;
+            left: -20px;
+            color: black;
+        }
+
+    }
+
+    .price-content {
+        position: absolute;
+    }
+
+    .new-price span,
+    .price span {
+        font-size: 32px;
+    }
+
+    .cout__product-sum {
+        font-size: 20px;
+        @extend %g-700;
+    }
+
+    .cout__product-currency {
+        font-size: 20px;
+    }
+
+
+
+
+
+
+>>>>>>> 3c8586f (sansi)
 
 
 }

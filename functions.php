@@ -26,6 +26,21 @@ require get_template_directory() . '/inc/breadcrumbs.php';
 
 function project_scripts()
 {
+	/* fancybox */
+	wp_enqueue_style(
+		'fancybox-css',
+		'https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.css',
+		array(),
+		'5.0.36'
+	);
+
+	wp_enqueue_script(
+		'fancybox-js',
+		'https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1/dist/fancybox/fancybox.umd.js',
+		array(),
+		'5.0.36',
+		true
+	);
 
 	wp_enqueue_style(
 		'style',
@@ -56,21 +71,18 @@ function project_scripts()
 
 
 	wp_enqueue_script(
-		'script', 
+		'script',
 		get_template_directory_uri() . '/assets/js/main.js',
 		array('jquery'),
 		'1.0',
 		true
 	);
-	
+
 	wp_localize_script('script', 'wpApiSettings', [
 		'root' => esc_url(rest_url()),
-		 /*передаем авторизированного юзера в жс */
+		/*передаем авторизированного юзера в жс */
 		'nonce' => wp_create_nonce('wp_rest'),
 	]);
-
-
-
 }
 add_action('wp_enqueue_scripts', 'project_scripts');
 

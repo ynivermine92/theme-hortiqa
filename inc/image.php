@@ -19,5 +19,6 @@ function image_sizes()
     add_image_size('portfolio_slider', 230, 416, true);
     add_image_size('hero_slider-image', 642, 616, true);
     add_image_size('product_cart', 520, 707, true);
+    add_image_size('product_popap', 1200, 1200, true);
 }
 add_action('after_setup_theme', 'image_sizes');

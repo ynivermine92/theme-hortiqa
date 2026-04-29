@@ -43,13 +43,13 @@ $image_ids = array_merge([$post_thumbnail_id], $gallery_image_ids);
 	<div class="swiper-container images-container">
 		<div class="swiper-wrapper">
 			<?php foreach ($image_ids as $image_id):
-				$big_url = wp_get_attachment_image_url($image_id, 'product_cart');
+				$big_url = wp_get_attachment_image_url($image_id, 'product_popap');
 				$alt = get_post_meta($image_id, '_wp_attachment_image_alt', true);
 			?>
 				<div class="swiper-slide" data-image-id="<?php echo esc_attr($image_id); ?>">
 					<div class="slider__image">
 
-				
+
 						<!-- lebel sale -->
 						<?php if ($product->is_on_sale()) : ?>
 							<span class="onsale">АКЦІЯ</span>
@@ -59,8 +59,13 @@ $image_ids = array_merge([$post_thumbnail_id], $gallery_image_ids);
 							<?php echo do_shortcode('[ti_wishlists_addtowishlist]'); ?>
 						</div>
 						<a data-fancybox="product" href="<?php echo esc_url($big_url); ?>">
-							<img class="special__box-image" src="<?php echo esc_url($big_url); ?>" alt="<?php echo esc_attr($alt); ?>" />
+							<img
+								class="special__box-image"
+								src="<?php echo esc_url($big_url); ?>"
+								alt="<?php echo esc_attr($alt); ?>"
+								loading="lazy" />
 						</a>
+
 					</div>
 				</div>
 			<?php endforeach; ?>
