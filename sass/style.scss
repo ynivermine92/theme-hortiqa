@@ -6,7 +6,7 @@
 // Libs
 /* @import './libs/fancybox'; */
 @use './libs/swiper';
-
+@use "./libs/fancybox";
 
 // base
 @use "./base/reset";
@@ -41,7 +41,7 @@
 @use "./section/blogs";
 @use "./section/single";
 @use "./section/flexible-blog-product";
-@use "./section/fancybox";
+
 @use "./section/footer";
 
 

@@ -56,6 +56,28 @@
     }
 }
 
+.btn-filter {
+    border-radius: 38px;
+    background: var(--lightgreen);
+    display: flex;
+    padding: 16px 22px;
+    cursor: pointer;
+    color: var(--body);
+    align-items: center;
+    transition: all 0.5s;
+    font-size: 16px;
+    opacity: 1;
+
+    &:hover {
+        background: var(--gren);
+        color: var(--white);
+        transition: all 0.5s;
+        opacity: 0.6;
+    }
+
+
+}
+
 
 .arrow-btn {
     background: var(--gren);

@@ -892,22 +892,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector('.fillter-mob__btn');
     const clouse = document.querySelector('.fillter__clouse');
     const btnClouse = document.querySelector('.fillter__btn-clouse');
-
+    const header = document.querySelector('.header');
+    console.log(header)
     if (open) {
 
       btn.addEventListener('click', () => {
         open.classList.add('active');
         document.body.classList.add('locked');
+        header.classList.remove('fixed');
       })
 
       clouse.addEventListener('click', () => {
         open.classList.remove('active');
         document.body.classList.remove('locked');
+        header.classList.add('fixed');
       })
 
       btnClouse.addEventListener('click', () => {
         open.classList.remove('active');
         document.body.classList.remove('locked');
+        header.classList.add('fixed');
       })
     }
 
@@ -1201,6 +1205,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   variationForm();
+
+
+  Fancybox.bind('[data-fancybox="product"]', {
+    Carousel: {
+      Thumbs: {
+        type: "classic", 
+        
+      },
+      Zoomable: {
+        Panzoom: {
+          clickAction: "iterateZoom",
+          maxScale: 2,
+        },
+      },
+    },
+  });
 
 
 

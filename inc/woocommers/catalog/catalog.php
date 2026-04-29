@@ -206,7 +206,7 @@ remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20);
 
 add_action('woocommerce_before_shop_loop', function () {
     echo '<div class="categories__count-box">';
-    echo '<button class="fillter-mob__btn btn-green">
+    echo '<button class="fillter-mob__btn btn-filter">
 	<span>Фильтр</span>
 	<img src="' . get_template_directory_uri() . '/assets/img/png/filter.png" alt="filter">
 </button>';

@@ -127,7 +127,6 @@
 
     .product .woocommerce-Price-currencySymbol {
         font-size: 20px;
-        display: none;
     }
 
     .product_meta {
@@ -168,7 +167,7 @@
 
 
 
-    /* slider */
+    /* slider  product */
     .slider .swiper-container {
         width: 100%;
         height: 100%;
@@ -307,6 +306,14 @@
 
     @media (max-width: 992px) {
 
+        .slider__images {
+            width: 100%;
+            height: 550px;
+        }
+
+    }
+
+    @media (max-width: 600px) {
 
         .slider__images {
             width: 100%;
@@ -315,7 +322,7 @@
 
     }
 
-    /* slider end */
+    /*  slider  product end */
 
 
 
@@ -606,8 +613,8 @@
         position: absolute;
     }
 
-    .new-price span,
-    .price span {
+    .variations_form .new-price span,
+    .variations_form .price span {
         font-size: 32px;
     }
 
@@ -620,7 +627,9 @@
         font-size: 20px;
     }
 
-
+    .variations_form .woocommerce-Price-currencySymbol {
+        display: none;
+    }
 
 
 
