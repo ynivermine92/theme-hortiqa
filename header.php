@@ -67,7 +67,7 @@
 
 							<div class="header__content">
 								<div class="header__account account header__box">
-									<a href="acaunt/">
+									<a href="my-account/">
 										<svg class="user__svg">
 											<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/login.svg#login"></use>
 										</svg>

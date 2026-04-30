@@ -93,6 +93,7 @@ add_action('wp_enqueue_scripts', 'project_scripts');
 
 
 
+
 add_action('acf/init', 'register_acf_blocks');
 function register_acf_blocks()
 {

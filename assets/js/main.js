@@ -779,7 +779,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Пагинация
     const paginationBlogs = () => {
-      const paginationBtns = document.querySelectorAll('.pagination__item:not(.disabled)');
+      const paginationBtns = document.querySelectorAll('.blogs .pagination__item:not(.disabled)');
       paginationBtns.forEach(item => {
         item.addEventListener('click', e => {
           e.preventDefault();
@@ -1222,6 +1222,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
+
+  
 
 
 
