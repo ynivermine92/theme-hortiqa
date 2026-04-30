@@ -468,14 +468,15 @@
 
     /* clear btn */
     .reset_variations {
-        font-size: 18px;
-        border: 2px solid #604f7a;
+        font-size: 18px !important;
+        background: #604f7a;
         border-radius: 10px;
         padding: 10px;
         margin: 10px 0;
         display: inline-block;
         transition: all 0.5s;
         opacity: 1;
+        color: var(--white);
     }
 
     .reset_variations:hover {
@@ -572,4 +573,25 @@
     }
 
 
+
+    .variations_form {
+
+        .price-currency {
+            display: none;
+        }
+
+        .old-price .woocommerce-Price-amount.amount {
+            font-size: 22px;
+            margin-right: 10px;
+            text-decoration: line-through;
+            color: black;
+        }
+
+        .cout__product-sum,
+        .cout__product-currency {
+            font-size: 25px;
+            color: black;
+        }
+
+    }
 }
