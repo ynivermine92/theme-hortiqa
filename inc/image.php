@@ -20,5 +20,7 @@ function image_sizes()
     add_image_size('hero_slider-image', 642, 616, true);
     add_image_size('product_cart', 520, 707, true);
     add_image_size('product_popap', 1200, 1200, true);
+    /* кометарь */
+    add_image_size('comment_thumb', 80, 80, true);
 }
 add_action('after_setup_theme', 'image_sizes');

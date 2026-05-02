@@ -87,7 +87,7 @@
     }
 
     .comment-reply-title {
-        font-size: 18px;
+        font-size: 22px;
         @extend %g-500;
     }
 
@@ -181,6 +181,44 @@
         }
     }
 
+    .logged-in-as {
+        display: flex;
+        align-items: center;
+    }
+
+    .comment-form-rating {
+        margin: 10px 0;
+    }
+
+    .label {
+        font-size: 18px;
+        @extend %g-700;
+    }
+
+    .form-submit .btn-primary {
+        border-radius: 38px !important;
+        background: var(--gren) !important;
+        display: flex !important;
+        padding: 16px 22px !important;
+        cursor: pointer !important;
+        color: var(--white) !important;
+        align-items: center !important;
+        transition: all 0.5s !important;
+        font-size: 16px !important;
+
+        &:hover {
+            background: var(--lightgreen) !important;
+            color: var(--body) !important;
+            transition: all 0.5s !important;
+        }
+    }
+
+    .comment__box-conent {
+        overflow: hidden;
+    }
+
+
+
     @media(max-width:1100px) {
         &__content {
             display: flex;
@@ -191,6 +229,23 @@
             max-width: 100%;
             padding-top: 20px;
         }
+
+        .comment-respond {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-logged {
+            padding: 15px 0;
+        }
+
+        .feedback__textarea {
+            max-width: 100%;
+        }
+
+        .comment-form {
+            max-width: 100%;
+        }
     }
 
     @media(max-width:668px) {
@@ -198,5 +253,18 @@
             font-size: 14px;
         }
 
+        .form-submit .btn-primary {
+            width: 100%;
+        }
+
     }
 }
+
+
+
+
+
+
+
+
+

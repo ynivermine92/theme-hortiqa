@@ -25,3 +25,6 @@ function custom_rating($html, $rating, $count)
 <?php
   return ob_get_clean();
 }
+
+
+

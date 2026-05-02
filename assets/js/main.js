@@ -637,36 +637,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-
-
-  const reviewForm = document.querySelector('#review_form');
-
-  if (reviewForm) {
-    const stars = reviewForm.querySelectorAll(".rating__star");
-
-    stars.forEach(clickedStar => {
-      clickedStar.addEventListener("click", () => {
-        const rating = Number(clickedStar.dataset.rate);
-
-        stars.forEach(star => {
-          const starValue = Number(star.dataset.rate);
-
-          star.classList.toggle("active", starValue <= rating);
-        });
-
-        const hiddenInput = reviewForm.querySelector('input[name="rating"]');
-        if (hiddenInput) {
-          hiddenInput.value = rating;
-        }
-
-        clickedStar.parentNode.dataset.rateTotal = rating;
-      });
-    });
-  }
-
-
-
   const accordion = () => {
     const accordinBox = document.querySelectorAll('.acardion__item-box');
 
@@ -893,7 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const clouse = document.querySelector('.fillter__clouse');
     const btnClouse = document.querySelector('.fillter__btn-clouse');
     const header = document.querySelector('.header');
-    console.log(header)
+
     if (open) {
 
       btn.addEventListener('click', () => {
@@ -1210,8 +1180,8 @@ document.addEventListener("DOMContentLoaded", () => {
   Fancybox.bind('[data-fancybox="product"]', {
     Carousel: {
       Thumbs: {
-        type: "classic", 
-        
+        type: "classic",
+
       },
       Zoomable: {
         Panzoom: {
@@ -1223,8 +1193,104 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 
-  
 
+
+
+
+
+
+
+
+
+
+
+
+  const coomentCastom = () => {
+    const form = document.querySelector('#commentform');
+    if (!form) return;
+
+    const stars = form.querySelectorAll('.rating input[type="radio"]');
+    const labels = form.querySelectorAll('.rating label');
+    const textarea = form.querySelector('textarea[name="comment"]');
+
+    const normalize = (str) =>
+      str
+        .replace(/<[^>]*>/g, '') 
+        .replace(/\s+/g, ' ')
+        .trim()
+        .toLowerCase();
+
+
+
+    /* получаем кометари */
+    const getExistingComments = () => {
+      return Array.from(document.querySelectorAll('.description p'))
+        .map(el => normalize(el.textContent));
+    };
+
+    
+     /* форма когда евент в оставить коментарь */
+    form.addEventListener('submit', function (e) {
+      const checkedRating = form.querySelector('input[name="rating"]:checked');
+      const newComment = normalize(textarea.value);
+
+       /* проверка что бы оставли рейтинг */
+      if (!checkedRating) {
+        e.preventDefault();
+        alert('Оберіть рейтинг');
+        return;
+      }
+
+      const existingComments = getExistingComments();
+
+      /* проверка что бы небыла дубля такого же кометаря */
+      if (existingComments.includes(newComment)) {
+        e.preventDefault();
+        alert('Ви вже залишали такий коментар');
+        return;
+      }
+    });
+
+
+    /* Рейтинг  */
+    stars.forEach(star => {
+      star.addEventListener('change', function () {
+        const value = Number(this.value);
+
+        labels.forEach(label => {
+          const input = document.getElementById(label.getAttribute('for'));
+          const inputValue = Number(input.value);
+
+          label.classList.toggle('active', inputValue <= value);
+        });
+      });
+    });
+  };
+
+  coomentCastom();
+
+
+
+
+
+
+
+  /* Лемит на  количество файлов  загрузки */
+
+  const fileUploaded = () => {
+    const input = document.querySelector('#attachment');
+
+    if (!input) return;
+
+    input.addEventListener('change', function () {
+      if (this.files.length > 3) {
+        alert('Можно загрузить максимум 3 файла');
+        this.value = '';
+      }
+    });
+
+  }
+  fileUploaded()
 
 
   /*  form end */
