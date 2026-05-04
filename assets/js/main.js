@@ -1176,7 +1176,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   variationForm();
 
-
+  /* fancybox */
   Fancybox.bind('[data-fancybox="product"]', {
     Carousel: {
       Thumbs: {
@@ -1192,18 +1192,36 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 
+  /* coomment */
+
+  document.querySelectorAll('.dco-attachment-gallery').forEach((gallery, index) => {
+
+    const group = 'comments-' + index;
+
+    gallery.querySelectorAll('.dco-image-attachment-link').forEach(link => {
+      link.setAttribute('data-fancybox', group);
+    });
+
+  });
+
+  /* coomment fancybox */
+  Fancybox.bind('[data-fancybox^="comments-"]', {
+    Carousel: {
+      Thumbs: {
+        type: "classic",
+      },
+    },
+    Zoomable: {
+      Panzoom: {
+        clickAction: "iterateZoom",
+        maxScale: 2,
+      },
+    },
+  });
 
 
 
-
-
-
-
-
-
-
-
-
+  /* cooment */
 
   const coomentCastom = () => {
     const form = document.querySelector('#commentform');
@@ -1215,7 +1233,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const normalize = (str) =>
       str
-        .replace(/<[^>]*>/g, '') 
+        .replace(/<[^>]*>/g, '')
         .replace(/\s+/g, ' ')
         .trim()
         .toLowerCase();
@@ -1228,13 +1246,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .map(el => normalize(el.textContent));
     };
 
-    
-     /* форма когда евент в оставить коментарь */
+
+    /* форма когда евент в оставить коментарь */
     form.addEventListener('submit', function (e) {
       const checkedRating = form.querySelector('input[name="rating"]:checked');
       const newComment = normalize(textarea.value);
 
-       /* проверка что бы оставли рейтинг */
+      /* проверка что бы оставли рейтинг */
       if (!checkedRating) {
         e.preventDefault();
         alert('Оберіть рейтинг');
@@ -1294,6 +1312,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   /*  form end */
+
+
+
+
+
+
+
+
+
+
 });
 
 

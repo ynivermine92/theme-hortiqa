@@ -8,11 +8,7 @@
         height: 16px;
         fill: #CFCFCF;
         transition: fill 0.3s;
-
-        &:not(:last-child) {
-            margin-right: 2px;
-        }
-
+        
         &.active {
             fill: #F2C94C;
         }

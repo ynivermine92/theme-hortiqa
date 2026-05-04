@@ -26,23 +26,21 @@ if (! comments_open()) {
 
 ?>
 <div id="reviews" class="woocommerce-Reviews">
-	<div id="comments">
-		<h2 class="woocommerce-Reviews-title">
-			<?php
-			$count = $product->get_review_count();
-			if ($count && wc_review_ratings_enabled()) {
-				/* translators: 1: reviews count 2: product name */
-				$reviews_title = sprintf(esc_html(_n('%1$s review for %2$s', '%1$s reviews for %2$s', $count, 'woocommerce')), esc_html($count), '<span>' . get_the_title() . '</span>');
-				echo apply_filters('woocommerce_reviews_title', $reviews_title, $count, $product); // WPCS: XSS ok.
-			} else {
-				esc_html_e('Reviews', 'woocommerce');
-			}
-			?>
-		</h2>
+	<div id="comments" class="feedback">
+		<div class="feedback__inner">
+			<h2 class="feedback__title title">
+				Залишили Відгук
+			</h2>
+			<?php $count = $product->get_review_count(); ?>
+			<div class="feedback__count">(<?php echo  $count ?>) </div>
+		</div>
 
+		<!--    коментарии -->
 		<?php if (have_comments()) : ?>
-			<ol class="commentlist">
-				<?php wp_list_comments(apply_filters('woocommerce_product_review_list_args', array('callback' => 'woocommerce_comments'))); ?>
+			<ol class="commentlist feedback__comments">
+				<?php wp_list_comments(apply_filters('woocommerce_product_review_list_args', array
+
+				/* woocommerce_comments();  убираем функцию дефотную ставляем мою my_review*/('callback' => 'my_review'))); ?>
 			</ol>
 
 			<?php
@@ -170,7 +168,7 @@ if (! comments_open()) {
 					'title_reply'         => have_comments() ? esc_html__('Add a review', 'woocommerce') : sprintf(esc_html__('Be the first to review &ldquo;%s&rdquo;', 'woocommerce'), get_the_title()),
 					/* translators: %s is product title */
 					'title_reply_to'      => esc_html__('Leave a Reply to %s', 'woocommerce'),
-					'title_reply_before'  => '<span id="reply-title" class="comment-reply-title" role="heading" aria-level="3">',
+					'title_reply_before'  => '<span id="reply-title" class="comment-reply-title test" role="heading" aria-level="3">',
 					'title_reply_after'   => '</span>',
 					'comment_notes_after' => '',
 					'label_submit'        => esc_html__('Submit', 'woocommerce'),
@@ -276,7 +274,25 @@ if (! comments_open()) {
 				/* Рейтиг кастом */
 
 
-				$comment_form['comment_field'] .= '<p class="comment-form-comment"><label for="comment">' . esc_html__('Your review', 'woocommerce') . '&nbsp;<span class="required">*</span></label><textarea id="comment" name="comment" cols="45" rows="8" required></textarea></p>';
+				$comment_form['comment_field'] .= '
+<p class="comment-form-comment">
+    <label for="comment">' . esc_html__('Your review', 'woocommerce') . ' <span class="required">*</span></label>
+    
+    <textarea id="comment" name="comment" cols="45" rows="8" required></textarea>
+
+
+
+    <label for="attachment" class="comment__btm-icon">
+        <span>Фото до 3 шт : (JPG/PNG)</span>
+
+        <svg class="comment__svg" width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M32 16C32 7.16344 24.8366 0 16 0C7.16344 0 0 7.16344 0 16C0 24.8366 7.16344 32 16 32C24.8366 32 32 24.8366 32 16Z" fill="#EBF6EA"/>
+            <path d="M10.2402 18.8797V20.3197C10.2402 20.7017 10.3919 21.0679 10.662 21.338C10.9321 21.608 11.2983 21.7597 11.6802 21.7597H20.3202C20.7021 21.7597 21.0684 21.608 21.3385 21.338C21.6085 21.0679 21.7602 20.7017 21.7602 20.3197V18.8797M18.8802 15.9997L16.0002 18.8797M16.0002 18.8797L13.1202 15.9997M16.0002 18.8797V10.2397" fill="none" stroke="#72A66D" stroke-width="1.28" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </label>
+</p>';
+
+
 
 				comment_form(apply_filters('woocommerce_product_review_comment_form_args', $comment_form));
 				?>
@@ -285,6 +301,7 @@ if (! comments_open()) {
 	<?php else : ?>
 		<p class="woocommerce-verification-required"><?php esc_html_e('Only logged in customers who have purchased this product may leave a review.', 'woocommerce'); ?></p>
 	<?php endif; ?>
+
 
 	<div class="clear"></div>
 </div>
