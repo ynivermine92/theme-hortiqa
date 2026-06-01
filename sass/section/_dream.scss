@@ -1,0 +1,80 @@
+@use "../base/vars" as *;
+
+.dream {
+    padding-top: clamp(20px, 2vw, 88px);
+    padding-bottom: clamp(60px, 2vw, 88px);
+
+    &__title {
+        max-width: 920px;
+        text-align: center;
+        margin: 0 auto;
+        font-size: clamp(2.7rem, 3vw, 4rem);
+    }
+
+    &__text {
+        margin: 0 auto;
+        max-width: 488px;
+        font-size: 2rem;
+        @extend %g-500;
+        line-height: 1.2em;
+        text-align: center;
+        padding-top: 24px ;
+        font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    &__inner {
+        max-width: 1028px;
+        margin: 0 auto;
+        --bs-gutter-x: clamp(20px, 3vw, 40px);
+        --bs-gutter-y: clamp(20px, 3vw, 40px);
+    }
+
+    &__wrapper {
+        border: 1px solid rgba(244, 244, 244, 1);
+        border-radius: 25px;
+        padding: clamp(16px, 2vw, 20px);
+    }
+
+    &__box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 172px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    &__image {
+        width: 24px;
+        height: 24px;
+    }
+
+    &__sub-title {
+        font-size: 2.4rem;
+        padding: 15px 0px 10px 0;
+        @extend %g-700;
+        line-height: 1.2em;
+
+
+    }
+
+    &__content {
+
+        font-size: clamp(1.4rem, 3vw, 1.6rem);
+    }
+
+    @media(max-width:767.99px) {
+        .dream__inner .col-12 {
+            margin-top: 8px;
+        }
+
+        &__content {
+            max-width: 100%;
+        }
+
+        &__box {
+            max-width: 100%;
+        }
+
+    }
+}

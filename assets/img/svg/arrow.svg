@@ -1,0 +1,6 @@
+<svg id='arrow' class="burger-mobile__arrow" viewBox="0 0 8 6"
+	xmlns="http://www.w3.org/2000/svg"
+	xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" customFrame="#000000">
+	
+	<path id="Vector" d="M7 1.5L4 4.5L1 1.5" fill-rule="nonzero"  stroke-linecap="round" stroke-linejoin="round" stroke-width="1.70000005" />
+</svg>

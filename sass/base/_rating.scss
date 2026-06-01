@@ -1,0 +1,56 @@
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    &__star {
+        width: 16px;
+        height: 16px;
+        fill: #CFCFCF;
+        transition: fill 0.3s;
+        
+        &.active {
+            fill: #F2C94C;
+        }
+    }
+
+}
+
+
+
+/* ховер выб только когда я оставляю коментарий */
+
+.comment-form-rating {
+
+    .rating {
+        display: flex;
+        flex-direction: row-reverse;// ВАЖНО для hover-заливки
+        margin-top: 15px;
+
+        input {
+            display: none;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        &__star {
+            width: 30px;
+            height: 30px;
+            fill: #CFCFCF;
+            transition: fill 0.3s;
+        }
+
+        // выбранный рейтинг
+        input:checked~label .rating__star {
+            fill: #F2C94C;
+        }
+
+        // hover эффект
+        label:hover .rating__star,
+        label:hover~label .rating__star {
+            fill: #F2C94C;
+        }
+    }
+}

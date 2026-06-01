@@ -1,0 +1,77 @@
+// Container & Breakpoints
+@use "sass:math";
+$containerWidth: 1300;
+$containerPadding: 60;
+$containerSidePadding: math.div($containerPadding, 2);
+$breakpoint1450: 1449.98 + px;
+$breakpoint992: 991.98 + px;
+$breakpoint768: 767.98 + px;
+$breakpoint480: 479.98 + px;
+
+// Burger Menu
+$burgerBreakpoint: $breakpoint992;
+$burgerColor: #131418;
+$burgerActiveColor: #fefefe;
+
+// Fonts
+$fontMain: sans-serif;
+$fontSecondary: "";
+
+%g-300 {
+  font-family: "Gotham";
+  font-weight: 300;
+}
+
+%g-500 {
+  font-family: "Gotham";
+  font-weight: 500;
+}
+
+%g-700 {
+  font-family: "Gotham";
+  font-weight: 700;
+}
+
+
+%i-300 {
+  font-family: "Inter18pt";
+  font-weight: 400;
+}
+
+%i-500 {
+  font-family: "Inter18pt";
+  font-weight: 500;
+}
+
+
+
+%p-300 {
+  font-family: "Poppins";
+  font-weight: 300;
+}
+
+
+
+%p-400 {
+  font-family: "Poppins";
+  font-weight: 400;
+}
+
+%animation {
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.35s ease;
+  transition: all 0.5s;
+
+  &:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.15),
+      0 6px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.5s;
+
+
+  }
+}

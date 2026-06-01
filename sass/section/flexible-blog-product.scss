@@ -1,0 +1,132 @@
+.castom-category {
+    background: var(--grey);
+    padding: 40px 30px;
+    border-radius: 40px;
+
+    &__box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__title {
+        font-size: clamp(20px, 1.66vw, 24px);
+    }
+
+    &__content {
+        display: flex;
+        gap: 0px 10px;
+        align-items: center;
+    }
+
+    &__text-link {
+        font-size: 18px;
+        letter-spacing: -0.02em;
+    }
+
+    &__items {
+        margin-top: 24px;
+    }
+
+    .icon-arrow {
+        width: 18px;
+        height: 18px;
+    }
+
+    .arrow-btn:hover {
+        background: var(--gren);
+        opacity: 0.5;
+    }
+
+    .arrow-btn:hover .icon-arrow {
+        stroke: var(--white);
+
+    }
+
+    &__wrapepr {
+        background: var(--white);
+        padding: 16px 10px 16px 10px;
+        position: relative;
+        border-radius: 20px;
+    }
+
+
+    &__image {
+        height: 160px;
+        border-radius: 10px;
+    }
+
+    &__info,
+    &__promo {
+        max-width: 65px;
+        position: absolute;
+        left: 20px;
+        top: 20px;
+        z-index: 10;
+        display: flex;
+
+    }
+
+    &__promo {
+        top: 46px;
+    }
+
+    &__sale,
+    &__promo {
+        padding: 4px 8px;
+        border-radius: 20px;
+        letter-spacing: -0.02em;
+        background: var(--blue);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__sale-sum,
+    &__sale-text {
+        color: var(--white);
+        font-size: 1rem;
+    }
+
+    &__promo {
+        background: var(--white);
+        color: var(--body);
+        font-size: 1rem;
+    }
+
+    &__box-info {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        padding: 10px 0;
+    }
+
+    .rating__star {
+        width: 13px;
+        height: 13px;
+    }
+
+    &__coment {
+        font-size: 1.1rem;
+
+    }
+
+    &__name {
+        font-size: 1.3rem !important;
+        line-height: 1.3em;
+    }
+
+    .rating__star:not(:last-child) {
+        margin-right: 1px;
+    }
+    &__price{
+        display: flex;
+        align-items: center;
+        gap: 0 10px;
+    }
+    &__price-iscount {
+        font-size: 1.4rem;
+        letter-spacing: -0.02em;
+        color: var(--body);
+    }
+}

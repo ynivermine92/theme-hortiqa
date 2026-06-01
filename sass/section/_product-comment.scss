@@ -1,0 +1,284 @@
+@use "../base/vars" as *;
+
+/*  коментарии */
+.feedback {
+    &__inner {
+        display: flex;
+        align-items: center;
+        padding: 30px 0px;
+
+    }
+
+    &__count {
+        margin-left: 10px;
+        opacity: 0.6;
+        font-size: 30px !important;
+    }
+
+    &__comment {
+        margin: 20px 0 !important;
+        border: 2px solid var(--gren) !important;
+        border-radius: 20px;
+        padding: 24px !important;
+        margin-top: 16px;
+    }
+
+
+    &__comment-avatar img {
+        position: unset !important;
+        width: 40px !important;
+        border-radius: 20px;
+    }
+
+
+    &__wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+
+    &__comment-avatar {
+        display: flex;
+        align-items: start;
+    }
+
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__author {
+        margin-top: 14px;
+        margin-left: 10px !important;
+        @extend %g-700;
+        font-size: 14px;
+        text-transform: capitalize;
+    }
+
+    &__text {
+        border: none !important;
+        width: 80%;
+    }
+
+    &__data {
+        font-size: 16px;
+    }
+
+    &__comment-text p {
+        text-transform: capitalize;
+        padding: 10px 0;
+        font-size: 16px;
+        line-height: 1.2em;
+        @extend %g-700;
+    }
+
+    .dco-attachment-gallery {
+        display: flex;
+        gap: 0px 10px;
+    }
+
+    .woocommerce-pagination {
+        display: none;
+    }
+
+    /* ссылку убрать  картинки */
+    .dco-misc-attachment {
+        display: none !important;
+    }
+
+
+    @media(max-width:1050px) {
+        &__wrapper {
+            flex-direction: column;
+        }
+
+        &__text {
+            margin: 0 !important;
+            width: 100%;
+        }
+
+        &__text p {
+            margin: 10px 0px !important;
+        }
+    }
+
+
+}
+
+/*  коментарии */
+
+
+
+
+
+
+/* Оставить кометарий , и автоирироваться  */
+.comment-respond {
+    margin: 20px 0 !important;
+    border: 2px solid var(--gren) !important;
+    border-radius: 20px;
+    padding: 24px !important;
+    margin-top: 16px;
+
+
+    display: flex;
+    justify-content: space-between;
+
+    .comment-reply-title {
+        @extend %g-700;
+        font-size: 20px;
+        width: 20% !important;
+    }
+
+    .must-log-in {
+        padding: 10px 0px;
+        font-size: 16px;
+    }
+
+    .must-log-in a {
+        font-size: 22px;
+        border-bottom: 1px solid var(--gren);
+        transition: all 0.5s;
+        color: var(--gren);
+
+        &:hover {
+            border-bottom: transparent;
+            transition: all 0.5s;
+        }
+    }
+
+    #comment-form-rating-label {
+        display: none;
+    }
+
+    #review_form #respond::before {
+        content: " ";
+        display: none !important;
+    }
+
+    .comment-form {
+        width: 80%;
+    }
+
+    .comment-form-comment {
+        padding: 10px;
+        @extend %g-700;
+        font-size: 20px;
+    }
+
+    .required {
+        display: none;
+    }
+
+    #comment {
+        border: 2px solid var(--gren);
+        border-radius: 20px;
+        margin: 10px 0px;
+        padding: 20px;
+        resize: none;
+        height: 200px !important;
+        @extend %g-700;
+        font-size: 18px;
+        line-height: 1.2rem;
+    }
+
+
+    .comment-form-attachment__file-size-notice {
+        display: none !important;
+    }
+
+    .comment-form-attachment__file-types-notice {
+        display: none !important;
+    }
+
+    .comment-form-attachment__label {
+        font-size: 16px;
+        @extend %g-700;
+    }
+
+    .comment__svg {
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+    }
+
+    /* скрываю плагина импут добавить файл */
+    .comment-form-attachment__input {
+        display: none;
+    }
+
+    /* скрываю плагина импут добавить файл */
+    .comment-form-attachment {
+        display: none;
+    }
+
+    .comment__btm-icon {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.8rem;
+        @extend %g-700;
+
+    }
+
+
+    .submit {
+        max-width: 300px !important;
+        width: 100% !important;
+        border-radius: 38px !important;
+        background: var(--lightgreen) !important;
+        display: flex !important;
+        padding: 16px 22px !important;
+        cursor: pointer !important;
+        color: var(--body) !important;
+        align-items: center !important;
+        transition: all 0.5s !important;
+        font-size: 16px !important;
+
+        &:hover {
+            background: var(--gren) !important;
+            color: var(--white) !important;
+            transition: all 0.5s !important;
+        }
+
+    }
+
+
+
+    @media(max-width:1050px) {
+        & {
+
+            width: 100%;
+            flex-direction: column !important;
+        }
+
+        .comment-reply-title {
+            width: 100% !important;
+        }
+
+        .comment-form {
+            width: 100%;
+        }
+    }
+
+    @media(max-width:550px) {
+        .submit {
+            max-width: 100% !important;
+        }
+
+
+    }
+
+
+
+}
+
+
+
+.description .dco-image-attachment img {
+    width: 80px !important;
+    height: 80px !important;
+}
