@@ -38,6 +38,8 @@
 @use "./section/blogs";
 @use "./section/single";
 @use "./section/flexible-blog-product";
+@use "./section/about";
+@use "./section/support";
 
 
 @use "./section/footer";
@@ -257,3 +259,12 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+
+
+
+
+
+
+

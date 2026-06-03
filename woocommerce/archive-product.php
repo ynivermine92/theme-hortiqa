@@ -55,8 +55,9 @@ do_action('woocommerce_before_main_content'); ?>
 					<h1 class="title"><?php woocommerce_page_title(); ?></h1>
 				<?
 				} ?>
-				<p class="product-top-text">Discover plants, garden tools, and decor with fast delivery and expert guidance. Shop with confidence and bring your green space to life, wherever you are, discover plants, garden tools, and decor with fast delivery and expert guidance. Shop with confidenc...
-					<a class="product-top__link" href="<?php the_permalink(); ?>">Read More</a>
+				<p class="product-top-text">
+					Відкрийте для себе рослини, садові інструменти та декор зі швидкою доставкою та експертною допомогою. Робіть покупки з упевненістю та оживіть свій зелений простір, де б ви не були.
+				<!-- 	<a class="product-top__link" href="<?php the_permalink(); ?>">Read More</a> -->
 				</p>
 
 		<? }
@@ -103,7 +104,7 @@ do_action('woocommerce_before_main_content'); ?>
 					 * @hooked woocommerce_catalog_ordering - 30
 					 */
 				?>
-				
+
 					<div class="categories__box">
 						<?php do_action('woocommerce_before_shop_loop'); ?>
 					</div>
@@ -150,7 +151,7 @@ do_action('woocommerce_before_main_content'); ?>
 		</div>
 	</div>
 
-	
+
 </section>
 
 

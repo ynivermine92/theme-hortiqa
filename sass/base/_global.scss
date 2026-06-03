@@ -1,6 +1,10 @@
 // Container
 @use "./vars" as *;
-
+html,
+body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
 .wrapper {
   max-width: ($containerWidth + $containerPadding) + px;
   width: 100%;
@@ -24,8 +28,6 @@
     max-width: none;
   }
 }
-
-
 
 html {
   font-size: 62.5%;
@@ -82,8 +84,6 @@ span {
   line-height: 1.4em;
 }
 
-
-
 .text {
   color: var(--body);
   font-size: 1.6rem;
@@ -125,15 +125,6 @@ img {
   transition: all 0.5s;
 }
 
-
-
-
-
-
-
-
-
-
 /* футер прижимаем низ */
 html,
 body {
@@ -150,9 +141,6 @@ body {
 main {
   flex: 1;
 }
-
-
-
 
 /* ____________________________________ end */
 /* position senter */
@@ -182,7 +170,6 @@ main {
 */
 /*   --bs-gutter-x: 50px; 
     --bs-gutter-y: 50px; */
-
 
 /* .education__inner:has(.education__content-btn:hover) {
   @extend %animation;

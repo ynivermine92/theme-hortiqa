@@ -4,6 +4,10 @@
 }
 
 .wishlist {
+  .title{
+     padding: 20px 0;
+     text-align: center;
+  }
   &__grid {
     background: #fff;
     padding: clamp(6px, 6vw, 20px) clamp(6px, 6vw, 40px);

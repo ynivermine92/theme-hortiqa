@@ -1,24 +1,34 @@
 .catalogs {
-    .swiper-inner {
-        flex-direction: column;
-        gap: 0;
-    }
+  .swiper-inner {
+    flex-direction: column;
+    gap: 0;
+  }
 
-    .swiper-image {
-        width: 100%;
-        height: auto;
-    }
+  .swiper-image {
+    width: 100%;
+    height: auto;
+  }
 
-    .swiper-sub__title {
-        text-align: center;
-    }
+  .swiper-sub__title {
+    text-align: center;
+  }
 
-    .swiper-content {
-        padding: 0px;
-    }
+  .swiper-content {
+    padding: 0px;
+  }
 
-    .swiper-sub__title {
-        padding-top: 0;
-        padding: 10px;
+  .swiper-sub__title {
+    padding-top: 0;
+    padding: 10px;
+  }
+  .categories-top{
+    border-radius: 20px;
+  }
+  @media (max-width: 480px) {
+    .swiper-slide {
+      width: calc((100% - 10px) / 2) !important;
+     
+      margin-right: 10px !important;
     }
+  }
 }

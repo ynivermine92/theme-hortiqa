@@ -38,7 +38,7 @@
             <!--  удалить -->
 
             <div class="fillter__mob-content">
-                <button class="fillter__btn-clouse btn-orange">Показать</button>
+                <button class="fillter__btn-clouse btn-orange">Показати</button>
                 <?php echo do_shortcode('[br_filter_single filter_id=735]'); ?>
             </div>
 

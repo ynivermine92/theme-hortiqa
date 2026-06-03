@@ -225,7 +225,7 @@ add_action('woocommerce_before_shop_loop', function () {
 /* ввыводим сколько карточек показывать */
 
 add_filter('loop_shop_per_page', function () {
-    return 3;  /* количества на одной странице */
+    return 9;  /* количества на одной странице */
 }, 1);
 
 

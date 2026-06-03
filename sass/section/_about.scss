@@ -1,0 +1,294 @@
+// --- Змінні (можна замінити на глобальні змінні вашої теми) ---
+$color-primary: #2d5a27; // Темно-зелений (основний)
+$color-secondary: #4a7c43; // Яскравіший зелений (акцент)
+$color-bg-light: #f4f9f4; // Дуже світлий зелений фон
+$color-bg-white: #ffffff;
+$color-text: #333333; // Основний текст
+$color-text-light: #555555; // Вторинний текст
+$border-radius: 12px;
+$container-max-width: 1200px;
+$transition: all 0.3s ease;
+
+// --- Базовий контейнер (якщо його немає в темі, розкоментуйте) ---
+// .container {
+//     max-width: $container-max-width;
+//     margin: 0 auto;
+//     padding: 0 20px;
+// }
+
+.about-page {
+  font-family: inherit; // Наслідує шрифт вашої теми
+
+  // 1. Hero Section
+  .about-hero {
+    background-color: $color-bg-light;
+    padding: 100px 0;
+    text-align: center;
+
+    &__title {
+      font-size: 3.5rem;
+      color: $color-primary;
+      margin-bottom: 20px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    &__subtitle {
+      font-size: 1.25rem;
+      color: $color-text-light;
+      max-width: 750px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+
+  // 2. Our Story Section
+  .about-story {
+    padding: 100px 0;
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    &__title {
+      font-size: 2.5rem;
+      color: $color-primary;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    &__text {
+      font-size: 1.1rem;
+      color: $color-text;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    &__image {
+      img {
+        width: 100%;
+        height: 450px;
+        border-radius: $border-radius;
+        box-shadow: 0 20px 50px rgba(45, 90, 39, 0.15);
+        object-fit: cover;
+        transition: $transition;
+      }
+    }
+  }
+
+  // 3. Mission Section
+  .about-mission {
+    background-color: $color-bg-light;
+    padding: 100px 0;
+    text-align: center;
+
+    &__title {
+      font-size: 2.5rem;
+      color: $color-primary;
+      margin-bottom: 50px;
+      font-weight: 700;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+  }
+
+  .mission-card {
+    background-color: $color-bg-white;
+    padding: 40px 30px;
+    border-radius: $border-radius;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: $transition;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(45, 90, 39, 0.1);
+    }
+
+    &__icon {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+
+    &__title {
+      font-size: 1.3rem;
+      color: $color-primary;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    &__text {
+      font-size: 1rem;
+      color: #fff;
+      line-height: 1.6;
+    }
+  }
+
+  // 4. Process Section
+  .about-process {
+    padding: 100px 0;
+    text-align: center;
+
+    &__title {
+      font-size: 2.5rem;
+      color: $color-primary;
+      margin-bottom: 60px;
+      font-weight: 700;
+    }
+
+    &__steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      position: relative;
+    }
+  }
+
+  .process-step {
+    position: relative;
+    padding: 20px;
+
+    &__number {
+      display: inline-block;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(45, 90, 39, 0.1);
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    &__title {
+      font-size: 1.2rem;
+      color: $color-primary;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    &__text {
+      font-size: 0.95rem;
+      color: $color-text-light;
+      line-height: 1.6;
+    }
+  }
+
+  // 5. CTA Section
+  .about-cta {
+    margin-top: clamp(20px, 2vw, 88px);
+    margin-bottom: clamp(20px, 2vw, 100px);
+    background-color: $color-primary;
+    color: $color-bg-white;
+    padding: 80px 0;
+    text-align: center;
+    border-radius: 20px;
+
+    &__title {
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    &__text {
+      font-size: 1.15rem;
+      margin-bottom: 32px;
+      opacity: 0.9;
+      color: #fff;
+    }
+
+    &__button {
+      display: inline-block;
+      padding: 18px 45px;
+      background-color: $color-bg-white;
+      color: $color-primary;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: $border-radius;
+      transition: $transition;
+
+      &:hover {
+        background-color: $color-bg-light;
+        transform: scale(1.05);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+// --- Адаптивність (Mobile & Tablet) ---
+@media (max-width: 992px) {
+  .about-page {
+    .about-story__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+
+      .about-story__image img {
+        height: 350px;
+      }
+    }
+
+    .about-mission__grid {
+      grid-template-columns: 1fr;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .about-process__steps {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    .about-hero {
+      padding: 70px 0;
+
+      &__title {
+        font-size: 2.5rem;
+      }
+
+      &__subtitle {
+        font-size: 1.1rem;
+      }
+    }
+
+    .about-story,
+    .about-mission,
+    .about-process {
+      padding: 70px 0;
+    }
+
+    .about-story__title,
+    .about-mission__title,
+    .about-process__title {
+      font-size: 2rem;
+    }
+
+    .about-process__steps {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .about-cta {
+      padding: 60px 0;
+
+      &__title {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}
+
+
+
+
+

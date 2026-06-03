@@ -14,9 +14,6 @@
                         <?php if (!empty($collection_data['collection_main-title'])) { ?>
                             <h2 class="title"><?= esc_html($collection_data['collection_main-title']); ?></h2>
                         <?php } ?>
-                        <?php if (!empty($collection_data['collection_main-link'])) { ?>
-                            <a class="collection__link btn-green" href="<?= esc_url($collection_data['collection_main-link']['url']); ?>"><?= esc_html($collection_data['collection_main-link']['title']); ?></a>
-                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -40,7 +37,7 @@
         if ($best_sellers_query->have_posts()) : ?>
             <div class="row collection__inner">
                 <?php while ($best_sellers_query->have_posts()) : $best_sellers_query->the_post(); ?>
-                    <div class="col-xxl-3 col-md-6 col-12">
+                    <div class="col-lg-3 col-md-6 col-12">
                         <a class="collection__link" href="<?= esc_url(get_permalink()); ?>">
                             <?php if (has_post_thumbnail()) { ?>
                                 <img

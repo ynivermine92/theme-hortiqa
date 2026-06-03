@@ -14,10 +14,10 @@ $workflow_data = get_field('workflow');
         </div>
 
 
-        <div class="row workflow__inner">
+        <div class="row workflow__inner workflow__items">
             <?php if (!empty($workflow_data['workflow_items'])) {
                 foreach ($workflow_data['workflow_items'] as $item) {    ?>
-                    <div class="col-lg-3 col-md-6 col-md-6 col-12">
+                    <div class="workflow__item col-lg-3 col-md-6 col-md-6 col-12">
 
                         <div class="workflow__wrapper">
                             <div class="workflow__box">

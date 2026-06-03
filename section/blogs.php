@@ -9,7 +9,7 @@ get_header();
         <div class="wrapper">
             <div class="row">
                 <div class="col-12">
-                    <h1 class="title">Inspiration & Education</h1>
+                    <h1 class="title">Наш блог</h1>
                 </div>
             </div>
 
@@ -20,7 +20,7 @@ get_header();
 
                         <li class="blogs__item">
                             <button class="blogs__btn active btn-green" id="btn-all" data-category-id="0">
-                                Все
+                                Всі
                             </button>
                         </li>
 
@@ -60,7 +60,7 @@ get_header();
                     <!-- перебераем посты -->
                     <?php while ($main_query->have_posts()) {
 
-                        $main_query->the_post(); ?> 
+                        $main_query->the_post(); ?>
 
                         <div class="row">
                             <div class="col-lg-6 col-12">
@@ -98,7 +98,7 @@ get_header();
 
     $args_other = [
         'post_type'      => 'post',
-        'posts_per_page' => 1,
+        'posts_per_page' => 6,
         'post__not_in'   => [$main_post_id],
         'paged'          => $paged,
     ];

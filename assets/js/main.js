@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     watchSlidesVisibility: true,
 
     autoplay: {
-      delay: 3000,
+      delay: 10000,
       disableOnInteraction: false,
       pauseOnMouseEnter: true,
     },
@@ -288,7 +288,6 @@ document.addEventListener("DOMContentLoaded", () => {
       el: ".partners__swiper .swiper-pagination",
       clickable: true,
     },
-    speed: 800,
 
     breakpoints: {
       0: {
@@ -344,12 +343,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     breakpoints: {
       0: {
-        slidesPerView: 1.2,
+        slidesPerView: 1,
         spaceBetween: 10,
       },
 
       375: {
-        slidesPerView: 1.2,
+        slidesPerView: 1.4,
         spaceBetween: 10,
       },
       675: {
@@ -492,7 +491,12 @@ document.addEventListener("DOMContentLoaded", () => {
     slidesPerView: 1,
     spaceBetween: 20,
     loop: false,
-
+    speed: 6000,
+    autoplay: {
+      delay: 0,
+      disableOnInteraction: false,
+      pauseOnMouseEnter: false,
+    },
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -526,7 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const catalogsSwiper = new Swiper(".catalogs__slider", {
     loop: false,
-    slidesPerView: "3",
+    slidesPerView: "1",
     spaceBetween: 15,
 
     pagination: {
@@ -543,12 +547,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     breakpoints: {
       0: {
-        slidesPerView: 2,
+        slidesPerView: 1.5,
         spaceBetween: 10,
       },
 
       375: {
-        slidesPerView: 3,
+        slidesPerView: 2,
         spaceBetween: 10,
       },
       675: {
@@ -570,7 +574,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /*   slider product */
   const sliderThumbs = new Swiper(".thumbs-container", {
     direction: "vertical",
-    slidesPerView: 8,
+    slidesPerView: 6,
     spaceBetween: 10,
     watchSlidesProgress: true,
     navigation: {
@@ -580,7 +584,8 @@ document.addEventListener("DOMContentLoaded", () => {
     freeMode: true,
     breakpoints: {
       0: { direction: "horizontal", slidesPerView: 1.5 },
-      360: { direction: "horizontal", slidesPerView: 2 },
+      340: { direction: "horizontal", slidesPerView: 2 },
+      400: { direction: "horizontal", slidesPerView: 3 },
       576: { direction: "horizontal", slidesPerView: 5 },
       992: { direction: "vertical" },
     },
@@ -1120,6 +1125,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* fancybox */
   Fancybox.bind('[data-fancybox="product"]', {
+    Carousel: {
+      Thumbs: {
+        type: "classic",
+      },
+      Zoomable: {
+        Panzoom: {
+          clickAction: "iterateZoom",
+          maxScale: 2,
+        },
+      },
+    },
+  });
+
+  /* fancybox */
+  Fancybox.bind('[data-fancybox="services-gallery"]', {
+    // ← Правильний селектор!
     Carousel: {
       Thumbs: {
         type: "classic",
@@ -2061,6 +2082,33 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   fixCOD();
+
+  // 1. Спочатку перевіряємо, чи є на сторінці елемент .reverse
+  const targetElement = document.querySelector(".reverse");
+
+  // 2. Якщо елемента .reverse НЕМАЄ — виходимо, нічого не робимо
+  if (!targetElement) {
+    return; // Вихід з функції, скрипт завершується
+  }
+
+  // 3. Якщо .reverse Є, знаходимо кнопку
+  const btnServis = document.querySelector(".hero__shop-link");
+
+  // 4. Перевіряємо, чи кнопка існує
+  if (!btnServis) {
+    return; // Якщо кнопки немає, теж виходимо
+  }
+
+  // 5. Додаємо обробник кліку на кнопку
+  btnServis.addEventListener("click", function (event) {
+    event.preventDefault(); // Запобігаємо стандартній поведінці
+
+    // 6. Скролимо до елемента .reverse
+    targetElement.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -2106,3 +2154,214 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector(".reverse__form");
+  const modal = document.getElementById("reverseModal");
+  const modalClose = document.getElementById("reverseModalClose");
+  const modalBtn = document.getElementById("reverseModalBtn");
+
+  // Якщо якихось елементів немає — виходимо
+  if (!form || !modal) return;
+
+  // Відкриття модалки
+  function openModal() {
+    modal.classList.add("active");
+    document.body.style.overflow = "hidden"; // Блокуємо скрол сторінки
+  }
+
+  // Закриття модалки
+  function closeModal() {
+    modal.classList.remove("active");
+    document.body.style.overflow = ""; // Повертаємо скрол
+  }
+
+  // Обробка відправки форми
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Зупиняємо стандартну відправку
+
+    // Тут можна додати реальну AJAX-відправку на сервер.
+    // Зараз просто імітуємо успіх:
+
+    setTimeout(function () {
+      form.reset(); // Очищаємо форму
+      openModal(); // Показуємо модалку
+    }, 300);
+  });
+
+  // Закриття через хрестик
+  if (modalClose) {
+    modalClose.addEventListener("click", closeModal);
+  }
+
+  // Закриття через кнопку "Чудово"
+  if (modalBtn) {
+    modalBtn.addEventListener("click", closeModal);
+  }
+
+  // Закриття при кліку поза межами модалки
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Закриття клавішею Esc
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeModal();
+    }
+  });
+
+  // === Маска для телефону ===
+  const phoneInput = document.querySelector(".reverse__phone");
+
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, ""); // Видаляємо всі нецифрові символи
+
+      // Якщо починається з 380 або 38, залишаємо
+      if (value.length > 0) {
+        if (value[0] === "3" && value[1] === "8") {
+          // Вже є 38
+        } else {
+          // Додаємо 38 на початок
+          value = "38" + value;
+        }
+      }
+
+      // Обмежуємо до 12 цифр (380XXXXXXXXX)
+      if (value.length > 12) {
+        value = value.slice(0, 12);
+      }
+
+      // Форматуємо: +380 (XX) XXX-XX-XX
+      let formattedValue = "+380";
+
+      if (value.length > 3) {
+        formattedValue += " (" + value.slice(3, 5);
+      }
+
+      if (value.length > 5) {
+        formattedValue += ") " + value.slice(5, 8);
+      }
+
+      if (value.length > 8) {
+        formattedValue += "-" + value.slice(8, 10);
+      }
+
+      if (value.length > 10) {
+        formattedValue += "-" + value.slice(10, 12);
+      }
+
+      e.target.value = formattedValue;
+    });
+
+    // Додаємо валідацію при відправці
+    const form = document.querySelector(".reverse__form");
+    if (form) {
+      form.addEventListener("submit", function (e) {
+        const phoneValue = phoneInput.value.replace(/\D/g, "");
+        if (phoneValue.length !== 12) {
+          e.preventDefault();
+          phoneInput.focus();
+          phoneInput.style.borderColor = "#ff0000";
+          setTimeout(() => {
+            phoneInput.style.borderColor = "";
+          }, 2000);
+        }
+      });
+    }
+  }
+});
+
+(function () {
+  "use strict";
+
+  // Чекаємо повного завантаження DOM
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSupportModal);
+  } else {
+    initSupportModal();
+  }
+
+  function initSupportModal() {
+    try {
+      // Отримуємо елементи
+      const form = document.getElementById("contactSupportForm");
+      const overlay = document.getElementById("successModalOverlay");
+      const closeBtn = document.getElementById("successModalCloseBtn");
+      const okBtn = document.getElementById("successModalOkBtn");
+
+      // Якщо хоча б одного елемента немає — виходимо без помилок
+      if (!form || !overlay || !closeBtn || !okBtn) {
+        console.log("Модалка підтримки: елементи не знайдені");
+        return;
+      }
+
+      // Функція відкриття модалки
+      function openModal() {
+        overlay.style.display = "flex";
+        // Невелика затримка для плавної анімації
+        setTimeout(function () {
+          overlay.classList.add("is-visible");
+        }, 10);
+        document.body.classList.add("is-modal-open");
+      }
+
+      // Функція закриття модалки
+      function closeModal() {
+        overlay.classList.remove("is-visible");
+        setTimeout(function () {
+          overlay.style.display = "none";
+          document.body.classList.remove("is-modal-open");
+        }, 300);
+      }
+
+      // Обробник відправки форми
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        // Перевірка валідності
+        if (!form.checkValidity()) {
+          // Якщо форма невалідна — показуємо стандартні повідомлення браузера
+          form.reportValidity();
+          return;
+        }
+
+        // Імітація відправки (400мс)
+        setTimeout(function () {
+          form.reset();
+          openModal();
+        }, 400);
+      });
+
+      // Закриття через хрестик
+      closeBtn.addEventListener("click", closeModal);
+
+      // Закриття через кнопку "Чудово"
+      okBtn.addEventListener("click", closeModal);
+
+      // Закриття при кліку на оверлей (поза модалкою)
+      overlay.addEventListener("click", function (event) {
+        if (event.target === overlay) {
+          closeModal();
+        }
+      });
+
+      // Закриття клавішею Escape
+      document.addEventListener("keydown", function (event) {
+        if (
+          event.key === "Escape" &&
+          overlay.classList.contains("is-visible")
+        ) {
+          closeModal();
+        }
+      });
+
+      console.log("Модалка підтримки ініціалізована успішно");
+    } catch (error) {
+      console.error("Помилка ініціалізації модалки:", error);
+    }
+  }
+})();

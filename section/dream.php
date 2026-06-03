@@ -26,10 +26,10 @@ $dream_data = get_field('dream'); ?>
             </div>
         </div>
 
-        <div class="row dream__inner">
+        <div class="row dream__inner dream__items">
             <?php if (!empty($dream_data['dream_items'])) {
                 foreach ($dream_data['dream_items'] as $item) {    ?>
-                    <div class="col-md-4 col-12">
+                    <div class="dream__item col-md-4 col-12">
 
                         <div class="dream__wrapper">
                             <div class="dream__box">
