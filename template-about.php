@@ -4,6 +4,12 @@ get_header();
 ?>
 
 <main class="about-page">
+    <?php
+    if (!is_front_page() && function_exists('breadcrumbs')) { ?>
+        <div class="wrapper">
+            <?= breadcrumbs(); ?>
+        </div>
+    <? } ?>
 
     <!-- 1. Hero Section (Головний екран) -->
     <section class="about-hero">

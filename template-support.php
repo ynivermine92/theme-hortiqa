@@ -5,9 +5,17 @@ get_header();
 
 <main class="support-page">
 
+    <?php
+    if (!is_front_page() && function_exists('breadcrumbs')) { ?>
+        <div class="wrapper">
+            <?= breadcrumbs(); ?>
+        </div>
+    <? } ?>
+
+    
     <!-- 1. Hero Section -->
     <section class="support-hero">
-        <div class="container">
+        <div class="wrapper">
             <h1 class="support-hero__title">Чим ми можемо допомогти?</h1>
             <p class="support-hero__subtitle">Наша команда експертів готова відповісти на ваші запитання щодо догляду за рослинами, доставки замовлень або будь-яких інших питань.</p>
         </div>
@@ -15,7 +23,7 @@ get_header();
 
     <!-- 2. Способи зв'язку -->
     <section class="support-contact">
-        <div class="container">
+        <div class="wrapper">
             <h2 class="support-contact__title">Зв'яжіться з нами</h2>
             <div class="support-contact__grid">
                 <div class="contact-card">
@@ -42,7 +50,7 @@ get_header();
 
     <!-- 3. FAQ (Часті питання) -->
     <section class="support-faq">
-        <div class="container">
+        <div class="wrapper">
             <h2 class="support-faq__title">Часті питання</h2>
             <div class="faq-grid">
 
@@ -95,7 +103,7 @@ get_header();
 
     <!-- 4. Форма зворотного зв'язку -->
     <section class="support-form" id="supportFormSection">
-        <div class="container">
+        <div class="wrapper">
             <div class="support-form__grid">
                 <div class="support-form__content">
                     <h2 class="support-form__title">Не знайшли відповідь?</h2>

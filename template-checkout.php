@@ -14,7 +14,12 @@ $items = $cart->get_cart();  ?>
 
 <body class="body-payment">
     <main>
-
+        <?php
+        if (!is_front_page() && function_exists('breadcrumbs')) { ?>
+            <div class="wrapper">
+                <?= breadcrumbs(); ?>
+            </div>
+        <? } ?>
 
         <section class="summary" style="background-image: url(<?= get_template_directory_uri(); ?>/assets/img/summary/summary.png)">
 

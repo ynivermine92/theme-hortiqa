@@ -34,8 +34,13 @@ get_header('shop'); ?>
 
 
 
+if (!is_front_page() && function_exists('breadcrumbs')) { ?>
+    <div class="wrapper">
+        <?= breadcrumbs(); ?>
+    </div>
+<? } ?>
 
-do_action('woocommerce_before_main_content'); ?>
+
 
 
 

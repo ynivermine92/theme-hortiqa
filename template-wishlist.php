@@ -3,9 +3,13 @@
 Template Name: wishlist
 */
 get_header(); ?>
-<div class="wrarpper">
-    <?php breadcrumbs(); ?>
-</div>
+
+<?php
+if (!is_front_page() && function_exists('breadcrumbs')) { ?>
+    <div class="wrapper">
+        <?= breadcrumbs(); ?>
+    </div>
+<? } ?>
 
 
 <section class="wishlist favorites">
