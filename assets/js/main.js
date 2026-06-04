@@ -1312,14 +1312,23 @@ document.addEventListener("DOMContentLoaded", () => {
   /* Корзина  */
 
   /* Вызов мини корзины */
+  /* Вызов мини корзины */
   const cartToggle = () => {
-    /* кнопка которая будет вызать корзину*/
-    let cartBtm = document.querySelectorAll(".cart-user");
+    /* кнопка которая будет вызывать корзину */
+    const cartBtm = document.querySelectorAll(".cart-user");
 
-    let cart = document.querySelector(".cart__inner");
-    let clouse = document.querySelector(".cart__clouse");
-    let cartBlur = document.querySelector(".mini-cart");
+    const cart = document.querySelector(".cart__inner");
+    const clouse = document.querySelector(".cart__clouse");
+    const cartBlur = document.querySelector(".mini-cart");
 
+    // Функция закрытия корзины (чтобы не дублировать код)
+    const closeCart = () => {
+      cart.classList.remove("active");
+      document.body.classList.remove("locked");
+      cartBlur.classList.remove("active");
+    };
+
+    // Открытие корзины по клику на кнопки
     cartBtm.forEach((item) => {
       item.addEventListener("click", (e) => {
         e.preventDefault();
@@ -1328,10 +1337,27 @@ document.addEventListener("DOMContentLoaded", () => {
         cartBlur.classList.add("active");
       });
     });
-    clouse.addEventListener("click", () => {
-      cart.classList.remove("active");
-      document.body.classList.remove("locked");
-      cartBlur.classList.remove("active");
+
+    // Закрытие по клику на крестик
+    if (clouse) {
+      clouse.addEventListener("click", closeCart);
+    }
+
+    // ✅ Закрытие по клику ВНЕ корзины (по затемнению .mini-cart)
+    // Важно: e.target === cartBlur, чтобы клик ВНУТРИ самой корзины её не закрывал
+    if (cartBlur) {
+      cartBlur.addEventListener("click", (e) => {
+        if (e.target === cartBlur) {
+          closeCart();
+        }
+      });
+    }
+
+    // ✅ Закрытие по нажатию Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && cart.classList.contains("active")) {
+        closeCart();
+      }
     });
   };
 
@@ -1648,7 +1674,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="cart__price">${item.total}</div>
 
         <div class="cart__delete">
-          Удалить
+         Видалити
         </div>
       </div>
     </div>

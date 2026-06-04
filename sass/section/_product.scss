@@ -124,7 +124,7 @@
   }
 
   .sku_wrapper {
-    font-size: 14px;
+    font-size: 20px;
   }
 
   .sku {
@@ -132,7 +132,7 @@
   }
 
   .posted_in {
-    font-size: 14px;
+    font-size: clamp(14px, 3vw, 20px);
   }
 
   &__stock {
@@ -581,5 +581,11 @@
         margin-right: 10px !important;
       }
     }
+  }
+}
+
+@media (max-width: 1200px) {
+  .product__content{
+    padding-top: 50px;
   }
 }

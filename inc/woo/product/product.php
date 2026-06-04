@@ -48,7 +48,7 @@ function custom_product_meta()
 
     if ($terms && !is_wp_error($terms)) {
 
-        echo '<span class="posted_in">Категории: ';
+        echo '<span class="posted_in">Категорії : ';
 
         $links = [];
 
@@ -78,9 +78,9 @@ add_action('woocommerce_single_product_summary', function () {
 
     /*есть наличи*/
     if ($product->is_in_stock()) {
-        echo '<div class="product__stock in">В наличии</div>';
+        echo '<div class="product__stock in">Наявності</div>';
     } else {
-        echo '<div class="product__stock out">Нет в наличии</div>';
+        echo '<div class="product__stock out">Немає наявності</div>';
     }
 }, 5);
 

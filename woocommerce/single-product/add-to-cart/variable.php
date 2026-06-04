@@ -62,41 +62,54 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 
 					<!------------------------CUSTOM attribute ------------>
 
+
 					<!-- pa_size -->
 					<?php if ($attribute_name === 'pa_size') : ?>
 						<div class="product__tabs product__size">
-							<?php foreach ($options as $option) : ?>
+							<?php foreach ($options as $option) :
+								// Получаем термин, чтобы достать его название на кириллице
+								$term = get_term_by('slug', $option, $attribute_name);
+								$term_name = ($term && !is_wp_error($term)) ? $term->name : $option;
+							?>
 								<span class="product__tabs-item product__size-item"
 									data-attribute="<?php echo esc_attr($attribute_name); ?>"
-									data-value="<?php echo esc_attr($option); ?>">
-									<?php echo esc_html($option); ?>
+									data-value="<?php echo esc_attr($option); ?>"> <!-- ОСТАВЛЯЕМ ЛАТИНИЦУ! -->
+									<?php echo esc_html($term_name); ?> <!-- ВЫВОДИМ КИРИЛЛИЦУ! -->
 								</span>
 							<?php endforeach; ?>
 						</div>
 					<?php endif; ?>
+
+
 
 					<!-- pa_care -->
 					<?php if ($attribute_name === 'pa_care') : ?>
 						<div class="product__tabs product__care">
-							<?php foreach ($options as $option) : ?>
+							<?php foreach ($options as $option) :
+								$term = get_term_by('slug', $option, $attribute_name);
+								$term_name = ($term && !is_wp_error($term)) ? $term->name : $option;
+							?>
 								<span class="product__tabs-item product__care-item"
 									data-attribute="<?php echo esc_attr($attribute_name); ?>"
 									data-value="<?php echo esc_attr($option); ?>">
-									<?php echo esc_html($option); ?>
+									<?php echo esc_html($term_name); ?>
 								</span>
 							<?php endforeach; ?>
 						</div>
 					<?php endif; ?>
 
-					<!-- pa_light-requirements -->
 
+					<!-- pa_lighting -->
 					<?php if ($attribute_name === 'pa_lighting') : ?>
 						<div class="product__tabs product__light">
-							<?php foreach ($options as $option) : ?>
+							<?php foreach ($options as $option) :
+								$term = get_term_by('slug', $option, $attribute_name);
+								$term_name = ($term && !is_wp_error($term)) ? $term->name : $option;
+							?>
 								<span class="product__tabs-item product__light-item"
 									data-attribute="<?php echo esc_attr($attribute_name); ?>"
 									data-value="<?php echo esc_attr($option); ?>">
-									<?php echo esc_html($option); ?>
+									<?php echo esc_html($term_name); ?>
 								</span>
 							<?php endforeach; ?>
 						</div>
@@ -112,7 +125,7 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 
 			<!--RESET -->
 			<?php echo end($attribute_keys) === $attribute_name
-				? '<a class="reset_variations" href="#">Clear</a>'
+				? '<a class="reset_variations" href="#">Видалити параметри</a>'
 				: '';
 			?>
 

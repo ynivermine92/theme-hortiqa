@@ -9,7 +9,7 @@
         <div class="fillter__content-wrapper">
             <div class="fillter__wrapper">
                 <div class="fillter__title">
-                    Filter
+                    Фільтр
                 </div>
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/img//png/filter.png" alt="filter">
             </div>
