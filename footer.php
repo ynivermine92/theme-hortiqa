@@ -30,13 +30,13 @@
 					?>
 				</div>
 
-				<h1 class="footer__title">Grow With Us</h1>
+				<!-- 	<h1 class="footer__title">Grow With Us</h1>
 				<div class="footer__sub-title">Get exclusive offers, seasonal care tips & inspiration</div>
 				<form class="email" action="#">
 					<input class="email__input" placeholder="Enter your email here" type="text">
 					<button class="email__btn">Join & Get 10% Off</button>
 				</form>
-				<a class="footer__club" href="#">Earn points with every purchase – Join our loyalty club</a>
+				<a class="footer__club" href="#">Earn points with every purchase – Join our loyalty club</a> -->
 			</div>
 
 
@@ -45,7 +45,7 @@
 
 
 				<div class="footer__detals-box">
-					<h4 class="footer__page">Shop</h4>
+					<h4 class="footer__page">Категориї</h4>
 
 					<ul class="footer__items">
 						<?php
@@ -71,40 +71,23 @@
 				</div>
 
 
-
 				<div class="footer__detals-box">
-					<h4 class="footer__page">Services</h4>
+					<h4 class="footer__page">Послуги</h4>
 					<ul class="footer__items">
 						<li class="footer__item">
-							<a class="footer__link" href="#">Rental</a>
-
+							<a class="footer__link" href="/services/">Сторінка послуги</a>
 						</li>
-						<li class="footer__item">
-							<a class="footer__link" href="#">Landscaping</a>
-
-						</li>
-						<li class="footer__item">
-							<a class="footer__link" href="#">Corporate</a>
-
-						</li>
-
-
 					</ul>
 				</div>
 
 
 				<div class="footer__detals-box">
-					<h4 class="footer__page">Inspiration</h4>
+					<h4 class="footer__page">Натхнення</h4>
 					<ul class="footer__items">
 						<li class="footer__item">
-							<a class="footer__link" href="#">Blog</a>
+							<a class="footer__link" href="#">Наш блог</a>
 						</li>
-						<li class="footer__item">
-							<a class="footer__link" href="#">Video Guides</a>
-						</li>
-						<li class="footer__item">
-							<a class="footer__link" href="#">Plant Finder</a>
-						</li>
+		
 
 
 
@@ -115,20 +98,15 @@
 
 
 				<div class="footer__detals-box">
-					<h4 class="footer__page">Support</h4>
+					<h4 class="footer__page">Підтримка</h4>
 					<ul class="footer__items">
 
-						<a class="footer__link" href="#">FAQ</a>
-						</li>
+						
+						
 						<li class="footer__item">
-							<a class="footer__link" href="#">Contact</a>
+							<a class="footer__link" href="/support/">Сторінка підтримки</a>
 						</li>
-						<li class="footer__item">
-							<a class="footer__link" href="#">Shipping & Returns</a>
-						</li>
-						<li class="footer__item">
-							<a class="footer__link" href="#">Loyalty</a>
-						</li>
+					
 					</ul>
 				</div>
 

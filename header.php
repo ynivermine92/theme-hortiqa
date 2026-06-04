@@ -62,7 +62,7 @@
 							<a class="header__tell" href="tel:+380631298869">
 								<svg class="header__tell-icon">
 									<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/tell.svg#tell"></use>
-								</svg> <span>380 (63) 129-88-69</span></a>
+								</svg> <span>380 (63) 121-99-99</span></a>
 
 
 							<div class="header__content">
@@ -234,9 +234,14 @@
 
 
 							<div class="header__account account header__box">
-								<svg class="user__svg">
-									<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/login.svg#login"></use>
-								</svg>
+
+								<a href="<?php echo esc_url(wc_get_page_permalink('myaccount')); ?>" class="header__account account header__box">
+									<svg class="user__svg">
+										<use xlink:href="<?php echo get_template_directory_uri(); ?>/assets/img/svg/login.svg#login"></use>
+									</svg>
+
+								</a>
+
 							</div>
 
 

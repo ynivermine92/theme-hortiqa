@@ -13,7 +13,7 @@ do_action('woocommerce_before_customer_login_form');
 $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_registration');
 ?>
 
-<section class="account">
+<section class="account profile">
 	<div class="wrapper">
 
 		<div class="auth-wrapper">
@@ -24,7 +24,7 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 			<!-- LOGIN -->
 			<div class="auth-block auth-login active">
 
-				<h2 class="title fw700 ts-40">Log into your account</h2>
+				<h2 class="title fw700 ts-40">Увійдіть у свій обліковий запис</h2>
 
 				<form class="woocommerce-form woocommerce-form-login login" method="post">
 
@@ -36,16 +36,16 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 							name="username"
 							id="username"
 							placeholder="Вкажіть ваш логін"
-							autocomplete="username"
+							autocomplete="ім'я"
 							required />
 					</p>
 
 					<p class="form-row password-wrapper">
 						<input
 							type="password"
-							name="password" 
+							name="password"
 							id="password"
-							placeholder="Your password"
+							placeholder="Ваш пароль"
 							autocomplete="current-password"
 							required />
 						<button type="button" class="toggle-password" aria-label="Показать пароль">
@@ -65,14 +65,14 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 
 					<p class="lost-password">
 						<a href="<?php echo esc_url(wp_lostpassword_url()); ?>">
-							Forgot Password?
+							Забули пароль?
 						</a>
 					</p>
 
 					<?php wp_nonce_field('woocommerce-login', 'woocommerce-login-nonce'); ?>
 
 					<button type="submit" name="login" class="button">
-						Login
+						Логін
 					</button>
 
 					<?php do_action('woocommerce_login_form_end'); ?>
@@ -81,8 +81,8 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 
 				<?php if ($registration_enabled) : ?>
 					<div class="switch">
-						Don’t have an account?
-						<a href="#" class="js-show-register">Create one</a>
+						Немає облікового запису ?
+						<a href="#" class="js-show-register">Створіть</a>
 					</div>
 				<?php endif; ?>
 
@@ -95,7 +95,7 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 
 				<div class="auth-block auth-register">
 
-					<h2 class="title fw700 ts-40">Create an account</h2>
+					<h2 class="title fw700 ts-40">Створіть обліковий запис</h2>
 
 					<form method="post" class="woocommerce-form woocommerce-form-register register">
 
@@ -110,7 +110,7 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 								type="email"
 								name="email"
 								id="reg_email"
-								placeholder="Email"
+								placeholder="Пошта"
 								required />
 						</p>
 
@@ -121,7 +121,7 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 								type="text"
 								name="username"
 								id="reg_username"
-								placeholder="Username"
+								placeholder="ім'я"
 								required />
 						</p>
 
@@ -131,7 +131,7 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 								type="password"
 								name="password"
 								id="reg_password"
-								placeholder="Password"
+								placeholder="Ваш пароль"
 								required />
 							<button type="button" class="toggle-password" aria-label="Показать пароль">
 								<svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -157,7 +157,7 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 						<?php wp_nonce_field('woocommerce-register', 'woocommerce-register-nonce'); ?>
 
 						<button type="submit" name="register" class="button">
-							Register
+							Реєстрація
 						</button>
 
 						<?php do_action('woocommerce_register_form_end'); ?>
@@ -165,8 +165,8 @@ $registration_enabled = 'yes' === get_option('woocommerce_enable_myaccount_regis
 					</form>
 
 					<div class="switch">
-						Already have an account?
-						<a href="#" class="js-show-login">Log in</a>
+						Вже маєте обліковий запис ?
+						<a href="#" class="js-show-login">авторизуватися</a>
 					</div>
 
 				</div>

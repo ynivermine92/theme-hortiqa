@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     watchSlidesVisibility: true,
 
     autoplay: {
-      delay: 10000,
+      delay: 3000,
       disableOnInteraction: false,
       pauseOnMouseEnter: true,
     },

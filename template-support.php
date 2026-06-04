@@ -35,7 +35,7 @@ get_header();
                 <div class="contact-card">
                     <div class="contact-card__icon">📞</div>
                     <h3 class="contact-card__title">Телефон</h3>
-                    <p class="contact-card__text">+380(93)35</p>
+                    <p class="contact-card__text">380 (63) 121-99-99</p>
                     <p class="contact-card__time">Пн–Пт: 9:00–18:00</p>
                 </div>
                 <div class="contact-card">

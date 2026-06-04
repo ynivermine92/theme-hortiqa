@@ -361,6 +361,10 @@
   .woocommerce-ResetPassword {
     padding: 20px;
   }
+
+  .woocommerce-form {
+    max-width: 260px;
+  }
 }
 
 .password-wrapper {
@@ -400,18 +404,32 @@
   height: 20px;
 }
 
-
-
 .toggle-password {
   position: absolute !important;
-  
-  
 }
 .password-wrapper {
   position: relative !important;
-  button{
-  background: transparent !important;
-  padding: 0 !important;
+  button {
+    background: transparent !important;
+    padding: 0 !important;
   }
 }
 
+.js-show-register,
+.js-show-login {
+  font-size: 1.6rem;
+  border-bottom: 1px solid black;
+  transition: all 0.5s;
+  &:hover {
+    border-bottom: 1px solid transparent;
+    transition: all 0.5s;
+    color: var(--gren);
+  }
+}
+
+.profile {
+  padding-bottom: clamp(60px, 2vw, 88px);
+  .wrapper {
+    padding: 0 !important;
+  }
+}

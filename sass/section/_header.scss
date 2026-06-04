@@ -14,7 +14,6 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   }
 
-
   &__wrapper {
     display: flex;
     align-items: center;
@@ -169,6 +168,14 @@
         transition: all 0.5s;
       }
     }
+    .menu__item-link {
+      font-size: 16px;
+      transition: all 0.5s;
+      &:hover {
+        transition: all 0.5s;
+        color: var(--gren);
+      }
+    }
   }
 
   .header__languages {
@@ -191,9 +198,6 @@
     transition: all 0.5s;
   }
 }
-
-
-
 
 /* catalog wrapper, btn*/
 .catalog {
@@ -219,7 +223,6 @@
       0 1px 0 rgba(0, 0, 0, 0.05),
       0 10px 30px rgba(0, 0, 0, 0.08);
   }
-
 
   &__wrapper-conntent {
     overflow-y: auto;
@@ -261,35 +264,23 @@
       left: -12px;
     }
 
-
-
-
     .catalog__content {
       padding: 24px;
-
     }
-
-
   }
 
   /********* catalog Menu ***********/
-
 }
 
 /* megamenu desktop */
 .megamenu {
   height: 20vh;
 
-
   &__one {
     position: relative;
     display: flex;
     flex-direction: column;
     width: 200px;
-
-
-
-
 
     .megamenu__item.active {
       .megamenu__item-name {
@@ -302,12 +293,10 @@
         border-bottom: 2px solid var(--gren);
         text-decoration: none;
       }
-
     }
-
   }
 
-  &__item+&__item {
+  &__item + &__item {
     margin-top: 16px;
   }
 
@@ -327,8 +316,6 @@
     width: 160px;
   }
 
-
-
   &__box-lvl-1 {
     display: flex;
     align-items: center;
@@ -336,8 +323,6 @@
     width: 100px;
     gap: 5px;
   }
-
-
 
   &__arrow {
     width: 12px;
@@ -351,7 +336,6 @@
     transform: rotate(-45deg);
     transition: 0.3s;
   }
-
 
   &__two {
     display: flex;
@@ -369,7 +353,6 @@
           border-bottom: 2px solid black;
           text-decoration: none;
         }
-
       }
 
       .megamenu__item.active {
@@ -383,7 +366,6 @@
           border-bottom: 2px solid var(--gren);
           text-decoration: none;
         }
-
       }
     }
   }
@@ -402,14 +384,6 @@
     }
   }
 
-
-
-
-
-
-
-
-
   &__two,
   &__three {
     top: 0;
@@ -423,14 +397,11 @@
     }
   }
 
-
   &__two &__item,
   &__three &__item {
     display: block;
     padding: 0px 40px;
-
   }
-
 
   &__item-link {
     line-height: 1.2em;
@@ -442,15 +413,9 @@
     justify-content: space-between;
     gap: 5px;
   }
-
-
-
-
-
 }
 
 /*megamenu */
-
 
 .burger {
   margin: 1px 0;
@@ -526,11 +491,11 @@
       top: 4px;
       transition: all 0.5s;
 
-      @media(max-width:1450px) {
+      @media (max-width: 1450px) {
         top: 3px;
       }
 
-      @media(max-width:1100px) {
+      @media (max-width: 1100px) {
         top: 4px;
       }
     }
@@ -545,7 +510,7 @@
       bottom: 5px;
       transition: all 0.5s;
 
-      @media(max-width:1100px) {
+      @media (max-width: 1100px) {
         bottom: 4px;
       }
     }
@@ -568,7 +533,10 @@
   opacity: 0;
   transform: translateY(-20px);
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0s linear 0.3s;
   visibility: hidden;
   display: none;
 
@@ -615,7 +583,6 @@
   }
 }
 
-
 /* megamenu mobile */
 
 .mobilemenu {
@@ -628,18 +595,10 @@
     border-right: none;
     padding: 16px 0;
     border-bottom: none;
-
   }
-
-
-
-
-
-
 
   &__item-one:last-child {
     border-bottom: 1px solid var(--gren);
-
   }
 
   &__image {
@@ -665,8 +624,6 @@
       }
     }
   }
-
-
 
   &__box {
     margin-left: 20px;
@@ -694,14 +651,13 @@
     transition: 0.3s;
   }
 
-
   &__two {
     margin-left: 30px;
     margin-top: 20px;
     position: absolute;
     z-index: 0;
     opacity: 0;
-
+    z-index: -1;
     &.open {
       z-index: 1;
       opacity: 1;
@@ -709,7 +665,7 @@
     }
 
     .mobilemenu__item {
-      margin-top: 10px;
+      margin-top: 16px;
       width: 110px;
     }
 
@@ -718,9 +674,7 @@
       justify-content: space-between;
     }
   }
-
 }
-
 
 @media (max-width: 1450px) {
   .header {
@@ -784,8 +738,6 @@
 }
 
 @media (max-width: 1100px) {
-
-
   .header {
     &__mobile {
       display: flex;
@@ -803,9 +755,7 @@
       display: none;
     }
 
-
-
-    &__box+&__box {
+    &__box + &__box {
       margin-left: 0;
     }
 
@@ -879,11 +829,9 @@
     }
 
     @media (max-width: 1300px) {
-
       /*  &__box {
         height: 24px;
       } */
-
 
       &.active {
         &__box::before {
@@ -911,8 +859,6 @@
     .burger__box::after {
       background: var(--body);
     }
-
-
   }
 
   .burger-mobile__close {
@@ -1157,7 +1103,6 @@
           color: var(--gren);
           transition: all 0.5s;
 
-
           .menu__arrow {
             height: 7px;
             width: 7px;
@@ -1307,7 +1252,9 @@
       display: none;
       opacity: 0;
       transform: translateX(10px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
 
       z-index: 10;
       border-bottom: none;
